@@ -35,6 +35,10 @@ public abstract class ConfigCoreDrawTest extends ConfigAbstract implements IConf
       return IColors.FULLY_OPAQUE_BLACK;
    }
 
+   public int getFontPointsExtraShift() {
+      return 0;
+   }
+
    public int[] getFontPoints() {
       return fontPoints;
    }

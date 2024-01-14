@@ -1,13 +1,14 @@
 package pasa.cbentley.framework.drawx.src4.factories.tests;
 
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
+import pasa.cbentley.byteobjects.src4.ctx.IBOTypesDrw;
+import pasa.cbentley.byteobjects.src4.objects.color.ITechGradient;
 import pasa.cbentley.core.src4.utils.interfaces.IColors;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.MaskFactory;
 import pasa.cbentley.framework.drawx.src4.factories.MaskOperator;
-import pasa.cbentley.framework.drawx.src4.tech.ITechGradient;
 import pasa.cbentley.framework.drawx.src4.tech.ITechTblr;
 import pasa.cbentley.framework.drawx.src4.tests.TestCaseDrawXPlugged;
 
@@ -20,6 +21,17 @@ public abstract class TestMaskOperator extends TestCaseDrawXPlugged implements I
    public void setupAbstractDrawX() {
       op = drc.getMaskOperator();
       fac = drc.getMaskFactory();
+   }
+
+   public void testMaskCreator() {
+
+      ByteObject grad = facGradient.getGradient(FULLY_OPAQUE_BLUE, 50, GRADIENT_TYPE_RECT_02_VERT);
+      ByteObject figure = facFigure.getFigRect(FULLY_OPAQUE_ORANGE, grad);
+
+      ByteObject filter = null;
+      ByteObject mask = facMask.getMaskPreset(0, filter, figure);
+
+      assertEquals(null, mask.getSubFirst(IBOTypesDrw.TYPE_056_COLOR_FILTER));
    }
 
    public void testCreateMaskedFigure() {
@@ -67,9 +79,9 @@ public abstract class TestMaskOperator extends TestCaseDrawXPlugged implements I
       int h = 30;
       RgbImage ri = rc.create(w, h, FULLY_OPAQUE_BLACK);
       GraphicsX g = ri.getGraphicsX(GraphicsX.MODE_1_IMAGE);
-      
+
       ByteObject mask = fac.getMaskGradient(FULLY_OPAQUE_PINK, FULLY_OPAQUE_GREEN);
-      
+
       op.drawMask(g, 0, 0, mask, 'W', drc.getFontFactory().getDefaultFontMono());
 
       doImageTest(ri, "DrawMasked_Char");

@@ -1,13 +1,14 @@
 package pasa.cbentley.framework.drawx.src4.factories.tests;
 
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
+import pasa.cbentley.byteobjects.src4.ctx.ToStringStaticBO;
+import pasa.cbentley.byteobjects.src4.objects.color.ITechGradient;
 import pasa.cbentley.core.src4.interfaces.C;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 import pasa.cbentley.framework.drawx.src4.ctx.ToStringStaticDrawx;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.FigureFactory;
 import pasa.cbentley.framework.drawx.src4.factories.FigureOperator;
-import pasa.cbentley.framework.drawx.src4.tech.ITechGradient;
 import pasa.cbentley.framework.drawx.src4.tech.ITechTblr;
 import pasa.cbentley.framework.drawx.src4.tests.TestCaseDrawXPlugged;
 
@@ -38,7 +39,7 @@ public abstract class TestFigureOperator extends TestCaseDrawXPlugged implements
          ByteObject grad = facGradient.getGradient(FULLY_OPAQUE_BLUE, 50, i, FULLY_OPAQUE_RED);
          ByteObject figRect = facFigure.getFigRect(FULLY_OPAQUE_GREEN, grad);
          RgbImage img = opFigure.getFigImageTrans(figRect, w, h);
-         String str = ToStringStaticDrawx.gradRect(i);
+         String str = ToStringStaticBO.toStringGradRect(i);
          String prettyI = uc.getStrU().prettyInt0Padd(i, 2);
          doImageTest(img, "Gradients_Rectangle_" + prettyI + "_" + str);
       }
@@ -56,7 +57,7 @@ public abstract class TestFigureOperator extends TestCaseDrawXPlugged implements
          ByteObject grad = facGradient.getGradient(FULLY_OPAQUE_BLUE, 50, i, FULLY_OPAQUE_RED);
          ByteObject figLosange = facFigure.getFigLosange(FULLY_OPAQUE_GREEN, overstep, horiz, pap, countour, grad);
          RgbImage img = opFigure.getFigImageTrans(figLosange, w, h);
-         String str = ToStringStaticDrawx.gradLosange(i);
+         String str = ToStringStaticBO.gradLosange(i);
          String prettyI = uc.getStrU().prettyInt0Padd(i, 2);
          doImageTest(img, "Gradients_LosangeHoriz_" + prettyI + "_" + str);
       }
@@ -77,7 +78,7 @@ public abstract class TestFigureOperator extends TestCaseDrawXPlugged implements
          
          RgbImage img = opFigure.getFigImageTrans(figLosange, w, h);
 
-         String str = ToStringStaticDrawx.gradTrig(i);
+         String str = ToStringStaticBO.toStringGradTrig(i);
          String prettyI = uc.getStrU().prettyInt0Padd(i, 2);
          doImageTest(img, "Gradients_Losange_Triangle_" + prettyI + "_" + str);
       }
@@ -94,7 +95,7 @@ public abstract class TestFigureOperator extends TestCaseDrawXPlugged implements
          ByteObject figTrig = facFigure.getFigTriangleType(FULLY_OPAQUE_GREEN, type, grad);
          RgbImage img = opFigure.getFigImageTrans(figTrig, w, h);
 
-         String str = ToStringStaticDrawx.gradTrig(i);
+         String str = ToStringStaticBO.toStringGradTrig(i);
 
          String prettyI = uc.getStrU().prettyInt0Padd(i, 2);
          doImageTest(img, "Gradients_Triangle_" + prettyI + "_" + str);
@@ -112,7 +113,7 @@ public abstract class TestFigureOperator extends TestCaseDrawXPlugged implements
          ByteObject figureEllipse = facFigure.getFigEllipse(FULLY_OPAQUE_GREEN, grad);
          RgbImage img = opFigure.getFigImageTrans(figureEllipse, w, h);
 
-         String str = ToStringStaticDrawx.gradEllipse(i);
+         String str = ToStringStaticBO.toStringGradEllipse(i);
 
          String prettyI = uc.getStrU().prettyInt0Padd(i, 2);
          doImageTest(img, "Gradients_Ellipse_" + prettyI + "_" + str);

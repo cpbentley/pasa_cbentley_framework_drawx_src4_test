@@ -1,12 +1,11 @@
 package pasa.cbentley.framework.drawx.src4.engine.tests;
 
+import pasa.cbentley.byteobjects.src4.objects.color.BlendOp;
 import pasa.cbentley.core.src4.utils.ColorUtils;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IImage;
-import pasa.cbentley.framework.drawx.src4.engine.BlendOp;
 import pasa.cbentley.framework.drawx.src4.engine.RgbCache;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.tests.TestCaseDrawX;
-import pasa.cbentley.framework.drawx.src4.utils.DrawUtilz;
 
 public abstract class TestRgbCache extends TestCaseDrawX {
 

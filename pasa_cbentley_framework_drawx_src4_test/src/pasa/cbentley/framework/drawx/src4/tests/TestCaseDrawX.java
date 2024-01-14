@@ -1,23 +1,23 @@
 package pasa.cbentley.framework.drawx.src4.tests;
 
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
-import pasa.cbentley.byteobjects.src4.extra.MergeMaskFactory;
-import pasa.cbentley.byteobjects.src4.functions.FunctionFactory;
+import pasa.cbentley.byteobjects.src4.ctx.IBOTypesDrw;
+import pasa.cbentley.byteobjects.src4.objects.color.ColorFunctionFactory;
+import pasa.cbentley.byteobjects.src4.objects.color.ColorIterator;
+import pasa.cbentley.byteobjects.src4.objects.color.GradientFactory;
+import pasa.cbentley.byteobjects.src4.objects.color.ITechGradient;
+import pasa.cbentley.byteobjects.src4.objects.function.FunctionFactory;
+import pasa.cbentley.byteobjects.src4.objects.pointer.MergeMaskFactory;
 import pasa.cbentley.core.src4.utils.interfaces.IColors;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
-import pasa.cbentley.framework.drawx.src4.color.ColorFunctionFactory;
-import pasa.cbentley.framework.drawx.src4.color.ColorIterator;
 import pasa.cbentley.framework.drawx.src4.ctx.DrwCtx;
-import pasa.cbentley.framework.drawx.src4.ctx.IBOTypesDrw;
 import pasa.cbentley.framework.drawx.src4.engine.RgbCache;
 import pasa.cbentley.framework.drawx.src4.factories.BoxFactory;
 import pasa.cbentley.framework.drawx.src4.factories.FigureFactory;
 import pasa.cbentley.framework.drawx.src4.factories.FigureOperator;
-import pasa.cbentley.framework.drawx.src4.factories.GradientFactory;
 import pasa.cbentley.framework.drawx.src4.factories.MaskFactory;
 import pasa.cbentley.framework.drawx.src4.factories.TblrFactory;
 import pasa.cbentley.framework.drawx.src4.tech.ITechFigure;
-import pasa.cbentley.framework.drawx.src4.tech.ITechGradient;
 import pasa.cbentley.framework.drawx.src4.tech.ITechMask;
 import pasa.cbentley.framework.testing.core.engine.TestCaseFramework;
 import pasa.cbentley.framework.testing.gui.engine.IUiPlug;
@@ -56,9 +56,6 @@ public abstract class TestCaseDrawX extends TestCaseFramework implements IBOType
    public TestCaseDrawX() {
    }
 
-   public ColorIterator getColorIterator(int color, ByteObject grad, int gradSize) {
-      return drc.getColorFunctionFactory().getColorIterator(color, grad, gradSize);
-   }
 
    public void setupAbstract() {
       super.setupAbstract();

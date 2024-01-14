@@ -1,8 +1,9 @@
 package pasa.cbentley.framework.drawx.src4.tech.tests;
 
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
-import pasa.cbentley.byteobjects.src4.ctx.IFlagsToStringBO;
-import pasa.cbentley.byteobjects.src4.tech.ITechMergeMask;
+import pasa.cbentley.byteobjects.src4.ctx.IToStringFlagsBO;
+import pasa.cbentley.byteobjects.src4.objects.color.IBOGradient;
+import pasa.cbentley.byteobjects.src4.objects.pointer.IBOMergeMask;
 import pasa.cbentley.core.src4.interfaces.C;
 import pasa.cbentley.core.src4.utils.ColorUtils;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
@@ -60,16 +61,16 @@ public class TestITechFigure extends TestCaseDrawX {
 
       ByteObject top = figureFac.getFigStringTColor(FULLY_OPAQUE_GREEN);
 
-      boc.toStringSetToStringFlag(IFlagsToStringBO.TOSTRING_FLAG_2_IGNORE_PARAMS, false);
+      boc.toStringSetToStringFlag(IToStringFlagsBO.TOSTRING_FLAG_2_IGNORE_PARAMS, false);
 
       //#debug
       toDLog().pTest("", top, TestITechFigure.class, "testFigString", LVL_05_FINE, true);
 
       ByteObject merge = bo.mergeByteObject(top);
 
-      assertEquals(IMFont.FACE_MONOSPACE, merge.get1(IBOFigString.FIG_STRING_OFFSET_02_FACE1));
-      assertEquals(IMFont.STYLE_BOLD, merge.get1(IBOFigString.FIG_STRING_OFFSET_03_STYLE1));
-      assertEquals(IMFont.SIZE_4_LARGE, merge.get1(IBOFigString.FIG_STRING_OFFSET_04_SIZE1));
+      assertEquals(IMFont.FACE_MONOSPACE, merge.get1(IBOFigString.FIG_STRING_OFFSET_03_FACE1));
+      assertEquals(IMFont.STYLE_BOLD, merge.get1(IBOFigString.FIG_STRING_OFFSET_04_STYLE1));
+      assertEquals(IMFont.SIZE_4_LARGE, merge.get1(IBOFigString.FIG_STRING_OFFSET_05_SIZE1));
       assertEquals(FULLY_OPAQUE_GREEN, merge.get4(FIG__OFFSET_06_COLOR4));
 
       ByteObject small = figureFac.getFigStringTFontSize(IMFont.SIZE_2_SMALL);
@@ -79,9 +80,9 @@ public class TestITechFigure extends TestCaseDrawX {
 
       merge = merge.mergeByteObject(small);
 
-      assertEquals(IMFont.FACE_MONOSPACE, merge.get1(IBOFigString.FIG_STRING_OFFSET_02_FACE1));
-      assertEquals(IMFont.STYLE_BOLD, merge.get1(IBOFigString.FIG_STRING_OFFSET_03_STYLE1));
-      assertEquals(IMFont.SIZE_2_SMALL, merge.get1(IBOFigString.FIG_STRING_OFFSET_04_SIZE1));
+      assertEquals(IMFont.FACE_MONOSPACE, merge.get1(IBOFigString.FIG_STRING_OFFSET_03_FACE1));
+      assertEquals(IMFont.STYLE_BOLD, merge.get1(IBOFigString.FIG_STRING_OFFSET_04_STYLE1));
+      assertEquals(IMFont.SIZE_2_SMALL, merge.get1(IBOFigString.FIG_STRING_OFFSET_05_SIZE1));
       assertEquals(FULLY_OPAQUE_GREEN, merge.get4(FIG__OFFSET_06_COLOR4));
 
    }
@@ -144,15 +145,15 @@ public class TestITechFigure extends TestCaseDrawX {
 
    public void testGradient() {
       ByteObject grad = facGradient.getGradient(1122334455, 45);
-      assertEquals(1122334455, grad.get4(GRADIENT_OFFSET_04_COLOR4));
-      assertEquals(45, grad.get1(GRADIENT_OFFSET_05_SEC1));
+      assertEquals(1122334455, grad.get4(IBOGradient.GRADIENT_OFFSET_04_COLOR4));
+      assertEquals(45, grad.get1(IBOGradient.GRADIENT_OFFSET_05_CURSOR1));
 
       ByteObject color3 = boc.getLitteralIntFactory().getLitteralInt(999);
 
       //third color merge mask
       ByteObject grad3rdColor = facGradient.getGradient(0, 0, 0, color3);
 
-      ByteObject mm = facMergeMask.getMergeMask(ITechMergeMask.MERGE_MASK_OFFSET_1FLAG1, GRADIENT_FLAG_3_THIRD_COLOR);
+      ByteObject mm = facMergeMask.getMergeMask(IBOMergeMask.MERGE_MASK_OFFSET_1FLAG1, IBOGradient.GRADIENT_FLAG_3_THIRD_COLOR);
       facMergeMask.setMergeMask(mm, grad3rdColor);
 
    }
