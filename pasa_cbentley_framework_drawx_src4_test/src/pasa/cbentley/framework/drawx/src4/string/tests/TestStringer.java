@@ -392,6 +392,46 @@ public abstract class TestStringer extends TestCaseDrawXPlugged implements ITech
 
    }
 
+   public void test4LinesAppend() {
+      
+      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      facFigure.setFigStringBreak(textFigure);
+      Stringer stringer = new Stringer(dc);
+      stringer.setString("First Line");
+      stringer.buildForDisplayWith(textFigure);
+      StringMetrics sm = stringer.getMetrics();
+      
+      StringerEditor editor = stringer.getEditor();
+
+      ByteObject fx1 = facStringFx.getFxEffectColor(FULLY_OPAQUE_BLUE);
+      editor.appendLine("Second Line", fx1);
+      stringer.buildAgain();
+
+      ByteObject fx2 = facStringFx.getFxEffectColor(FULLY_OPAQUE_PURPLE);
+      editor.appendLine("Third", fx2);
+      stringer.buildAgain();
+
+      ByteObject fx3 = facStringFx.getFxEffectColor(FULLY_OPAQUE_GREEN);
+      editor.appendLine("4th Line", fx3);
+      stringer.buildAgain();
+
+      assertEquals(4, sm.getNumOfLines());
+      
+      IntIntervals intervalsOfLeaves = stringer.getIntervalsOfLeaves();
+      
+      assertEquals(4, intervalsOfLeaves.getSize());
+      
+      //#debug
+      toDLog().pTest("intervalsOfLeaves", intervalsOfLeaves, TestStringer.class, "test4LinesAppend", LVL_05_FINE, false);
+      
+      //assertEquals(121, sm.getLine(1).getPixelsW());
+      //assertEquals(22, sm.getLine(1).getPixelsH());
+      
+      
+      genericTestImg("4Lines", stringer, 150, 170);
+
+      
+   }
    public void testEmpty() {
 
       Stringer stringer = new Stringer(dc);

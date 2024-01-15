@@ -6,6 +6,7 @@ import pasa.cbentley.core.src4.ctx.UCtx;
 import pasa.cbentley.core.src4.logging.IDLogConfig;
 import pasa.cbentley.core.src4.logging.ILogConfigurator;
 import pasa.cbentley.core.src4.logging.ITechLvl;
+import pasa.cbentley.core.src4.structs.IntIntervals;
 import pasa.cbentley.core.src4.utils.StringUtils;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontCustomizer;
@@ -829,14 +830,18 @@ public abstract class TestStringMetrics extends TestCaseDrawXPlugged implements 
       assertEquals(0, sm.getCharX(0));
       assertEquals(10, sm.getCharX(1));
       assertEquals(20, sm.getCharX(2));
-      assertEquals(1, sm.getCharY(1));
+      assertEquals(0, sm.getCharY(1));
       assertEquals(true, stringer.hasState(STATE_06_CHAR_POSITIONS));
 
    }
 
    public void testEditorAppendChar() {
       Stringer stringer = new Stringer(dc);
+      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      stringer.buildForDisplayWith(textFigure);
       StringerEditor editor = stringer.getEditor();
+      
+      
       char[] cs = "Hello".toCharArray();
 
       editor.addChar(cs, 0, 'H');
@@ -852,38 +857,101 @@ public abstract class TestStringMetrics extends TestCaseDrawXPlugged implements 
 
    }
 
-   public void testEditorAppendLine() {
+   public void testSingleLineEndingWithNewLine() {
+      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      facFigure.setFigStringBreak(textFigure);
+      Stringer stringer = new Stringer(dc);
+      
+      char[] chars = "###Life is a long\n##".toCharArray();
+      int offset = 3;
+      int len = chars.length - 5;
+      stringer.setString(chars, offset, len);
+      stringer.buildForDisplayWith(textFigure);
+
+      StringMetrics sm = stringer.getMetrics();
+
+      assertEquals(2, sm.getNumOfLines());
+      assertEquals("Life is a long", sm.getLineString(0));
+      assertEquals("", sm.getLineString(1));
+      
+      stringer.setString("Life is a long\n");
+      stringer.buildForDisplayWith(textFigure);
+
+
+      assertEquals(2, sm.getNumOfLines());
+      assertEquals("Life is a long", sm.getLineString(0));
+      assertEquals("", sm.getLineString(1));
+
+
+   }
+   
+   public void testEmptyFictiveLine() {
       ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
       facFigure.setFigStringBreak(textFigure);
       Stringer stringer = new Stringer(dc);
       stringer.setTextFigure(textFigure);
-
+      //before using. must build
+      stringer.buildAgain();
+      
       StringMetrics sm = stringer.getMetrics();
+      
+      assertEquals(1, sm.getNumOfLines());
+      assertEquals("", sm.getLineString(0));
+      
+      assertEquals(0, stringer.getLen());
+   }
+   
+   
+   public void testEditorAppendLine() {
+      
+      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      facFigure.setFigStringBreak(textFigure);
+      Stringer stringer = new Stringer(dc);
+      stringer.setTextFigure(textFigure);
+      
+      //before using. must build
+      stringer.buildAgain();
+      
+      StringMetrics sm = stringer.getMetrics();
+      
+      assertEquals(1, sm.getNumOfLines());
+      assertEquals("", sm.getLineString(0));
+      assertEquals(true, sm.getLine(0).isFictiveLine());
+      
+      //cannot have an interval of zero size
+      assertEquals(0, stringer.getIntervalsOfLeaves().getSize());
+    
       StringerEditor editor = stringer.getEditor();
 
       ByteObject fx1 = facStringFx.getFxEffectColor(FULLY_OPAQUE_BLUE);
       editor.appendLine("Line 01", fx1);
       stringer.buildAgain();
 
-      assertEquals(1, sm.getNumOfLines());
-      assertEquals("Line 01", sm.getLineString(0));
+      assertEquals(2, sm.getNumOfLines());
+      assertEquals("", sm.getLineString(0));
+      assertEquals("Line 01", sm.getLineString(1));
+      assertEquals(1, stringer.getIntervalsOfLeaves().getSize());
+      
 
       ByteObject fx2 = facStringFx.getFxEffectColor(FULLY_OPAQUE_PURPLE);
       editor.appendLine("Line 02", fx2);
       stringer.buildAgain();
+      assertEquals(2, stringer.getIntervalsOfLeaves().getSize());
+      
+      assertEquals(3, sm.getNumOfLines());
+      assertEquals("", sm.getLineString(0));
+      assertEquals("Line 01", sm.getLineString(1));
+      assertEquals("Line 02", sm.getLineString(2));
 
-      assertEquals(2, sm.getNumOfLines());
-      assertEquals("Line 01", sm.getLineString(0));
-      assertEquals("Line 02", sm.getLineString(1));
-
-      ByteObject fx3 = facStringFx.getFxEffectColor(FULLY_OPAQUE_PURPLE);
+      ByteObject fx3 = facStringFx.getFxEffectColor(FULLY_OPAQUE_GREEN);
       editor.appendLine("Line 03 with more words", fx3);
       stringer.buildAgain();
 
-      assertEquals(3, sm.getNumOfLines());
-      assertEquals("Line 01", sm.getLineString(0));
-      assertEquals("Line 02", sm.getLineString(1));
-      assertEquals("Line 03 with more words", sm.getLineString(1));
+      assertEquals(4, sm.getNumOfLines());
+      assertEquals("", sm.getLineString(0));
+      assertEquals("Line 01", sm.getLineString(1));
+      assertEquals("Line 02", sm.getLineString(2));
+      assertEquals("Line 03 with more words", sm.getLineString(3));
 
    }
 
