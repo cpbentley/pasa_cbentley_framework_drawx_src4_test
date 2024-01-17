@@ -5,12 +5,12 @@ import pasa.cbentley.byteobjects.src4.ctx.IBOTypesDrw;
 import pasa.cbentley.byteobjects.src4.objects.color.ITechGradient;
 import pasa.cbentley.core.src4.utils.interfaces.IColors;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.MaskFactory;
 import pasa.cbentley.framework.drawx.src4.factories.MaskOperator;
 import pasa.cbentley.framework.drawx.src4.tech.ITechTblr;
-import pasa.cbentley.framework.drawx.src4.tests.TestCaseDrawXPlugged;
 
 public abstract class TestMaskOperator extends TestCaseDrawXPlugged implements ITechTblr {
 

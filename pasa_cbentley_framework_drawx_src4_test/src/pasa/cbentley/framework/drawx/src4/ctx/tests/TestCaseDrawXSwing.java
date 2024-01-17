@@ -1,4 +1,4 @@
-package pasa.cbentley.framework.drawx.src4.tests;
+package pasa.cbentley.framework.drawx.src4.ctx.tests;
 
 import pasa.cbentley.byteobjects.src4.ctx.IBOTypesDrw;
 import pasa.cbentley.byteobjects.src4.objects.color.ITechGradient;

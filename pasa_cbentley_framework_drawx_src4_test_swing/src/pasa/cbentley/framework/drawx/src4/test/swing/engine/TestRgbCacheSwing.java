@@ -1,18 +1,20 @@
-package pasa.cbentley.framework.drawx.src4.test.swing;
+package pasa.cbentley.framework.drawx.src4.test.swing.engine;
 
-import pasa.cbentley.framework.drawx.src4.draw.tests.TestDrawEllipse;
+import pasa.cbentley.framework.drawx.src4.engine.tests.TestImageCreation;
+import pasa.cbentley.framework.drawx.src4.engine.tests.TestRgbCache;
 import pasa.cbentley.framework.testing.gui.engine.FrameworkPlugUI;
 import pasa.cbentley.framework.testing.gui.swing.ConfigPlugSwingDef;
 import pasa.cbentley.framework.testing.gui.swing.FrameworkPlugSwing;
+import pasa.cbentley.framework.testing.gui.swing.TestCaseFrameworkUiSwing;
 import pasa.cbentley.framework.testing.gui.swing.ctx.TestFrameworkUiSwingCtx;
 import pasa.cbentley.testing.ctx.TestCtx;
 
 /**
- * How to do a different configuration
+ * 
  * @author Charles Bentley
  *
  */
-public class TestDrawEllipseSwing extends TestDrawEllipse {
+public class TestRgbCacheSwing extends TestRgbCache {
 
    private TestFrameworkUiSwingCtx tUiSwingCtx;
 
@@ -27,8 +29,8 @@ public class TestDrawEllipseSwing extends TestDrawEllipse {
       return plug;
    }
 
-   public String getSuffix() {
-      return "AliasOn";
+   public void setupAbstractDrawX() {
+
    }
 
 }

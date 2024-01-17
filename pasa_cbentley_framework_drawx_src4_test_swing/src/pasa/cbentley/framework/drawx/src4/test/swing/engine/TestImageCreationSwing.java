@@ -1,4 +1,4 @@
-package pasa.cbentley.framework.drawx.src4.test.swing;
+package pasa.cbentley.framework.drawx.src4.test.swing.engine;
 
 import pasa.cbentley.framework.drawx.src4.engine.tests.TestImageCreation;
 import pasa.cbentley.framework.testing.gui.engine.FrameworkPlugUI;

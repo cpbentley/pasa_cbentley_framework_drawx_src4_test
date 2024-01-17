@@ -7,9 +7,10 @@ import pasa.cbentley.byteobjects.src4.objects.pointer.IBOMergeMask;
 import pasa.cbentley.core.src4.interfaces.C;
 import pasa.cbentley.core.src4.utils.ColorUtils;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawX;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXSwing;
 import pasa.cbentley.framework.drawx.src4.tech.IBOFigString;
-import pasa.cbentley.framework.drawx.src4.tests.TestCaseDrawX;
-import pasa.cbentley.framework.drawx.src4.tests.TestCaseDrawXSwing;
+import pasa.cbentley.framework.drawx.src4.tech.IBOFigTriangle;
 import pasa.cbentley.layouter.src4.engine.Anchor32Bits;
 import pasa.cbentley.layouter.src4.tech.ITechLayout;
 
@@ -43,15 +44,15 @@ public class TestITechFigure extends TestCaseDrawX {
       //System.out.println(triLB);
 
       assertEquals(bcolor, triLB.get4(FIG__OFFSET_06_COLOR4));
-      assertEquals(C.ANGLE_UP_90, triLB.get2(FIG_TRIANGLE_OFFSET_2_ANGLE2));
+      assertEquals(C.ANGLE_UP_90, triLB.get2(IBOFigTriangle.FIG_TRIANGLE_OFFSET_2_ANGLE2));
 
-      assertEquals(encodedH, triLB.get4(FIG_TRIANGLE_OFFSET_3_h4));
+      assertEquals(encodedH, triLB.get4(IBOFigTriangle.FIG_TRIANGLE_OFFSET_3_h4));
 
       triLB = figureFac.getFigTriangle(bcolor, C.ANGLE_UP_90, encodedH, anchorLB);
 
       assertEquals(bcolor, triLB.getValue(FIG__OFFSET_06_COLOR4, 4));
-      assertEquals(C.ANGLE_UP_90, triLB.getValue(FIG_TRIANGLE_OFFSET_2_ANGLE2, 2));
-      assertEquals(encodedH, triLB.getValue(FIG_TRIANGLE_OFFSET_3_h4, 4));
+      assertEquals(C.ANGLE_UP_90, triLB.getValue(IBOFigTriangle.FIG_TRIANGLE_OFFSET_2_ANGLE2, 2));
+      assertEquals(encodedH, triLB.getValue(IBOFigTriangle.FIG_TRIANGLE_OFFSET_3_h4, 4));
 
    }
 

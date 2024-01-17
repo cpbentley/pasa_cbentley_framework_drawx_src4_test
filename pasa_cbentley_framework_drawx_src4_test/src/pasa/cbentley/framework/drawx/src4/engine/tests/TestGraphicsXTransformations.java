@@ -1,12 +1,15 @@
 package pasa.cbentley.framework.drawx.src4.engine.tests;
 
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
-import pasa.cbentley.framework.drawx.src4.tests.TestCaseDrawXPlugged;
 
 public abstract class TestGraphicsXTransformations extends TestCaseDrawXPlugged {
 
    public TestGraphicsXTransformations() {
+      
+      setTestFlag(TEST_FLAG_17_IGNORE_OLD_IMAGES, false);
+      setTestFlag(TEST_FLAG_18_MANUAL_CHECK, false);
    }
 
    /**
@@ -76,7 +79,10 @@ public abstract class TestGraphicsXTransformations extends TestCaseDrawXPlugged 
       assertEquals(100, g.getClipWidth());
       assertEquals(40, g.getClipHeight());
 
-      System.out.println(g.toStringClip());
+      
+      //#debug
+      toDLog().pTest(g.toStringClip(), g, TestGraphicsXTransformations.class, "testClip", LVL_05_FINE, false);
+
 
       g.clipReset();
 

@@ -13,13 +13,13 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.IFontCustomizer;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
 import pasa.cbentley.framework.drawx.src4.string.ITechStringer;
 import pasa.cbentley.framework.drawx.src4.string.StringFx;
 import pasa.cbentley.framework.drawx.src4.string.StringMetrics;
 import pasa.cbentley.framework.drawx.src4.string.Stringer;
 import pasa.cbentley.framework.drawx.src4.string.StringerEditor;
 import pasa.cbentley.framework.drawx.src4.tech.IBOFigString;
-import pasa.cbentley.framework.drawx.src4.tests.TestCaseDrawXPlugged;
 import pasa.cbentley.testing.engine.ConfigUTest;
 
 /**
@@ -165,6 +165,9 @@ public abstract class TestStringMetrics extends TestCaseDrawXPlugged implements 
 
       assertEquals(8, f.charWidth(StringUtils.BACKSPACE));
       assertEquals(8, f.charWidth('\b'));
+      assertEquals(8, f.charWidth('【'));
+      assertEquals(8, f.charWidth('】'));
+      assertEquals("【】", "【】");
       assertEquals(8, f.charWidth(StringUtils.FORM_FEED));
       assertEquals(8, f.charWidth(StringUtils.NULL_CHAR));
       assertEquals(8, f.charWidth(StringUtils.START_HEADING));
@@ -175,7 +178,11 @@ public abstract class TestStringMetrics extends TestCaseDrawXPlugged implements 
       assertEquals(0, f.charWidth(StringUtils.TAB));
       assertEquals(0, f.charWidth(StringUtils.TAB_CHAR));
       assertEquals(8, f.charWidth(StringUtils.TAB_LINE));
+      
+      assertEquals(8, f.charWidth(StringUtils.PUA_START));
+      assertEquals(8, f.charWidth(StringUtils.PUA_END));
 
+     
       //look the same but are different.. font of editor does not have glyphs for all characters
       assertEquals("→", String.valueOf(StringUtils.ARROW_RIGHT));
       assertEquals("⎵", String.valueOf(StringUtils.BOTTOM_SQUARE_BRACKET));
@@ -185,6 +192,7 @@ public abstract class TestStringMetrics extends TestCaseDrawXPlugged implements 
       assertEquals("", String.valueOf(StringUtils.BACKSPACE));
       assertEquals("", String.valueOf(StringUtils.FORM_FEED));
       assertEquals("", String.valueOf(StringUtils.START_HEADING));
+      assertEquals(" ", String.valueOf(StringUtils.LINE_SEPARATOR));
       assertEquals(" ", String.valueOf(StringUtils.LINE_SEPARATOR));
 
       assertEquals(StringUtils.FORM_FEED_F, StringUtils.FORM_FEED);
@@ -959,7 +967,7 @@ public abstract class TestStringMetrics extends TestCaseDrawXPlugged implements 
 
       ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
       textFigure.set1(IBOFigString.FIG_STRING_OFFSET_06_NEWLINE1, NEWLINE_MANAGER_1_WORK);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_0_NONE);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_2_NICE_WORD);
       textFigure.set1(IBOFigString.FIG_STRING_OFFSET_09_SPACE_TRIM1, SPACETRIM_0_NONE);
       textFigure.set1(IBOFigString.FIG_STRING_OFFSET_08_MAXLINES1, 1);
       textFigure.setFlag(IBOFigString.FIG_STRING_OFFSET_01_FLAG, IBOFigString.FIG_STRING_FLAG_3_TRIM_ARTIFACT, false);
@@ -990,16 +998,16 @@ public abstract class TestStringMetrics extends TestCaseDrawXPlugged implements 
       stringer.buildForDisplayWith(textFigure);
 
       //word wrap is none.. so we only have one line
-      assertEquals(1, sm.getNumOfLines());
-      assertEquals("Life is a long snake. It ", sm.getLineString(0));
-      assertEquals("Life is a long snake. ..", sm.getLineString(1));
+      assertEquals(2, sm.getNumOfLines());
+      assertEquals("Life is a long snake. It", sm.getLineString(0));
+      assertEquals(" takes forever to reach", sm.getLineString(1));
 
       textFigure.set1(IBOFigString.FIG_STRING_OFFSET_08_MAXLINES1, 2);
       textFigure.setFlag(IBOFigString.FIG_STRING_OFFSET_01_FLAG, IBOFigString.FIG_STRING_FLAG_3_TRIM_ARTIFACT, true);
       stringer.buildForDisplayWith(textFigure);
 
-      assertEquals("Life is a long snake. ..", sm.getLineString(0));
-      assertEquals("Life is a long snake. ..", sm.getLineString(1));
+      assertEquals("Life is a long snake. It", sm.getLineString(0));
+      assertEquals(" takes forever to rea..", sm.getLineString(1));
 
    }
 

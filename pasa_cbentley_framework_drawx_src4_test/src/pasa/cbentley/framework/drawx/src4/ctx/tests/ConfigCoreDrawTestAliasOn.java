@@ -1,4 +1,4 @@
-package pasa.cbentley.framework.drawx.src4.draw.tests;
+package pasa.cbentley.framework.drawx.src4.ctx.tests;
 
 import pasa.cbentley.core.src4.ctx.UCtx;
 import pasa.cbentley.framework.coredraw.src4.ctx.IConfigCoreDraw;

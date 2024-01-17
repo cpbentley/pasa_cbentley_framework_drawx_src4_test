@@ -1,13 +1,13 @@
-package pasa.cbentley.framework.drawx.src4.test.swing;
+package pasa.cbentley.framework.drawx.src4.test.swing.engine;
 
-import pasa.cbentley.framework.drawx.src4.engine.tests.TestGraphicsX;
+import pasa.cbentley.framework.drawx.src4.engine.tests.TestGraphicsXTransformations;
 import pasa.cbentley.framework.testing.gui.engine.FrameworkPlugUI;
 import pasa.cbentley.framework.testing.gui.swing.ConfigPlugSwingDef;
 import pasa.cbentley.framework.testing.gui.swing.FrameworkPlugSwing;
 import pasa.cbentley.framework.testing.gui.swing.ctx.TestFrameworkUiSwingCtx;
 import pasa.cbentley.testing.ctx.TestCtx;
 
-public class TestGraphicsXSwing extends TestGraphicsX {
+public class TestGraphicsXTransformationsSwing extends TestGraphicsXTransformations {
 
    protected TestCtx createTestCtx() {
       return new TestFrameworkUiSwingCtx(uc);

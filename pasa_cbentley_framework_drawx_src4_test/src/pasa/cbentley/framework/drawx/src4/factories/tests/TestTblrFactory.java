@@ -2,8 +2,8 @@ package pasa.cbentley.framework.drawx.src4.factories.tests;
 
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
 import pasa.cbentley.core.src4.interfaces.C;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawX;
 import pasa.cbentley.framework.drawx.src4.tech.ITechTblr;
-import pasa.cbentley.framework.drawx.src4.tests.TestCaseDrawX;
 
 public class TestTblrFactory extends TestCaseDrawX implements ITechTblr {
 

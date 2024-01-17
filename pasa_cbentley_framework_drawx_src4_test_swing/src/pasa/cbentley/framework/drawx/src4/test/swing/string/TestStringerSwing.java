@@ -45,6 +45,10 @@ public class TestStringerSwing extends TestStringer {
       super.testFxMaskScopeWord();
    }
    
+   public void test4LinesAppend() {
+      super.test4LinesAppend();
+   }
+   
    public void testDrawOffsets() {
       super.testDrawOffsets();
    }

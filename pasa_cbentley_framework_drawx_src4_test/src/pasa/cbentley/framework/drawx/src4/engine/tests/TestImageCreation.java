@@ -2,10 +2,10 @@ package pasa.cbentley.framework.drawx.src4.engine.tests;
 
 import javax.swing.text.StyleConstants.ColorConstants;
 
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawX;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
-import pasa.cbentley.framework.drawx.src4.tests.TestCaseDrawX;
-import pasa.cbentley.framework.drawx.src4.tests.TestCaseDrawXPlugged;
 
 /**
  * Tests the creation of images.

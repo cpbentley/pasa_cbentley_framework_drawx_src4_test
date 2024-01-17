@@ -1,12 +1,13 @@
-package pasa.cbentley.framework.drawx.src4.test.swing;
+package pasa.cbentley.framework.drawx.src4.test.swing.ctx;
 
-import pasa.cbentley.framework.drawx.src4.draw.tests.TestDrawRectangles;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestDrwCtx;
 import pasa.cbentley.framework.testing.gui.engine.FrameworkPlugUI;
+import pasa.cbentley.framework.testing.gui.swing.ConfigPlugSwingDef;
 import pasa.cbentley.framework.testing.gui.swing.FrameworkPlugSwing;
 import pasa.cbentley.framework.testing.gui.swing.ctx.TestFrameworkUiSwingCtx;
 import pasa.cbentley.testing.ctx.TestCtx;
 
-public class TestDrawRectanglesSwing extends TestDrawRectangles {
+public class TestDrwCtxSwing extends TestDrwCtx {
 
    private TestFrameworkUiSwingCtx tUiSwingCtx;
 
@@ -16,7 +17,14 @@ public class TestDrawRectanglesSwing extends TestDrawRectangles {
    }
 
    public FrameworkPlugUI getUiPlug() {
-      return new FrameworkPlugSwing(tUiSwingCtx, this);
+
+      ConfigPlugSwingDef configPlug = new ConfigPlugSwingDef(getC5());
+
+      FrameworkPlugSwing plug = new FrameworkPlugSwing(configPlug, tUiSwingCtx, this);
+
+      return plug;
    }
+
+ 
 
 }

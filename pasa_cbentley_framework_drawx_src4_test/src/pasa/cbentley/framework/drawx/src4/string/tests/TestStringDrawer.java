@@ -6,11 +6,11 @@ import java.awt.RenderingHints;
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IImage;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.drawer.DrawerString;
 import pasa.cbentley.framework.drawx.src4.tech.ITechAnchor;
-import pasa.cbentley.framework.drawx.src4.tests.TestCaseDrawXPlugged;
 
 /**
  * Test the {@link DrawerString} from the base draw module.
