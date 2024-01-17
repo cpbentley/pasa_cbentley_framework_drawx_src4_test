@@ -14,12 +14,12 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
-import pasa.cbentley.framework.drawx.src4.string.ITechStringer;
+import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigString;
 import pasa.cbentley.framework.drawx.src4.string.StringFx;
 import pasa.cbentley.framework.drawx.src4.string.StringMetrics;
 import pasa.cbentley.framework.drawx.src4.string.Stringer;
 import pasa.cbentley.framework.drawx.src4.string.StringerEditor;
-import pasa.cbentley.framework.drawx.src4.tech.IBOFigString;
+import pasa.cbentley.framework.drawx.src4.string.interfaces.ITechStringer;
 import pasa.cbentley.testing.engine.ConfigUTest;
 
 /**

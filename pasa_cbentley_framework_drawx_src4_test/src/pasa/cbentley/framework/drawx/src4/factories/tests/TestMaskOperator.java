@@ -10,9 +10,9 @@ import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.MaskFactory;
 import pasa.cbentley.framework.drawx.src4.factories.MaskOperator;
-import pasa.cbentley.framework.drawx.src4.tech.ITechTblr;
+import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOTblr;
 
-public abstract class TestMaskOperator extends TestCaseDrawXPlugged implements ITechTblr {
+public abstract class TestMaskOperator extends TestCaseDrawXPlugged implements IBOTblr {
 
    MaskFactory  fac;
 

@@ -20,10 +20,8 @@ import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.drawer.DrawerString;
-import pasa.cbentley.framework.drawx.src4.string.IBOFxStr;
-import pasa.cbentley.framework.drawx.src4.string.IBOFxStrLine;
-import pasa.cbentley.framework.drawx.src4.string.ITechStringDrw;
-import pasa.cbentley.framework.drawx.src4.string.ITechStringer;
+import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigString;
+import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigure;
 import pasa.cbentley.framework.drawx.src4.string.StringDraw;
 import pasa.cbentley.framework.drawx.src4.string.StringFx;
 import pasa.cbentley.framework.drawx.src4.string.StringFxLeaf;
@@ -31,7 +29,10 @@ import pasa.cbentley.framework.drawx.src4.string.StringStyleLayer;
 import pasa.cbentley.framework.drawx.src4.string.StringMetrics;
 import pasa.cbentley.framework.drawx.src4.string.Stringer;
 import pasa.cbentley.framework.drawx.src4.string.StringerEditor;
-import pasa.cbentley.framework.drawx.src4.tech.IBOFigString;
+import pasa.cbentley.framework.drawx.src4.string.interfaces.IBOFxStr;
+import pasa.cbentley.framework.drawx.src4.string.interfaces.IBOFxStrLine;
+import pasa.cbentley.framework.drawx.src4.string.interfaces.ITechStringDrw;
+import pasa.cbentley.framework.drawx.src4.string.interfaces.ITechStringer;
 import pasa.cbentley.framework.drawx.src4.tech.ITechGraphicsX;
 import pasa.cbentley.framework.drawx.src4.tech.ITechScaler;
 import pasa.cbentley.testing.engine.ConfigUTest;
@@ -981,7 +982,7 @@ public abstract class TestStringer extends TestCaseDrawXPlugged implements ITech
       ByteObject scaler = facScaler.getScaler(SCALER_ID_0_LINEAR, SCALER_TYPE_4_FIT_FIRST, null, null);
 
       strFig.addSub(scaler);
-      strFig.setFlag(FIG__OFFSET_04_FLAGX, FIG_FLAGX_5_SCALER, true);
+      strFig.setFlag(IBOFigure.FIG__OFFSET_04_FLAGX, IBOFigure.FIG_FLAGX_5_SCALER, true);
 
       Stringer st = new Stringer(dc);
       st.setAreaXYWH(0, 0, 120, 40);

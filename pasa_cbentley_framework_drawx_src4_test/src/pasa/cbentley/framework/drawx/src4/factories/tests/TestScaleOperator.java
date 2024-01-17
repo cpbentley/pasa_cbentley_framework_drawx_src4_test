@@ -5,9 +5,9 @@ import pasa.cbentley.byteobjects.src4.objects.color.ITechGradient;
 import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.ScaleOperator;
-import pasa.cbentley.framework.drawx.src4.tech.ITechTblr;
+import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOTblr;
 
-public abstract class TestScaleOperator extends TestCaseDrawXPlugged implements ITechTblr {
+public abstract class TestScaleOperator extends TestCaseDrawXPlugged implements IBOTblr {
 
    ScaleOperator op;
 

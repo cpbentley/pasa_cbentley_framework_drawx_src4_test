@@ -6,7 +6,7 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
-import pasa.cbentley.framework.drawx.src4.tech.ITechBox;
+import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOBox;
 
 /**
  * Tests the Graphics
@@ -66,7 +66,7 @@ public abstract class TestGraphicsX extends TestCaseDrawXPlugged {
 
       g.setFont(f);
 
-      g.drawString("Test String", 5, 5, ITechBox.ANCHOR);
+      g.drawString("Test String", 5, 5, IBOBox.ANCHOR);
 
       doImageTest(ri, prefix + "StringRedBoldMedium");
    }
@@ -84,23 +84,23 @@ public abstract class TestGraphicsX extends TestCaseDrawXPlugged {
 
       int dx = 5;
       int dy = 5;
-      g.drawChar('C', dx, dy, ITechBox.ANCHOR);
+      g.drawChar('C', dx, dy, IBOBox.ANCHOR);
 
       dx += f.charWidth('C');
 
       //g.setFont(f);
 
-      g.drawChar('2', dx, dy, ITechBox.ANCHOR);
+      g.drawChar('2', dx, dy, IBOBox.ANCHOR);
 
       dy += f.getHeight();
 
       char[] chars = new char[] { '3', '4' };
-      g.drawChars(chars, 0, 2, dx, dy, ITechBox.ANCHOR);
+      g.drawChars(chars, 0, 2, dx, dy, IBOBox.ANCHOR);
 
       dy += f.getHeight();
 
       chars = new char[] { 'c', 'z', 'Z' };
-      g.drawChars(chars, 1, 2, dx, dy, ITechBox.ANCHOR);
+      g.drawChars(chars, 1, 2, dx, dy, IBOBox.ANCHOR);
 
       doImageTest(ri, prefix + "Characters");
 

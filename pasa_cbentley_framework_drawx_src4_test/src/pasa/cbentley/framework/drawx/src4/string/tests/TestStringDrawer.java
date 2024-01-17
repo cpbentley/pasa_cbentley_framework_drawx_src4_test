@@ -10,7 +10,7 @@ import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.drawer.DrawerString;
-import pasa.cbentley.framework.drawx.src4.tech.ITechAnchor;
+import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOAnchor;
 
 /**
  * Test the {@link DrawerString} from the base draw module.
@@ -102,7 +102,7 @@ public abstract class TestStringDrawer extends TestCaseDrawXPlugged {
       RgbImage ri = rc.create(50, 50, FONT_BG_COLOR);
       GraphicsX g = ri.getGraphicsX(GraphicsX.MODE_1_IMAGE);
 
-      g.drawImage(imageM, 25, 25, ITechAnchor.ANCHOR_G_CENTER_CENTER);
+      g.drawImage(imageM, 25, 25, IBOAnchor.ANCHOR_G_CENTER_CENTER);
 
       doImageTest(ri, "croppedCharM_center");
    }

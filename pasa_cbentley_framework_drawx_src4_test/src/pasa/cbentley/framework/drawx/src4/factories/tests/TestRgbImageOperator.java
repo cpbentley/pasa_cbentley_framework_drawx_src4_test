@@ -5,9 +5,9 @@ import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.RgbImageOperator;
-import pasa.cbentley.framework.drawx.src4.tech.ITechTblr;
+import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOTblr;
 
-public abstract class TestRgbImageOperator extends TestCaseDrawXPlugged implements ITechTblr {
+public abstract class TestRgbImageOperator extends TestCaseDrawXPlugged implements IBOTblr {
 
    RgbImageOperator op;
    

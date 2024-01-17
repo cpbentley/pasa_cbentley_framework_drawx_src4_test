@@ -9,10 +9,10 @@ import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.FigureFactory;
 import pasa.cbentley.framework.drawx.src4.factories.FigureOperator;
-import pasa.cbentley.framework.drawx.src4.tech.IBOFigTriangle;
-import pasa.cbentley.framework.drawx.src4.tech.ITechTblr;
+import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigTriangle;
+import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOTblr;
 
-public abstract class TestFigureOperator extends TestCaseDrawXPlugged implements ITechTblr, ITechGradient {
+public abstract class TestFigureOperator extends TestCaseDrawXPlugged implements IBOTblr, ITechGradient {
 
    FigureFactory  fac;
 
@@ -74,10 +74,10 @@ public abstract class TestFigureOperator extends TestCaseDrawXPlugged implements
       ByteObject grad = facGradient.getGradient(FULLY_OPAQUE_GREEN, 50, ITechGradient.GRADIENT_TYPE_TRIG_00_TENT);
       ByteObject figTriangle = fac.getFigTriangle(FULLY_OPAQUE_ORANGE, C.ANGLE_UP_90, 5, grad);
 
-      assertEquals(true, figTriangle.hasFlag(IBOFigTriangle.FIG_TRIANGLE_OFFSET_1_FLAG1, IBOFigTriangle.FIG_TRIANGLE_FLAG_2_ANGLE360));
-      assertEquals(false, figTriangle.hasFlag(IBOFigTriangle.FIG_TRIANGLE_OFFSET_1_FLAG1, IBOFigTriangle.FIG_TRIANGLE_FLAG_3_ANGLE_RATIO));
-      assertEquals(false, figTriangle.hasFlag(IBOFigTriangle.FIG_TRIANGLE_OFFSET_1_FLAG1, IBOFigTriangle.FIG_TRIANGLE_FLAG_4_ANGLE_RAD));
-      assertEquals(C.ANGLE_UP_90, figTriangle.get2(IBOFigTriangle.FIG_TRIANGLE_OFFSET_2_ANGLE2));
+      assertEquals(true, figTriangle.hasFlag(IBOFigTriangle.FIG_TRIANGLE_OFFSET_01_FLAG1, IBOFigTriangle.FIG_TRIANGLE_FLAG_2_ANGLE360));
+      assertEquals(false, figTriangle.hasFlag(IBOFigTriangle.FIG_TRIANGLE_OFFSET_01_FLAG1, IBOFigTriangle.FIG_TRIANGLE_FLAG_3_ANGLE_RATIO));
+      assertEquals(false, figTriangle.hasFlag(IBOFigTriangle.FIG_TRIANGLE_OFFSET_01_FLAG1, IBOFigTriangle.FIG_TRIANGLE_FLAG_4_ANGLE_RAD));
+      assertEquals(C.ANGLE_UP_90, figTriangle.get2(IBOFigTriangle.FIG_TRIANGLE_OFFSET_03_ANGLE2));
 
       ByteObject figureLosange = fac.getFigLosange(figTriangle, false, false);
 
@@ -144,27 +144,51 @@ public abstract class TestFigureOperator extends TestCaseDrawXPlugged implements
       doImageTest(img, "GetFigImage_Trefle");
    }
 
+   public void testGetFigImage_TriangleAncors() {
+      int w = 80;
+      int h = 50;
+
+      ByteObject figTriangleAnc = fac.getFigTriangleAnchor(FULLY_OPAQUE_ORANGE, 100, 100, 200, 200, 100, 0);
+      boolean whiteopaque = true;
+      boolean justSwitch = false;
+
+      RgbImage img = op.getFigImage(figTriangleAnc, w, h, justSwitch, whiteopaque, FR_BLEU_Celeste);
+
+      doImageTest(img, "GetFigImage_TriangleAnchor1");
+
+      ByteObject gradTrig = facGradient.getGradient(FULLY_OPAQUE_WHITE, 100);
+      figTriangleAnc = fac.getFigTriangleAnchor(FULLY_OPAQUE_ORANGE, 0, 100, 200, 200, 100, 0, gradTrig);
+
+      img = op.getFigImage(figTriangleAnc, w, h, justSwitch, whiteopaque, FR_BLEU_Celeste);
+
+      doImageTest(img, "GetFigImage_TriangleAnchor2");
+   }
+
    public void testGetFigImage_Triangle() {
       int w = 80;
       int h = 50;
 
-      ByteObject figTriangleUp = fac.getFigTriangle(FULLY_OPAQUE_ORANGE, C.ANGLE_UP_90);
+      ByteObject figTriangleUp = fac.getFigTriangleAngle(FULLY_OPAQUE_ORANGE, C.ANGLE_UP_90);
       boolean whiteopaque = true;
       boolean justSwitch = false;
       RgbImage img = op.getFigImage(figTriangleUp, w, h, justSwitch, whiteopaque, FR_BLEU_Celeste);
       doImageTest(img, "GetFigImage_TriangleUp");
 
-      ByteObject figTriangleDown = fac.getFigTriangle(FULLY_OPAQUE_ORANGE, C.ANGLE_DOWN_270);
+      ByteObject figTriangleDown = fac.getFigTriangleAngle(FULLY_OPAQUE_ORANGE, C.ANGLE_DOWN_270);
       img = op.getFigImage(figTriangleDown, w, h, justSwitch, whiteopaque, FR_BLEU_Celeste);
       doImageTest(img, "GetFigImage_TriangleDown");
 
-      ByteObject figTriangleRight = fac.getFigTriangle(FULLY_OPAQUE_ORANGE, C.ANGLE_RIGHT_0);
+      ByteObject figTriangleRight = fac.getFigTriangleAngle(FULLY_OPAQUE_ORANGE, C.ANGLE_RIGHT_0);
       img = op.getFigImage(figTriangleRight, w, h, justSwitch, whiteopaque, FR_BLEU_Celeste);
       doImageTest(img, "GetFigImage_TriangleRight");
 
-      ByteObject figTriangleLeft = fac.getFigTriangle(FULLY_OPAQUE_ORANGE, C.ANGLE_LEFT_180);
+      ByteObject figTriangleLeft = fac.getFigTriangleAngle(FULLY_OPAQUE_ORANGE, C.ANGLE_LEFT_180);
       img = op.getFigImage(figTriangleLeft, w, h, justSwitch, whiteopaque, FR_BLEU_Celeste);
       doImageTest(img, "GetFigImage_TriangleLeft");
+
+      ByteObject figTriangle45 = fac.getFigTriangleAngle(FULLY_OPAQUE_ORANGE, 45);
+      img = op.getFigImage(figTriangle45, w, h, justSwitch, whiteopaque, FR_BLEU_Celeste);
+      doImageTest(img, "GetFigImage_Triangle45");
    }
 
    public void testEllipseSimple() {

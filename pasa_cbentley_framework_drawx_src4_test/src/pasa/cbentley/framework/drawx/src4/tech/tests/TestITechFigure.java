@@ -9,8 +9,10 @@ import pasa.cbentley.core.src4.utils.ColorUtils;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawX;
 import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXSwing;
-import pasa.cbentley.framework.drawx.src4.tech.IBOFigString;
-import pasa.cbentley.framework.drawx.src4.tech.IBOFigTriangle;
+import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigPixels;
+import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigString;
+import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigTriangle;
+import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigure;
 import pasa.cbentley.layouter.src4.engine.Anchor32Bits;
 import pasa.cbentley.layouter.src4.tech.ITechLayout;
 
@@ -43,16 +45,16 @@ public class TestITechFigure extends TestCaseDrawX {
 
       //System.out.println(triLB);
 
-      assertEquals(bcolor, triLB.get4(FIG__OFFSET_06_COLOR4));
-      assertEquals(C.ANGLE_UP_90, triLB.get2(IBOFigTriangle.FIG_TRIANGLE_OFFSET_2_ANGLE2));
+      assertEquals(bcolor, triLB.get4(IBOFigure.FIG__OFFSET_06_COLOR4));
+      assertEquals(C.ANGLE_UP_90, triLB.get2(IBOFigTriangle.FIG_TRIANGLE_OFFSET_03_ANGLE2));
 
-      assertEquals(encodedH, triLB.get4(IBOFigTriangle.FIG_TRIANGLE_OFFSET_3_h4));
+      assertEquals(encodedH, triLB.get4(IBOFigTriangle.FIG_TRIANGLE_OFFSET_04_h4));
 
       triLB = figureFac.getFigTriangle(bcolor, C.ANGLE_UP_90, encodedH, anchorLB);
 
-      assertEquals(bcolor, triLB.getValue(FIG__OFFSET_06_COLOR4, 4));
-      assertEquals(C.ANGLE_UP_90, triLB.getValue(IBOFigTriangle.FIG_TRIANGLE_OFFSET_2_ANGLE2, 2));
-      assertEquals(encodedH, triLB.getValue(IBOFigTriangle.FIG_TRIANGLE_OFFSET_3_h4, 4));
+      assertEquals(bcolor, triLB.getValue(IBOFigure.FIG__OFFSET_06_COLOR4, 4));
+      assertEquals(C.ANGLE_UP_90, triLB.getValue(IBOFigTriangle.FIG_TRIANGLE_OFFSET_03_ANGLE2, 2));
+      assertEquals(encodedH, triLB.getValue(IBOFigTriangle.FIG_TRIANGLE_OFFSET_04_h4, 4));
 
    }
 
@@ -72,7 +74,7 @@ public class TestITechFigure extends TestCaseDrawX {
       assertEquals(IMFont.FACE_MONOSPACE, merge.get1(IBOFigString.FIG_STRING_OFFSET_03_FACE1));
       assertEquals(IMFont.STYLE_BOLD, merge.get1(IBOFigString.FIG_STRING_OFFSET_04_STYLE1));
       assertEquals(IMFont.SIZE_4_LARGE, merge.get1(IBOFigString.FIG_STRING_OFFSET_05_SIZE1));
-      assertEquals(FULLY_OPAQUE_GREEN, merge.get4(FIG__OFFSET_06_COLOR4));
+      assertEquals(FULLY_OPAQUE_GREEN, merge.get4(IBOFigure.FIG__OFFSET_06_COLOR4));
 
       ByteObject small = figureFac.getFigStringTFontSize(IMFont.SIZE_2_SMALL);
 
@@ -84,7 +86,7 @@ public class TestITechFigure extends TestCaseDrawX {
       assertEquals(IMFont.FACE_MONOSPACE, merge.get1(IBOFigString.FIG_STRING_OFFSET_03_FACE1));
       assertEquals(IMFont.STYLE_BOLD, merge.get1(IBOFigString.FIG_STRING_OFFSET_04_STYLE1));
       assertEquals(IMFont.SIZE_2_SMALL, merge.get1(IBOFigString.FIG_STRING_OFFSET_05_SIZE1));
-      assertEquals(FULLY_OPAQUE_GREEN, merge.get4(FIG__OFFSET_06_COLOR4));
+      assertEquals(FULLY_OPAQUE_GREEN, merge.get4(IBOFigure.FIG__OFFSET_06_COLOR4));
 
    }
 
@@ -136,10 +138,10 @@ public class TestITechFigure extends TestCaseDrawX {
 
       System.out.println(border);
       //not set. the rectangle takes
-      assertEquals(0, border.getValue(FIG__OFFSET_06_COLOR4, 4));
+      assertEquals(0, border.getValue(IBOFigure.FIG__OFFSET_06_COLOR4, 4));
 
       ByteObject rect = border.getSubFirst(TYPE_050_FIGURE);
-      assertEquals(color, rect.getValue(FIG__OFFSET_06_COLOR4, 4));
+      assertEquals(color, rect.getValue(IBOFigure.FIG__OFFSET_06_COLOR4, 4));
 
       assertNotNull(rect.getSubFirst(TYPE_059_GRADIENT));
    }
@@ -162,10 +164,10 @@ public class TestITechFigure extends TestCaseDrawX {
    public void testFigPixels() {
 
       ByteObject pix = figureFac.getFigPixels(500, true, false, new int[] { 0, -1, -65536, -16711936, 2 });
-      assertEquals(true, pix.hasFlag(FIG_PIXEL_OFFSET_01_FLAG, FIG_PIXEL_FLAG_1_RANDOM_SIZE));
-      assertEquals(false, pix.hasFlag(FIG_PIXEL_OFFSET_01_FLAG, FIG_PIXEL_FLAG_2_RANDOM_COLOR));
-      assertEquals(500, pix.getValue(FIG_PIXEL_OFFSET_07_LENGTH_H2, 2));
-      int[] v = pix.getValues(FIG_PIXEL_OFFSET_04_COLORSX);
+      assertEquals(true, pix.hasFlag(IBOFigPixels.FIG_PIXEL_OFFSET_01_FLAG, IBOFigPixels.FIG_PIXEL_FLAG_1_RANDOM_SIZE));
+      assertEquals(false, pix.hasFlag(IBOFigPixels.FIG_PIXEL_OFFSET_01_FLAG, IBOFigPixels.FIG_PIXEL_FLAG_2_RANDOM_COLOR));
+      assertEquals(500, pix.getValue(IBOFigPixels.FIG_PIXEL_OFFSET_07_LENGTH_H2, 2));
+      int[] v = pix.getValues(IBOFigPixels.FIG_PIXEL_OFFSET_04_COLORSX);
       assertEquals(v.length, 5);
       assertEquals(v[0], 0);
       assertEquals(v[1], -1);
@@ -174,8 +176,8 @@ public class TestITechFigure extends TestCaseDrawX {
       assertEquals(v[4], 2);
 
       pix = figureFac.getFigPixels(1, true, false, new int[] { 0, -1, -65536 });
-      assertEquals(1, pix.getValue(FIG_PIXEL_OFFSET_07_LENGTH_H2, 2));
-      v = pix.getValues(FIG_PIXEL_OFFSET_04_COLORSX);
+      assertEquals(1, pix.getValue(IBOFigPixels.FIG_PIXEL_OFFSET_07_LENGTH_H2, 2));
+      v = pix.getValues(IBOFigPixels.FIG_PIXEL_OFFSET_04_COLORSX);
       assertEquals(v.length, 3);
       assertEquals(v[0], 0);
       assertEquals(v[1], -1);
@@ -195,8 +197,8 @@ public class TestITechFigure extends TestCaseDrawX {
       System.out.println(scBg);
       System.out.println(scBg2);
 
-      assertEquals(scBg.get4(FIG__OFFSET_06_COLOR4), bgColor);
-      assertEquals(scBg2.get4(FIG__OFFSET_06_COLOR4), bgColor);
+      assertEquals(scBg.get4(IBOFigure.FIG__OFFSET_06_COLOR4), bgColor);
+      assertEquals(scBg2.get4(IBOFigure.FIG__OFFSET_06_COLOR4), bgColor);
 
    }
 
@@ -258,7 +260,7 @@ public class TestITechFigure extends TestCaseDrawX {
       int bColor = ColorUtils.getRGBInt(140, 140, 240);
       ByteObject figureBg = figureFac.getFigRect(bColor);
 
-      assertEquals(bColor, figureBg.get4(FIG__OFFSET_06_COLOR4));
+      assertEquals(bColor, figureBg.get4(IBOFigure.FIG__OFFSET_06_COLOR4));
 
       int transGreyColor = ColorUtils.getRGBInt(64, 40, 140, 40);
       ByteObject greyFg = figureFac.getFigRect(transGreyColor);

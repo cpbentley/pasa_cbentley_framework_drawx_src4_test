@@ -25,4 +25,16 @@ public class TestFigureOperatorSwing extends TestFigureOperator {
    public void testGradients_Triangle() {
       super.testGradients_Triangle();
    }
+   
+   public void testGetFigImage_Triangle() {
+      super.testGetFigImage_Triangle();
+   }
+   
+   public void testGetFigImage_Losange() {
+      super.testGetFigImage_Losange();
+   }
+   
+   public void testGetFigImage_TriangleAncors() {
+      super.testGetFigImage_TriangleAncors();
+   }
 }
