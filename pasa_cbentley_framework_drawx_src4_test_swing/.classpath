@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="output" path="bin"/>
 	<classpathentry kind="lib" path="/pasa_cbentley_testing/libs/junit-4.10.jar" sourcepath="/pasa_cbentley_testing/libs/junit-4.10-src.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_byteobjects_src4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_core_src4"/>
@@ -12,10 +11,11 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_framework_coredraw_swing"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_framework_drawx_src4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_framework_drawx_src4_test"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_framework_testing_data"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_framework_testing_datamodel"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_framework_testing_core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_framework_testing_gui"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_framework_testing_gui_swing"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_layouter_src4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_testing"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>

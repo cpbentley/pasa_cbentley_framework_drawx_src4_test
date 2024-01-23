@@ -11,7 +11,8 @@ public class TestGraphicsXJavaFx extends TestGraphicsX {
 
 
    protected TestCtx createTestCtx() {
-      return new TestFrameworkUiFxCtx(uc);
+      initCtxBeforeTestFramworkCtxCreation();
+      return new TestFrameworkUiFxCtx(boc);
    }
    
    public FrameworkPlugUI getUiPlug() {

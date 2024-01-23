@@ -10,7 +10,8 @@ import pasa.cbentley.testing.ctx.TestCtx;
 public class TestGraphicsXSwing extends TestGraphicsX {
 
    protected TestCtx createTestCtx() {
-      return new TestFrameworkUiSwingCtx(uc);
+      initCtxBeforeTestFramworkCtxCreation();
+      return new TestFrameworkUiSwingCtx(boc);
    }
 
    public FrameworkPlugUI getUiPlug() {

@@ -6,7 +6,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_framework_coredraw_src4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_layouter_src4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_framework_drawx_src4"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_framework_testing_data"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_framework_testing_datamodel"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_testing"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_framework_testing_core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pasa_cbentley_framework_testing_gui"/>
