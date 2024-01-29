@@ -6,7 +6,7 @@ import java.awt.RenderingHints;
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IImage;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
-import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDrawX;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.drawer.DrawerString;
@@ -20,7 +20,7 @@ import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOAnchor;
  * @author Mordan
  *
  */
-public abstract class TestStringDrawer extends TestCaseDrawXPlugged {
+public abstract class TestStringDrawer extends TestCaseFrameworkUiPluggedDrawX {
 
    public String ex            = "Explicit";
 

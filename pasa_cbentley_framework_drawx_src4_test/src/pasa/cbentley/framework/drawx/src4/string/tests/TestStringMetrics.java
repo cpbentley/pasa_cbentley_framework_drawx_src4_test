@@ -13,7 +13,7 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.IFontCustomizer;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
-import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDrawX;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigString;
 import pasa.cbentley.framework.drawx.src4.string.StringFx;
 import pasa.cbentley.framework.drawx.src4.string.StringMetrics;
@@ -27,7 +27,7 @@ import pasa.cbentley.testing.engine.ConfigUTest;
  * @author Charles Bentley
  *
  */
-public abstract class TestStringMetrics extends TestCaseDrawXPlugged implements ITechFont, ITechStringer {
+public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX implements ITechFont, ITechStringer {
 
    private static boolean isStaticSetupDone;
 
@@ -49,7 +49,7 @@ public abstract class TestStringMetrics extends TestCaseDrawXPlugged implements 
             log.setLevelGlobal(ITechLvl.LVL_03_FINEST);
             log.setFlagTag(FLAG_17_PRINT_TEST, true);
             log.setFlagTag(FLAG_08_PRINT_EXCEPTION, true);
-            log.setFlagTag(FLAG_25_PRINT_NULL, true);
+            log.setFlagTag(FLAG_02_PRINT_NULL, true);
 
             log.setFlagTag(FLAG_20_PRINT_INIT, false);
          }

@@ -1,6 +1,6 @@
 package pasa.cbentley.framework.drawx.src4.ctx.tests;
 
-public abstract class TestDrwCtx extends TestCaseDrawXPlugged {
+public abstract class TestDrwCtx extends TestCaseFrameworkUiPluggedDrawX {
 
    public TestDrwCtx() {
 

@@ -1,10 +1,10 @@
 package pasa.cbentley.framework.drawx.src4.engine.tests;
 
-import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDrawX;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 
-public abstract class TestGraphicsXTransformations extends TestCaseDrawXPlugged {
+public abstract class TestGraphicsXTransformations extends TestCaseFrameworkUiPluggedDrawX {
 
    public TestGraphicsXTransformations() {
       

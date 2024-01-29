@@ -2,15 +2,15 @@ package pasa.cbentley.framework.drawx.src4.test.swing.string;
 
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.framework.drawx.src4.string.tests.TestStringer;
-import pasa.cbentley.framework.testing.gui.engine.FrameworkPlugUI;
+import pasa.cbentley.framework.testing.core.ctx.TestFrameworkCtx;
+import pasa.cbentley.framework.testing.gui.engine.FrameworkPlugAbstractGui;
 import pasa.cbentley.framework.testing.gui.swing.ConfigPlugSwingDef;
-import pasa.cbentley.framework.testing.gui.swing.FrameworkPlugSwing;
+import pasa.cbentley.framework.testing.gui.swing.FrameworkPlugGuiSwing;
 import pasa.cbentley.framework.testing.gui.swing.ctx.TestFrameworkUiSwingCtx;
 import pasa.cbentley.testing.ctx.TestCtx;
 
 public class TestStringerSwing extends TestStringer {
 
-   private TestFrameworkUiSwingCtx tUiSwingCtx;
 
    public TestStringerSwing() {
       setTestFlag(TEST_FLAG_01_PRINT_ANYWAYS, false);
@@ -24,23 +24,14 @@ public class TestStringerSwing extends TestStringer {
 
    }
 
-   public void setTestCtx(TestCtx tc) {
-      tUiSwingCtx = (TestFrameworkUiSwingCtx) tc;
-      super.setTestCtx(tc);
+   public FrameworkPlugAbstractGui createFrameworkPlug(TestFrameworkCtx tfc) {
+      return new FrameworkPlugGuiSwing((TestFrameworkUiSwingCtx) tfc);
    }
 
-   public FrameworkPlugUI getUiPlug() {
-
-      ConfigPlugSwingDef configPlug = new ConfigPlugSwingDef(getC5());
-
-      FrameworkPlugSwing plug = new FrameworkPlugSwing(configPlug, tUiSwingCtx, this);
-
-      //#debug
-      toDLog().pTest("", plug, TestStringerSwing.class, "getUiPlug", LVL_05_FINE, false);
-
-      return plug;
+   protected TestCtx createTestCtx() {
+      return new TestFrameworkUiSwingCtx(boc);
    }
-
+   
    public void testFxMaskScopeWord() {
       super.testFxMaskScopeWord();
    }

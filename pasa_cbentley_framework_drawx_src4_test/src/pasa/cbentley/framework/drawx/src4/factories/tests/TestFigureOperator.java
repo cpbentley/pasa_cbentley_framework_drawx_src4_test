@@ -5,14 +5,14 @@ import pasa.cbentley.byteobjects.src4.ctx.ToStringStaticBO;
 import pasa.cbentley.byteobjects.src4.objects.color.ITechGradient;
 import pasa.cbentley.core.src4.interfaces.C;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
-import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDrawX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.FigureFactory;
 import pasa.cbentley.framework.drawx.src4.factories.FigureOperator;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigTriangle;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOTblr;
 
-public abstract class TestFigureOperator extends TestCaseDrawXPlugged implements IBOTblr, ITechGradient {
+public abstract class TestFigureOperator extends TestCaseFrameworkUiPluggedDrawX implements IBOTblr, ITechGradient {
 
    FigureFactory  fac;
 

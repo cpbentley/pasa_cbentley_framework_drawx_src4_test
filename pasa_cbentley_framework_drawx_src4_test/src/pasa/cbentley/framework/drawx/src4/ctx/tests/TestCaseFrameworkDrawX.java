@@ -20,12 +20,12 @@ import pasa.cbentley.framework.drawx.src4.factories.TblrFactory;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOMask;
 import pasa.cbentley.framework.drawx.src4.tech.ITechFigure;
 import pasa.cbentley.framework.testing.core.engine.TestCaseFramework;
-import pasa.cbentley.framework.testing.gui.engine.IUiPlug;
+import pasa.cbentley.framework.testing.gui.engine.ITestUiPluggable;
 import pasa.cbentley.framework.testing.gui.engine.TestCaseFrameworkUiPlugged;
 import pasa.cbentley.layouter.src4.ctx.LayouterCtx;
 import pasa.cbentley.layouter.src4.engine.LayoutOperator;
 
-public abstract class TestCaseDrawX extends TestCaseFramework implements IBOTypesDrw, IBOMask, IColors, ITechFont, ITechGradient, ITechFigure {
+public abstract class TestCaseFrameworkDrawX extends TestCaseFramework implements IBOTypesDrw, IBOMask, IColors, ITechFont, ITechGradient, ITechFigure {
 
    protected BoxFactory           facBox;
 
@@ -53,7 +53,7 @@ public abstract class TestCaseDrawX extends TestCaseFramework implements IBOType
 
    private LayouterCtx            lac;
 
-   public TestCaseDrawX() {
+   public TestCaseFrameworkDrawX() {
    }
 
 

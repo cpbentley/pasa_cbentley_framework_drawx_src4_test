@@ -16,7 +16,7 @@ import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontCustomizer;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
-import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDrawX;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.drawer.DrawerString;
@@ -45,7 +45,7 @@ import pasa.cbentley.testing.engine.ConfigUTest;
  * @author Charles-Philip Bentley
  *
  */
-public abstract class TestStringer extends TestCaseDrawXPlugged implements ITechGraphicsX, ITechStringer, ITechStringDrw, IBOFxStr, IBOFxStrLine {
+public abstract class TestStringer extends TestCaseFrameworkUiPluggedDrawX implements ITechGraphicsX, ITechStringer, ITechStringDrw, IBOFxStr, IBOFxStrLine {
 
    private static boolean isStaticSetupDone = false;
 
@@ -72,7 +72,7 @@ public abstract class TestStringer extends TestCaseDrawXPlugged implements ITech
             log.setLevelGlobal(ITechLvl.LVL_03_FINEST);
             log.setFlagTag(FLAG_17_PRINT_TEST, true);
             log.setFlagTag(FLAG_08_PRINT_EXCEPTION, true);
-            log.setFlagTag(FLAG_25_PRINT_NULL, true);
+            log.setFlagTag(FLAG_02_PRINT_NULL, true);
             log.setFlagTag(FLAG_09_PRINT_FLOW, true);
 
             log.setFlagTag(FLAG_20_PRINT_INIT, false);

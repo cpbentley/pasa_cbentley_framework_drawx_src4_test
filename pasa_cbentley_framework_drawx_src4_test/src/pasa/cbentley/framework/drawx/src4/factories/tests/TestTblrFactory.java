@@ -2,10 +2,10 @@ package pasa.cbentley.framework.drawx.src4.factories.tests;
 
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
 import pasa.cbentley.core.src4.interfaces.C;
-import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawX;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkDrawX;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOTblr;
 
-public class TestTblrFactory extends TestCaseDrawX implements IBOTblr {
+public class TestTblrFactory extends TestCaseFrameworkDrawX implements IBOTblr {
 
    public void setupAbstractDrawX() {
 

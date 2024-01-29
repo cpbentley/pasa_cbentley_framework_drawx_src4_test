@@ -1,13 +1,13 @@
 package pasa.cbentley.framework.drawx.src4.factories.tests;
 
 import pasa.cbentley.core.src4.utils.interfaces.IColors;
-import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDrawX;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.RgbImageOperator;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOTblr;
 
-public abstract class TestRgbImageOperator extends TestCaseDrawXPlugged implements IBOTblr {
+public abstract class TestRgbImageOperator extends TestCaseFrameworkUiPluggedDrawX implements IBOTblr {
 
    RgbImageOperator op;
    

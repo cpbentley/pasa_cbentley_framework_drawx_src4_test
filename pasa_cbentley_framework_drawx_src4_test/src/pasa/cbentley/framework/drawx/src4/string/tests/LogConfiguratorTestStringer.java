@@ -11,7 +11,7 @@ public class LogConfiguratorTestStringer implements ILogConfigurator {
 
       log.setFlagTag(FLAG_17_PRINT_TEST, true);
       log.setFlagTag(FLAG_08_PRINT_EXCEPTION, true);
-      log.setFlagTag(FLAG_25_PRINT_NULL, true);
+      log.setFlagTag(FLAG_02_PRINT_NULL, true);
       log.setFlagTag(FLAG_20_PRINT_INIT, true);
       
    }

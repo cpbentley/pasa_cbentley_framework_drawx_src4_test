@@ -7,8 +7,7 @@ import pasa.cbentley.byteobjects.src4.objects.pointer.IBOMergeMask;
 import pasa.cbentley.core.src4.interfaces.C;
 import pasa.cbentley.core.src4.utils.ColorUtils;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
-import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawX;
-import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXSwing;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkDrawX;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigPixels;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigString;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigTriangle;
@@ -21,7 +20,7 @@ import pasa.cbentley.layouter.src4.tech.ITechLayout;
  * @author Charles Bentley
  *
  */
-public class TestITechFigure extends TestCaseDrawX {
+public class TestITechFigure extends TestCaseFrameworkDrawX {
 
    public TestITechFigure() {
    }
@@ -166,7 +165,9 @@ public class TestITechFigure extends TestCaseDrawX {
       ByteObject pix = figureFac.getFigPixels(500, true, false, new int[] { 0, -1, -65536, -16711936, 2 });
       assertEquals(true, pix.hasFlag(IBOFigPixels.FIG_PIXEL_OFFSET_01_FLAG, IBOFigPixels.FIG_PIXEL_FLAG_1_RANDOM_SIZE));
       assertEquals(false, pix.hasFlag(IBOFigPixels.FIG_PIXEL_OFFSET_01_FLAG, IBOFigPixels.FIG_PIXEL_FLAG_2_RANDOM_COLOR));
+      
       assertEquals(500, pix.getValue(IBOFigPixels.FIG_PIXEL_OFFSET_07_LENGTH_H2, 2));
+      
       int[] v = pix.getValues(IBOFigPixels.FIG_PIXEL_OFFSET_04_COLORSX);
       assertEquals(v.length, 5);
       assertEquals(v[0], 0);

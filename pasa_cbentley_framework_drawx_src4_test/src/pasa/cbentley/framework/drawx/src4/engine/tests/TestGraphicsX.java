@@ -3,7 +3,7 @@ package pasa.cbentley.framework.drawx.src4.engine.tests;
 import org.junit.Test;
 
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
-import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDrawX;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOBox;
@@ -13,7 +13,7 @@ import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOBox;
  * @author Charles Bentley
  *
  */
-public abstract class TestGraphicsX extends TestCaseDrawXPlugged {
+public abstract class TestGraphicsX extends TestCaseFrameworkUiPluggedDrawX {
 
    /**
     * See {@link MordTestCase}

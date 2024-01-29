@@ -1,6 +1,6 @@
 package pasa.cbentley.framework.drawx.src4.engine.tests;
 
-import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseDrawXPlugged;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDrawX;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.tech.ITechGraphicsX;
@@ -13,7 +13,7 @@ import pasa.cbentley.framework.drawx.src4.tech.ITechGraphicsX;
  * @author Mordan
  *
  */
-public abstract class TestRgbImage extends TestCaseDrawXPlugged implements ITechGraphicsX {
+public abstract class TestRgbImage extends TestCaseFrameworkUiPluggedDrawX implements ITechGraphicsX {
 
    public TestRgbImage() {
 

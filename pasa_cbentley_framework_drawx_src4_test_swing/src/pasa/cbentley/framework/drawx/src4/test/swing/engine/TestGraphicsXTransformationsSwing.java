@@ -1,23 +1,20 @@
 package pasa.cbentley.framework.drawx.src4.test.swing.engine;
 
 import pasa.cbentley.framework.drawx.src4.engine.tests.TestGraphicsXTransformations;
-import pasa.cbentley.framework.testing.gui.engine.FrameworkPlugUI;
-import pasa.cbentley.framework.testing.gui.swing.ConfigPlugSwingDef;
-import pasa.cbentley.framework.testing.gui.swing.FrameworkPlugSwing;
+import pasa.cbentley.framework.testing.core.ctx.TestFrameworkCtx;
+import pasa.cbentley.framework.testing.gui.engine.FrameworkPlugAbstractGui;
+import pasa.cbentley.framework.testing.gui.swing.FrameworkPlugGuiSwing;
 import pasa.cbentley.framework.testing.gui.swing.ctx.TestFrameworkUiSwingCtx;
 import pasa.cbentley.testing.ctx.TestCtx;
 
 public class TestGraphicsXTransformationsSwing extends TestGraphicsXTransformations {
 
-   protected TestCtx createTestCtx() {
-      initCtxBeforeTestFramworkCtxCreation();
-      return new TestFrameworkUiSwingCtx(boc);
+   public FrameworkPlugAbstractGui createFrameworkPlug(TestFrameworkCtx tfc) {
+      return new FrameworkPlugGuiSwing((TestFrameworkUiSwingCtx) tfc);
    }
 
-   public FrameworkPlugUI getUiPlug() {
-      ConfigPlugSwingDef configPlug = new ConfigPlugSwingDef(getC5());
-      FrameworkPlugSwing plug = new FrameworkPlugSwing(configPlug, (TestFrameworkUiSwingCtx) tfuc, this);
-      return plug;
+   protected TestCtx createTestCtx() {
+      return new TestFrameworkUiSwingCtx(boc);
    }
 
    public void setupAbstractDrawX() {
