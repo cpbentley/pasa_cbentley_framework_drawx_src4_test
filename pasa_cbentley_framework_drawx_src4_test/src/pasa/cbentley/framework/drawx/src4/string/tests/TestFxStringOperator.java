@@ -2,10 +2,10 @@ package pasa.cbentley.framework.drawx.src4.string.tests;
 
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
 import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDrawX;
-import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOTblr;
 import pasa.cbentley.framework.drawx.src4.string.FxStringFactory;
 import pasa.cbentley.framework.drawx.src4.string.FxStringOperator;
 import pasa.cbentley.framework.drawx.src4.string.interfaces.IBOFxStr;
+import pasa.cbentley.layouter.src4.tech.IBOTblr;
 
 public abstract class TestFxStringOperator extends TestCaseFrameworkUiPluggedDrawX implements IBOTblr, IBOFxStr {
 

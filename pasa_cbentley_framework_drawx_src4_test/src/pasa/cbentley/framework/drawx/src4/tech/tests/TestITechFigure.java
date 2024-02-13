@@ -12,6 +12,7 @@ import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigPixels;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigString;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigTriangle;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigure;
+import pasa.cbentley.layouter.src4.ctx.IBOTypesLayout;
 import pasa.cbentley.layouter.src4.engine.Anchor32Bits;
 import pasa.cbentley.layouter.src4.tech.ITechLayout;
 
@@ -38,9 +39,9 @@ public class TestITechFigure extends TestCaseFrameworkDrawX {
       ByteObject anchorLB = facBox.getLeftBot(sizew, sizeh);
 
       //Etalon is 0 for context
-      int encodedH = layOp.codedSizeEncode(ITechLayout.MODE_2_RATIO, littleH, ITechLayout.ETALON_0_SIZEE_CTX, 0, 0);
+      int encodedH = layOp.codedSizeEncodeRatioDefEtalon(littleH);
 
-      ByteObject triLB = figureFac.getFigTriangle(bcolor, C.ANGLE_UP_90, encodedH, anchorLB);
+      ByteObject triLB = figureFac.getFigTriangleAngle(bcolor, C.ANGLE_UP_90, encodedH, anchorLB);
 
       //System.out.println(triLB);
 
@@ -49,7 +50,7 @@ public class TestITechFigure extends TestCaseFrameworkDrawX {
 
       assertEquals(encodedH, triLB.get4(IBOFigTriangle.FIG_TRIANGLE_OFFSET_04_h4));
 
-      triLB = figureFac.getFigTriangle(bcolor, C.ANGLE_UP_90, encodedH, anchorLB);
+      triLB = figureFac.getFigTriangleAngle(bcolor, C.ANGLE_UP_90, encodedH, anchorLB);
 
       assertEquals(bcolor, triLB.getValue(IBOFigure.FIG__OFFSET_06_COLOR4, 4));
       assertEquals(C.ANGLE_UP_90, triLB.getValue(IBOFigTriangle.FIG_TRIANGLE_OFFSET_03_ANGLE2, 2));
@@ -129,11 +130,12 @@ public class TestITechFigure extends TestCaseFrameworkDrawX {
 
       ByteObject border = figureFac.getFigBorder(size, arcw, arch, color, grad);
 
-      ByteObject tblr = border.getSubFirst(TYPE_060_TBLR);
-      assertEquals(size, facTBLR.getTBLRValue(tblr, C.POS_1_BOT));
-      assertEquals(size, facTBLR.getTBLRValue(tblr, C.POS_0_TOP));
-      assertEquals(size, facTBLR.getTBLRValue(tblr, C.POS_2_LEFT));
-      assertEquals(size, facTBLR.getTBLRValue(tblr, C.POS_3_RIGHT));
+      ByteObject tblr = border.getSubFirst(IBOTypesLayout.FTYPE_2_TBLR);
+      
+      assertEquals(size, layOp.getTBLRValue(tblr, C.POS_1_BOT));
+      assertEquals(size, layOp.getTBLRValue(tblr, C.POS_0_TOP));
+      assertEquals(size, layOp.getTBLRValue(tblr, C.POS_2_LEFT));
+      assertEquals(size, layOp.getTBLRValue(tblr, C.POS_3_RIGHT));
 
       System.out.println(border);
       //not set. the rectangle takes

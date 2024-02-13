@@ -268,8 +268,8 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
    public void testExtraSpaceManagement() {
       ByteObject textFigure = facFigure.getFigString(FACE_SYSTEM, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_06_NEWLINE1, NEWLINE_MANAGER_1_WORK);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_1_ANYWHERE);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_14_MANAGER_NEWLINE1, NEWLINE_MANAGER_1_WORK);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_1_ANYWHERE);
       textFigure.set1(IBOFigString.FIG_STRING_OFFSET_09_SPACE_TRIM1, SPACETRIM_0_NONE);
 
       //TODO delete fronting space in lines ?
@@ -290,7 +290,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       assertEquals("vening today.", sm.getLineString(3));
 
       //space trim only works with nice words
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_2_NICE_WORD);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_2_NICE_WORD);
       textFigure.set1(IBOFigString.FIG_STRING_OFFSET_09_SPACE_TRIM1, SPACETRIM_1_NORMAL);
       stringer.buildForDisplayWith(textFigure);
 
@@ -308,8 +308,8 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
     */
    public void testFormFeed() {
       ByteObject textFigure = facFigure.getFigString(FACE_SYSTEM, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_06_NEWLINE1, NEWLINE_MANAGER_1_WORK);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_0_NONE);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_14_MANAGER_NEWLINE1, NEWLINE_MANAGER_1_WORK);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_0_NONE);
       textFigure.set1(IBOFigString.FIG_STRING_OFFSET_09_SPACE_TRIM1, SPACETRIM_1_NORMAL);
 
       Stringer stringer = new Stringer(dc);
@@ -339,10 +339,10 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
    public void testHiddenCharsSingleLine() {
       ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_06_NEWLINE1, NEWLINE_MANAGER_0_IGNORE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_1_ANYWHERE);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_14_MANAGER_NEWLINE1, NEWLINE_MANAGER_0_IGNORE);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_1_ANYWHERE);
       textFigure.set1(IBOFigString.FIG_STRING_OFFSET_09_SPACE_TRIM1, SPACETRIM_0_NONE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_08_MAXLINES1, 1);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_10_MAXLINES1, 1);
 
       textFigure.setFlag(IBOFigString.FIG_STRING_OFFSET_01_FLAG, IBOFigString.FIG_STRING_FLAG_2_SHOW_HIDDEN_CHARS, true);
 
@@ -366,8 +366,8 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
    public void testLineHeights() {
 
       ByteObject textFigure = facFigure.getFigString(FACE_SYSTEM, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_06_NEWLINE1, NEWLINE_MANAGER_1_WORK);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_0_NONE);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_14_MANAGER_NEWLINE1, NEWLINE_MANAGER_1_WORK);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_0_NONE);
 
       Stringer stringer = new Stringer(dc);
       stringer.buildForDisplayWith(textFigure, "word\nsentence\nnice");
@@ -396,8 +396,8 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
    public void testSingleLine1OverlayStyle() {
       ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_06_NEWLINE1, NEWLINE_MANAGER_0_IGNORE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_0_NONE);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_14_MANAGER_NEWLINE1, NEWLINE_MANAGER_0_IGNORE);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_0_NONE);
       textFigure.set1(IBOFigString.FIG_STRING_OFFSET_09_SPACE_TRIM1, SPACETRIM_0_NONE);
 
       Stringer stringer = new Stringer(dc);
@@ -428,8 +428,8 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
    public void testSingleLine2OverlayStyles() {
       ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_06_NEWLINE1, NEWLINE_MANAGER_0_IGNORE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_0_NONE);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_14_MANAGER_NEWLINE1, NEWLINE_MANAGER_0_IGNORE);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_0_NONE);
       textFigure.set1(IBOFigString.FIG_STRING_OFFSET_09_SPACE_TRIM1, SPACETRIM_0_NONE);
 
       Stringer stringer = new Stringer(dc);
@@ -507,6 +507,33 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
    }
 
+   public void testBigText() {
+      char[] data = uc.getIOU().readFileAsChars("/the_ivy_green.txt", "UTF-8");
+
+      assertNotNull(data);
+
+      Stringer st = new Stringer(dc);
+      int margin = 5;
+      int areaW = 310;
+      int areaH = 410;
+      st.setAreaXYWH(margin, margin, areaW, areaH);
+      st.setBreakWidth(500); //does nothing in word wrap none
+      st.ToStringSetDebugArea(true);
+      st.setString(data, 0, data.length);
+
+      ByteObject strFig = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_1_TINY, FULLY_OPAQUE_ORANGE);
+      strFig.set1(IBOFigString.FIG_STRING_OFFSET_14_MANAGER_NEWLINE1, NEWLINE_MANAGER_1_WORK);
+      strFig.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_0_NONE);
+      strFig.set1(IBOFigString.FIG_STRING_OFFSET_09_SPACE_TRIM1, SPACETRIM_1_NORMAL);
+
+      st.buildForDisplayWith(strFig);
+
+      StringMetrics sm = st.getMetrics();
+      assertEquals("Oh, a dainty plant is the Ivy green,", sm.getLineString(0));
+      assertEquals("That creepeth o'er ruins old!", sm.getLineString(1));
+      
+      assertEquals(34, st.getNumOfLines());
+   }
    public void testStringWordMono() {
       //does not work empty
       Stringer stringer = new Stringer(dc);
@@ -550,9 +577,9 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
    public void testTabAsSpace() {
       ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_06_NEWLINE1, NEWLINE_MANAGER_1_WORK);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_0_NONE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_10_TAB_MANAGER1, TAB_MANAGER_0_SINGLE_SPACE);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_14_MANAGER_NEWLINE1, NEWLINE_MANAGER_1_WORK);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_0_NONE);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_13_MANAGER_TAB1, TAB_MANAGER_0_SINGLE_SPACE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -584,6 +611,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
    public void testTrim3Lines() {
       setFontsToMonoidAleo();
+      
       ByteObject strFig = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
       facFigure.setFigStringTrimMaxLines(strFig, 3);
 
@@ -610,11 +638,38 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
    }
 
+   public void testBreakHeight() {
+      setFontsToMonoidAleo();
+      
+      ByteObject strFig = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
+      facFigure.setFigStringTrimFitH(strFig);
+      
+      assertNotNull(data);
+      Stringer st = new Stringer(dc);
+      int margin = 5;
+      int areaW = 200;
+      int areaH = 40;
+      st.setAreaXYWH(margin, margin, areaW, areaH);
+      st.setBreakWidth(areaW - 5); 
+      st.setBreakHeight(areaH - 5); //key call to enforce fit height
+      st.ToStringSetDebugArea(true);
+      st.setString(this.data);
+      st.buildForDisplayWith(strFig);
+      
+      StringMetrics sm = st.getMetrics();
+      assertEquals("Hello I'm Joe! I would", sm.getLineString(0));
+      assertEquals("like to eat some me..", sm.getLineString(1));
+     
+      assertEquals(2, st.getNumOfLines());
+      
+      assertEquals(true, st.hasState(ITechStringer.STATE_04_TRIMMED));
+
+   }
    public void testWidthBreakNewLines() {
 
       ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_06_NEWLINE1, NEWLINE_MANAGER_1_WORK);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_1_ANYWHERE);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_14_MANAGER_NEWLINE1, NEWLINE_MANAGER_1_WORK);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_1_ANYWHERE);
 
       //TODO delete fronting space in lines ?
       Stringer stringer = new Stringer(dc);
@@ -639,8 +694,8 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       assertEquals("ening today.", sm.getLineString(6));
 
       textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_06_NEWLINE1, NEWLINE_MANAGER_1_WORK);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_2_NICE_WORD);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_14_MANAGER_NEWLINE1, NEWLINE_MANAGER_1_WORK);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_2_NICE_WORD);
       stringer.buildForDisplayWith(textFigure);
 
       sm = stringer.getMetrics();
@@ -676,8 +731,8 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
    public void testWidthBreakNiceWords() {
 
       ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_06_NEWLINE1, NEWLINE_MANAGER_1_WORK);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_2_NICE_WORD);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_14_MANAGER_NEWLINE1, NEWLINE_MANAGER_1_WORK);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_2_NICE_WORD);
       textFigure.set1(IBOFigString.FIG_STRING_OFFSET_09_SPACE_TRIM1, SPACETRIM_1_NORMAL);
 
       Stringer stringer = new Stringer(dc);
@@ -703,7 +758,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       assertEquals(230, sm.getLineWidth(2));
       assertEquals(170, sm.getLineWidth(3));
 
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_2_NICE_WORD);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_2_NICE_WORD);
       textFigure.set1(IBOFigString.FIG_STRING_OFFSET_09_SPACE_TRIM1, SPACETRIM_2_JUSTIFIED);
       stringer.buildForDisplayWith(textFigure);
 
@@ -733,7 +788,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       assertEquals(lenLastLine, sm.getLineWidth(3));
 
       textFigure.set1(IBOFigString.FIG_STRING_OFFSET_09_SPACE_TRIM1, SPACETRIM_1_NORMAL);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_08_MAXLINES1, 2);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_10_MAXLINES1, 2);
       textFigure.setFlag(IBOFigString.FIG_STRING_OFFSET_01_FLAG, IBOFigString.FIG_STRING_FLAG_3_TRIM_ARTIFACT, true);
 
       stringer.buildForDisplayWith(textFigure);
@@ -744,7 +799,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       assertEquals("Life is a long snake. It", sm.getLineString(0));
       assertEquals("takes forever to rea..", sm.getLineString(1));
 
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_08_MAXLINES1, 1);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_10_MAXLINES1, 1);
       textFigure.setFlag(IBOFigString.FIG_STRING_OFFSET_01_FLAG, IBOFigString.FIG_STRING_FLAG_3_TRIM_ARTIFACT, true);
 
       stringer.buildForDisplayWith(textFigure);
@@ -757,8 +812,8 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
    public void testWidthBreakPropVsMono() {
       ByteObject textFigure = facFigure.getFigString(FACE_SYSTEM, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_06_NEWLINE1, NEWLINE_MANAGER_1_WORK);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_1_ANYWHERE);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_14_MANAGER_NEWLINE1, NEWLINE_MANAGER_1_WORK);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_1_ANYWHERE);
 
       Stringer stringer = new Stringer(dc);
       stringer.setBreakWidth(160);
@@ -781,8 +836,8 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
       //shows the different between prop and mono
       textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_06_NEWLINE1, NEWLINE_MANAGER_1_WORK);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_1_ANYWHERE);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_14_MANAGER_NEWLINE1, NEWLINE_MANAGER_1_WORK);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_1_ANYWHERE);
 
       stringer.buildForDisplayWith(textFigure);
 
@@ -799,8 +854,8 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
    private Stringer getTestSetup1() {
       ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_06_NEWLINE1, NEWLINE_MANAGER_1_WORK);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_2_NICE_WORD);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_14_MANAGER_NEWLINE1, NEWLINE_MANAGER_1_WORK);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_2_NICE_WORD);
       textFigure.set1(IBOFigString.FIG_STRING_OFFSET_09_SPACE_TRIM1, SPACETRIM_1_NORMAL);
 
       Stringer stringer = new Stringer(dc);
@@ -966,10 +1021,10 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
    public void testWidthTrim() {
 
       ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_06_NEWLINE1, NEWLINE_MANAGER_1_WORK);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WORDWRAP1, WORDWRAP_2_NICE_WORD);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_14_MANAGER_NEWLINE1, NEWLINE_MANAGER_1_WORK);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_07_WRAP_WIDTH1, WORDWRAP_2_NICE_WORD);
       textFigure.set1(IBOFigString.FIG_STRING_OFFSET_09_SPACE_TRIM1, SPACETRIM_0_NONE);
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_08_MAXLINES1, 1);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_10_MAXLINES1, 1);
       textFigure.setFlag(IBOFigString.FIG_STRING_OFFSET_01_FLAG, IBOFigString.FIG_STRING_FLAG_3_TRIM_ARTIFACT, false);
 
       Stringer stringer = new Stringer(dc);
@@ -986,14 +1041,14 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       assertEquals(1, sm.getNumOfLines());
       assertEquals("Life is a long snake. It", sm.getLineString(0));
 
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_08_MAXLINES1, 1);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_10_MAXLINES1, 1);
       textFigure.setFlag(IBOFigString.FIG_STRING_OFFSET_01_FLAG, IBOFigString.FIG_STRING_FLAG_3_TRIM_ARTIFACT, true);
       stringer.buildForDisplayWith(textFigure);
 
       assertEquals(1, sm.getNumOfLines());
       assertEquals("Life is a long snake. ..", sm.getLineString(0));
 
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_08_MAXLINES1, 2);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_10_MAXLINES1, 2);
       textFigure.setFlag(IBOFigString.FIG_STRING_OFFSET_01_FLAG, IBOFigString.FIG_STRING_FLAG_3_TRIM_ARTIFACT, false);
       stringer.buildForDisplayWith(textFigure);
 
@@ -1002,7 +1057,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       assertEquals("Life is a long snake. It", sm.getLineString(0));
       assertEquals(" takes forever to reach", sm.getLineString(1));
 
-      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_08_MAXLINES1, 2);
+      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_10_MAXLINES1, 2);
       textFigure.setFlag(IBOFigString.FIG_STRING_OFFSET_01_FLAG, IBOFigString.FIG_STRING_FLAG_3_TRIM_ARTIFACT, true);
       stringer.buildForDisplayWith(textFigure);
 

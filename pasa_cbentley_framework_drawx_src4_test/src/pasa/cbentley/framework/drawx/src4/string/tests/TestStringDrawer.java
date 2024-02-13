@@ -14,10 +14,8 @@ import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOAnchor;
 
 /**
  * Test the {@link DrawerString} from the base draw module.
- * <br>
- * <br>
  * 
- * @author Mordan
+ * @author Charles Bentley
  *
  */
 public abstract class TestStringDrawer extends TestCaseFrameworkUiPluggedDrawX {

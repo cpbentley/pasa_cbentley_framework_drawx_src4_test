@@ -10,7 +10,7 @@ import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.FigureFactory;
 import pasa.cbentley.framework.drawx.src4.factories.FigureOperator;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigTriangle;
-import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOTblr;
+import pasa.cbentley.layouter.src4.tech.IBOTblr;
 
 public abstract class TestFigureOperator extends TestCaseFrameworkUiPluggedDrawX implements IBOTblr, ITechGradient {
 
@@ -21,7 +21,7 @@ public abstract class TestFigureOperator extends TestCaseFrameworkUiPluggedDrawX
    public TestFigureOperator() {
 
       setTestFlag(TEST_FLAG_17_IGNORE_OLD_IMAGES, false);
-      setTestFlag(TEST_FLAG_18_MANUAL_CHECK, false);
+      setTestFlag(TEST_FLAG_18_MANUAL_CHECK_ALL, false);
    }
 
    public void setupAbstractDrawX() {
@@ -72,7 +72,7 @@ public abstract class TestFigureOperator extends TestCaseFrameworkUiPluggedDrawX
       int h = 50;
 
       ByteObject grad = facGradient.getGradient(FULLY_OPAQUE_GREEN, 50, ITechGradient.GRADIENT_TYPE_TRIG_00_TENT);
-      ByteObject figTriangle = fac.getFigTriangle(FULLY_OPAQUE_ORANGE, C.ANGLE_UP_90, 5, grad);
+      ByteObject figTriangle = fac.getFigTriangleAngle(FULLY_OPAQUE_ORANGE, C.ANGLE_UP_90, 5, grad);
 
       assertEquals(true, figTriangle.hasFlag(IBOFigTriangle.FIG_TRIANGLE_OFFSET_01_FLAG1, IBOFigTriangle.FIG_TRIANGLE_FLAG_2_ANGLE360));
       assertEquals(false, figTriangle.hasFlag(IBOFigTriangle.FIG_TRIANGLE_OFFSET_01_FLAG1, IBOFigTriangle.FIG_TRIANGLE_FLAG_3_ANGLE_RATIO));
@@ -202,7 +202,7 @@ public abstract class TestFigureOperator extends TestCaseFrameworkUiPluggedDrawX
 
    public void testBorder() {
 
-      ByteObject tblr = facTBLR.getTBLR(4);
+      ByteObject tblr = facTBLR.getTBLRCoded(4);
       ByteObject gradBorder = facGradient.getGradient(FULLY_OPAQUE_WHITE, 100, GRADIENT_TYPE_RECT_02_VERT);
       ByteObject border1 = facFigure.getFigBorder(tblr, 5, 5, FULLY_OPAQUE_BLUE, gradBorder);
 

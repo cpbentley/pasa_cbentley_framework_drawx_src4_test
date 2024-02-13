@@ -2,7 +2,7 @@ package pasa.cbentley.framework.drawx.src4.ctx.tests;
 
 import pasa.cbentley.core.src4.ctx.UCtx;
 import pasa.cbentley.framework.coredraw.src4.ctx.IConfigCoreDraw;
-import pasa.cbentley.framework.coredraw.src4.interfaces.ITechDrawer;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechGraphics;
 
 /**
  * Configuration by default
@@ -16,10 +16,10 @@ public class ConfigCoreDrawTestAliasOn extends ConfigCoreDrawTest implements ICo
    }
 
    public int getAliasMode() {
-      return ITechDrawer.MODSET_APP_ALIAS_1_ON;
+      return ITechGraphics.MODSET_APP_ALIAS_1_ON;
    }
 
    public int getAliasModeText() {
-      return ITechDrawer.MODSET_APP_ALIAS_1_ON;
+      return ITechGraphics.MODSET_APP_ALIAS_1_ON;
    }
 }

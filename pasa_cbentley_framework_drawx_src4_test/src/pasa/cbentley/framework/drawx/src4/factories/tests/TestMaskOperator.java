@@ -10,7 +10,7 @@ import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.MaskFactory;
 import pasa.cbentley.framework.drawx.src4.factories.MaskOperator;
-import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOTblr;
+import pasa.cbentley.layouter.src4.tech.IBOTblr;
 
 public abstract class TestMaskOperator extends TestCaseFrameworkUiPluggedDrawX implements IBOTblr {
 

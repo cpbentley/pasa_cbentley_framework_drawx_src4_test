@@ -21,14 +21,19 @@ import pasa.cbentley.framework.drawx.src4.factories.BoxFactory;
 import pasa.cbentley.framework.drawx.src4.factories.FigureFactory;
 import pasa.cbentley.framework.drawx.src4.factories.FigureOperator;
 import pasa.cbentley.framework.drawx.src4.factories.MaskFactory;
-import pasa.cbentley.framework.drawx.src4.factories.TblrFactory;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOMask;
 import pasa.cbentley.framework.drawx.src4.tech.ITechFigure;
 import pasa.cbentley.framework.testing.gui.engine.TestCaseFrameworkUiPlugged;
 import pasa.cbentley.layouter.src4.ctx.LayouterCtx;
 import pasa.cbentley.layouter.src4.engine.LayoutOperator;
+import pasa.cbentley.layouter.src4.engine.TblrFactory;
 import pasa.cbentley.testing.engine.TestCaseBentley;
 
+/**
+ * 
+ * @author Charles Bentley
+ *
+ */
 public abstract class TestCaseFrameworkUiPluggedDrawX extends TestCaseFrameworkUiPlugged implements IBOTypesDrw, IBOMask, IColors, ITechFont, ITechGradient, ITechFigure {
 
    public TestCaseFrameworkUiPluggedDrawX() {
@@ -86,8 +91,6 @@ public abstract class TestCaseFrameworkUiPluggedDrawX extends TestCaseFrameworkU
     * Called at the end of {@link TestCaseBentley#setupAbstract()}
     */
    public abstract void setupAbstractDrawX();
-
-
 
    //#mdebug
    public void toString(Dctx dc) {

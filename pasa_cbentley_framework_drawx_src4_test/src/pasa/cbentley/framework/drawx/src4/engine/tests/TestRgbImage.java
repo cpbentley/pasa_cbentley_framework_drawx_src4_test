@@ -18,7 +18,7 @@ public abstract class TestRgbImage extends TestCaseFrameworkUiPluggedDrawX imple
    public TestRgbImage() {
 
       setTestFlag(TEST_FLAG_17_IGNORE_OLD_IMAGES, false);
-      setTestFlag(TEST_FLAG_18_MANUAL_CHECK, false);
+      setTestFlag(TEST_FLAG_18_MANUAL_CHECK_ALL, false);
 
    }
 

@@ -1,9 +1,7 @@
 package pasa.cbentley.framework.drawx.src4.ctx.tests;
 
-import pasa.cbentley.byteobjects.src4.core.ByteObject;
 import pasa.cbentley.byteobjects.src4.ctx.IBOTypesDrw;
 import pasa.cbentley.byteobjects.src4.objects.color.ColorFunctionFactory;
-import pasa.cbentley.byteobjects.src4.objects.color.ColorIterator;
 import pasa.cbentley.byteobjects.src4.objects.color.GradientFactory;
 import pasa.cbentley.byteobjects.src4.objects.color.ITechGradient;
 import pasa.cbentley.byteobjects.src4.objects.function.FunctionFactory;
@@ -16,14 +14,13 @@ import pasa.cbentley.framework.drawx.src4.factories.BoxFactory;
 import pasa.cbentley.framework.drawx.src4.factories.FigureFactory;
 import pasa.cbentley.framework.drawx.src4.factories.FigureOperator;
 import pasa.cbentley.framework.drawx.src4.factories.MaskFactory;
-import pasa.cbentley.framework.drawx.src4.factories.TblrFactory;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOMask;
 import pasa.cbentley.framework.drawx.src4.tech.ITechFigure;
 import pasa.cbentley.framework.testing.core.engine.TestCaseFramework;
-import pasa.cbentley.framework.testing.gui.engine.ITestUiPluggable;
-import pasa.cbentley.framework.testing.gui.engine.TestCaseFrameworkUiPlugged;
 import pasa.cbentley.layouter.src4.ctx.LayouterCtx;
 import pasa.cbentley.layouter.src4.engine.LayoutOperator;
+import pasa.cbentley.layouter.src4.engine.SizerFactory;
+import pasa.cbentley.layouter.src4.engine.TblrFactory;
 
 public abstract class TestCaseFrameworkDrawX extends TestCaseFramework implements IBOTypesDrw, IBOMask, IColors, ITechFont, ITechGradient, ITechFigure {
 
@@ -51,16 +48,18 @@ public abstract class TestCaseFrameworkDrawX extends TestCaseFramework implement
 
    protected TblrFactory          facTBLR;
 
+   protected SizerFactory         facSizer;
+
    private LayouterCtx            lac;
 
    public TestCaseFrameworkDrawX() {
    }
 
-
    public void setupAbstract() {
       super.setupAbstract();
       lac = new LayouterCtx(boc);
       drc = new DrwCtx(cdc, lac);
+      facSizer = lac.getFactorySizer();
       facBox = drc.getBoxFactory();
       facColorFun = drc.getColorFunctionFactory();
       opFigure = drc.getFigureOperator();
@@ -71,7 +70,7 @@ public abstract class TestCaseFrameworkDrawX extends TestCaseFramework implement
       facMask = drc.getMaskFactory();
       facMergeMask = boc.getMergeMaskFactory();
       rgbCache = drc.getCache();
-      facTBLR = drc.getTblrFactory();
+      facTBLR = lac.getTblrFactory();
       setupAbstractDrawX();
    }
 

@@ -9,7 +9,7 @@ public abstract class TestGraphicsXTransformations extends TestCaseFrameworkUiPl
    public TestGraphicsXTransformations() {
       
       setTestFlag(TEST_FLAG_17_IGNORE_OLD_IMAGES, false);
-      setTestFlag(TEST_FLAG_18_MANUAL_CHECK, false);
+      setTestFlag(TEST_FLAG_18_MANUAL_CHECK_ALL, false);
    }
 
    /**
