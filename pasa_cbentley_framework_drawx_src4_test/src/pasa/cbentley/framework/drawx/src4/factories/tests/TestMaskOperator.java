@@ -1,7 +1,7 @@
 package pasa.cbentley.framework.drawx.src4.factories.tests;
 
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
-import pasa.cbentley.byteobjects.src4.ctx.IBOTypesDrw;
+import pasa.cbentley.byteobjects.src4.ctx.IBOTypesBOC;
 import pasa.cbentley.byteobjects.src4.objects.color.ITechGradient;
 import pasa.cbentley.core.src4.utils.interfaces.IColors;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
@@ -31,7 +31,7 @@ public abstract class TestMaskOperator extends TestCaseFrameworkUiPluggedDrawX i
       ByteObject filter = null;
       ByteObject mask = facMask.getMaskPreset(0, filter, figure);
 
-      assertEquals(null, mask.getSubFirst(IBOTypesDrw.TYPE_056_COLOR_FILTER));
+      assertEquals(null, mask.getSubFirst(IBOTypesBOC.TYPE_040_COLOR_FILTER));
    }
 
    public void testCreateMaskedFigure() {

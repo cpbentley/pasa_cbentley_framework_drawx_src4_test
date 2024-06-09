@@ -40,6 +40,13 @@ public class TestStringerSwing extends TestStringer {
       return new TestFrameworkUiSwingCtx(boc);
    }
 
+   public void test5LinesAnchorRightBottom() {
+      super.test5LinesAnchorRightBottom();
+   }
+   
+   public void test5LinesAnchorCenter() {
+      super.test5LinesAnchorCenter();
+   }
    public void testFxMaskScopeWord() {
       super.testFxMaskScopeWord();
    }

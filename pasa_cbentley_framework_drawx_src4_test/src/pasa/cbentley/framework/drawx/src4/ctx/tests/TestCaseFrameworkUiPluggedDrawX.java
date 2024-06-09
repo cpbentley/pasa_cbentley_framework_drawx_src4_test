@@ -1,7 +1,6 @@
 package pasa.cbentley.framework.drawx.src4.ctx.tests;
 
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
-import pasa.cbentley.byteobjects.src4.ctx.IBOTypesDrw;
 import pasa.cbentley.byteobjects.src4.objects.color.ColorFunctionFactory;
 import pasa.cbentley.byteobjects.src4.objects.color.ColorIterator;
 import pasa.cbentley.byteobjects.src4.objects.color.GradientFactory;
@@ -13,6 +12,7 @@ import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.core.src4.utils.interfaces.IColors;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 import pasa.cbentley.framework.drawx.src4.ctx.DrwCtx;
+import pasa.cbentley.framework.drawx.src4.ctx.IBOTypesDrawX;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbCache;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
@@ -34,7 +34,7 @@ import pasa.cbentley.testing.engine.TestCaseBentley;
  * @author Charles Bentley
  *
  */
-public abstract class TestCaseFrameworkUiPluggedDrawX extends TestCaseFrameworkUiPlugged implements IBOTypesDrw, IBOMask, IColors, ITechFont, ITechGradient, ITechFigure {
+public abstract class TestCaseFrameworkUiPluggedDrawX extends TestCaseFrameworkUiPlugged implements IBOTypesDrawX, IBOMask, IColors, ITechFont, ITechGradient, ITechFigure {
 
    public TestCaseFrameworkUiPluggedDrawX() {
    }

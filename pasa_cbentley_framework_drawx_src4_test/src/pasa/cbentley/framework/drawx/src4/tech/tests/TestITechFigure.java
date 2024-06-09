@@ -1,6 +1,7 @@
 package pasa.cbentley.framework.drawx.src4.tech.tests;
 
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
+import pasa.cbentley.byteobjects.src4.ctx.IBOTypesBOC;
 import pasa.cbentley.byteobjects.src4.ctx.IToStringFlagsBO;
 import pasa.cbentley.byteobjects.src4.objects.color.IBOGradient;
 import pasa.cbentley.byteobjects.src4.objects.pointer.IBOMergeMask;
@@ -9,9 +10,9 @@ import pasa.cbentley.core.src4.utils.ColorUtils;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkDrawX;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigPixels;
-import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigString;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigTriangle;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigure;
+import pasa.cbentley.framework.drawx.src4.string.interfaces.IBOFigString;
 import pasa.cbentley.layouter.src4.ctx.IBOTypesLayout;
 import pasa.cbentley.layouter.src4.engine.Anchor32Bits;
 import pasa.cbentley.layouter.src4.tech.ITechLayout;
@@ -104,8 +105,8 @@ public class TestITechFigure extends TestCaseFrameworkDrawX {
       assertEquals(maskOpenColor, mask.get4(MASK_OFFSET_4_COLOR_SHAPE4));
       assertEquals(bgFondu, mask.get1(MASK_OFFSET_8_ALPHA_BG1));
       assertEquals(openFondu, mask.get1(MASK_OFFSET_9_ALPHA_SHAPE1));
-      assertEquals(bgFigure, mask.getSubFirst(TYPE_050_FIGURE));
-      assertEquals(maskFilter, mask.getSubFirst(TYPE_056_COLOR_FILTER));
+      assertEquals(bgFigure, mask.getSubFirst(TYPE_DRWX_00_FIGURE));
+      assertEquals(maskFilter, mask.getSubFirst(IBOTypesBOC.TYPE_040_COLOR_FILTER));
 
    }
 
@@ -141,10 +142,10 @@ public class TestITechFigure extends TestCaseFrameworkDrawX {
       //not set. the rectangle takes
       assertEquals(0, border.getValue(IBOFigure.FIG__OFFSET_06_COLOR4, 4));
 
-      ByteObject rect = border.getSubFirst(TYPE_050_FIGURE);
+      ByteObject rect = border.getSubFirst(TYPE_DRWX_00_FIGURE);
       assertEquals(color, rect.getValue(IBOFigure.FIG__OFFSET_06_COLOR4, 4));
 
-      assertNotNull(rect.getSubFirst(TYPE_059_GRADIENT));
+      assertNotNull(rect.getSubFirst(IBOTypesBOC.TYPE_038_GRADIENT));
    }
 
    public void testGradient() {

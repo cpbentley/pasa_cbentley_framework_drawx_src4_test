@@ -5,6 +5,7 @@ import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDr
 import pasa.cbentley.framework.drawx.src4.string.FxStringFactory;
 import pasa.cbentley.framework.drawx.src4.string.FxStringOperator;
 import pasa.cbentley.framework.drawx.src4.string.interfaces.IBOFxStr;
+import pasa.cbentley.framework.drawx.src4.string.interfaces.ITechStringDrw;
 import pasa.cbentley.layouter.src4.tech.IBOTblr;
 
 public abstract class TestFxStringOperator extends TestCaseFrameworkUiPluggedDrawX implements IBOTblr, IBOFxStr {
@@ -30,7 +31,7 @@ public abstract class TestFxStringOperator extends TestCaseFrameworkUiPluggedDra
       assertEquals(false, fxSelect.hasFlag(FX_OFFSET_02_FLAGX, FX_FLAGX_4_UNDEFINED_COLOR));
       assertEquals(true, fxSelect.hasFlag(FX_OFFSET_02_FLAGX, FX_FLAGX_5_UNDEFINED_SCOPE));
       assertEquals(true, fxSelect.hasFlag(FX_OFFSET_02_FLAGX, FX_FLAGX_8_INCOMPLETE));
-      assertEquals(FX_SCOPE_1_CHAR, fxSelect.get1(FX_OFFSET_05_SCOPE_FX1));
+      assertEquals(ITechStringDrw.FX_SCOPE_1_CHAR, fxSelect.get1(FX_OFFSET_05_SCOPE_FX1));
       assertEquals(true, fxSelect.hasFlag(FX_OFFSET_03_FLAGY, FX_FLAGY_2_FIGURE));
       assertEquals(false, fxSelect.hasFlag(FX_OFFSET_03_FLAGY, FX_FLAGY_3_MASK));
 
@@ -39,7 +40,7 @@ public abstract class TestFxStringOperator extends TestCaseFrameworkUiPluggedDra
       ByteObject strFig = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
 
       ByteObject root = facStringFx.createFxFromFigure(strFig);
-      assertEquals(FX_SCOPE_0_TEXT, root.get1(FX_OFFSET_05_SCOPE_FX1));
+      assertEquals(ITechStringDrw.FX_SCOPE_0_TEXT, root.get1(FX_OFFSET_05_SCOPE_FX1));
 
       ByteObject merged = op.mergeTxtEffects(root, merge);
 
@@ -54,9 +55,9 @@ public abstract class TestFxStringOperator extends TestCaseFrameworkUiPluggedDra
 
       assertEquals(FULLY_OPAQUE_GREEN, merged.get4(FX_OFFSET_09_COLOR4));
 
-      assertEquals(figBgFx, merged.getSubFirst(TYPE_050_FIGURE));
+      assertEquals(figBgFx, merged.getSubFirst(TYPE_DRWX_00_FIGURE));
 
-      assertEquals(FX_SCOPE_0_TEXT, merged.get1(FX_OFFSET_05_SCOPE_FX1));
+      assertEquals(ITechStringDrw.FX_SCOPE_0_TEXT, merged.get1(FX_OFFSET_05_SCOPE_FX1));
 
       //check flags
       assertEquals(false, merged.hasFlag(FX_OFFSET_02_FLAGX, FX_FLAGX_1_UNDEFINED_FONT_FACE));
@@ -88,19 +89,19 @@ public abstract class TestFxStringOperator extends TestCaseFrameworkUiPluggedDra
       assertEquals(false, fxSelect.hasFlag(FX_OFFSET_03_FLAGY, FX_FLAGY_2_FIGURE));
       assertEquals(true, fxSelect.hasFlag(FX_OFFSET_03_FLAGY, FX_FLAGY_3_MASK));
 
-      assertEquals(FX_SCOPE_1_CHAR, fxSelect.get1(FX_OFFSET_05_SCOPE_FX1));
+      assertEquals(ITechStringDrw.FX_SCOPE_1_CHAR, fxSelect.get1(FX_OFFSET_05_SCOPE_FX1));
 
       ByteObject merge = fxSelect;
       ByteObject strFig = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
       ByteObject root = facStringFx.createFxFromFigure(strFig);
-      assertEquals(FX_SCOPE_0_TEXT, root.get1(FX_OFFSET_05_SCOPE_FX1));
+      assertEquals(ITechStringDrw.FX_SCOPE_0_TEXT, root.get1(FX_OFFSET_05_SCOPE_FX1));
 
       ByteObject merged = op.mergeTxtEffects(root, merge);
       
 
-      assertEquals(mask, merged.getSubFirst(TYPE_058_MASK));
+      assertEquals(mask, merged.getSubFirst(TYPE_DRWX_06_MASK));
 
-      assertEquals(FX_SCOPE_0_TEXT, merged.get1(FX_OFFSET_05_SCOPE_FX1));
+      assertEquals(ITechStringDrw.FX_SCOPE_0_TEXT, merged.get1(FX_OFFSET_05_SCOPE_FX1));
       assertEquals(FACE_MONOSPACE, merged.get1(FX_OFFSET_06_FACE1));
       assertEquals(STYLE_BOLD, merged.get1(FX_OFFSET_07_STYLE1));
       assertEquals(SIZE_3_MEDIUM, merged.get1(FX_OFFSET_08_SIZE1));
