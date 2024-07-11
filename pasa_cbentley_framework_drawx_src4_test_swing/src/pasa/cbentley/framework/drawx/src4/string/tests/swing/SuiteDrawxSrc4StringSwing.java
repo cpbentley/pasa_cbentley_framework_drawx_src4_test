@@ -9,7 +9,7 @@ public class SuiteDrawxSrc4StringSwing extends TestSuite {
    public static Test suite() {
 
       TestSuite suite = new TestSuite("Test String Swing");
-      suite.addTestSuite(TestStringMetrics.class);
+      suite.addTestSuite(TestStringMetricsSwing.class);
       suite.addTestSuite(TestStringDrawerSwing.class);
       suite.addTestSuite(TestStringerSwing.class);
       

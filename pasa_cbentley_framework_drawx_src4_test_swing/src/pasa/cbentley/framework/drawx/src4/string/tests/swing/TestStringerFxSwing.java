@@ -1,18 +1,17 @@
 package pasa.cbentley.framework.drawx.src4.string.tests.swing;
 
-import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.framework.coredraw.src4.ctx.IConfigCoreDraw;
 import pasa.cbentley.framework.drawx.src4.ctx.tests.swing.ConfigCoreDrawSwingTest;
-import pasa.cbentley.framework.drawx.src4.string.tests.TestStringer;
+import pasa.cbentley.framework.drawx.src4.string.tests.TestStringerFx;
 import pasa.cbentley.framework.testing.core.ctx.TestFrameworkCtx;
 import pasa.cbentley.framework.testing.gui.engine.FrameworkPlugAbstractGui;
 import pasa.cbentley.framework.testing.gui.swing.FrameworkPlugGuiSwing;
 import pasa.cbentley.framework.testing.gui.swing.ctx.TestFrameworkUiSwingCtx;
 import pasa.cbentley.testing.ctx.TestCtx;
 
-public class TestStringerSwing extends TestStringer {
+public class TestStringerFxSwing extends TestStringerFx {
 
-   public TestStringerSwing() {
+   public TestStringerFxSwing() {
       setTestFlag(TEST_FLAG_01_PRINT_ANYWAYS, false);
       setTestFlag(TEST_FLAG_03_HIDE_OUT_SUCCESSES, false);
       setTestFlag(TEST_FLAG_05_SHOW_OUT_INIT, false);
@@ -25,6 +24,10 @@ public class TestStringerSwing extends TestStringer {
 
    }
 
+   public IConfigCoreDraw getConfigCoreDraw() {
+      return new ConfigCoreDrawSwingTest(uc);
+   }
+
    public FrameworkPlugAbstractGui createFrameworkPlug(TestFrameworkCtx tfc) {
       return new FrameworkPlugGuiSwing((TestFrameworkUiSwingCtx) tfc);
    }
@@ -33,41 +36,24 @@ public class TestStringerSwing extends TestStringer {
       return new TestFrameworkUiSwingCtx(boc);
    }
 
-   public IConfigCoreDraw getConfigCoreDraw() {
-      return new ConfigCoreDrawSwingTest(uc);
+   public void testBackgroundFigureLineAlone() {
+      super.testBackgroundFigureLineAlone();
+   }
+   
+   public void testBackgroundFigureLineSelect() {
+      super.testBackgroundFigureLineSelect();
    }
 
-
-   public void testAddLayer() {
-      super.testAddLayer();
+   public void testBackgroundFigure() {
+      super.testBackgroundFigure();
    }
 
-   public void testDrawOffsets() {
-      super.testDrawOffsets();
+   public void testFxSelectLayerSimple() {
+      super.testFxSelectLayerSimple();
    }
 
-
-   public void testWordIntervals() {
-      super.testWordIntervals();
+   public void testFxSelectLayerSimple1() {
+      super.testFxSelectLayerSimple1();
    }
-
-   //#mdebug
-   public void toString(Dctx dc) {
-      dc.root(this, TestStringerSwing.class, "@line5");
-      toStringPrivate(dc);
-      super.toString(dc.sup());
-   }
-
-   public void toString1Line(Dctx dc) {
-      dc.root1Line(this, TestStringerSwing.class);
-      toStringPrivate(dc);
-      super.toString1Line(dc.sup1Line());
-   }
-
-   private void toStringPrivate(Dctx dc) {
-
-   }
-
-   //#enddebug
 
 }

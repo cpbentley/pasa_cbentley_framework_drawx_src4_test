@@ -6,18 +6,14 @@ import pasa.cbentley.core.src4.ctx.UCtx;
 import pasa.cbentley.core.src4.logging.IDLogConfig;
 import pasa.cbentley.core.src4.logging.ILogConfigurator;
 import pasa.cbentley.core.src4.logging.ITechLvl;
-import pasa.cbentley.core.src4.utils.StringUtils;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontCustomizer;
-import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDrawX;
 import pasa.cbentley.framework.drawx.src4.string.StringFx;
 import pasa.cbentley.framework.drawx.src4.string.StringMetrics;
 import pasa.cbentley.framework.drawx.src4.string.Stringer;
-import pasa.cbentley.framework.drawx.src4.string.StringerEditor;
-import pasa.cbentley.framework.drawx.src4.string.interfaces.IBOFigString;
 import pasa.cbentley.framework.drawx.src4.string.interfaces.ITechStringer;
 import pasa.cbentley.testing.engine.ConfigUTest;
 
@@ -56,6 +52,45 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       });
 
       return configTest;
+   }
+
+   private ByteObject getStrFigOrangeMediumNiceWordNormalTrimNewLineworkSpaceTab(int maxLines) {
+      ByteObject strAuxFormat = facStrAux.getStrAuxFormat_NiceWordNormalTrim(maxLines);
+      ByteObject auxSpecials = facStrAux.getStrAuxSpecials_NewLineWorkSingleSpaceTab();
+      ByteObject strFig = facStrAux.getFigStringMonoPlain(SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE, strAuxFormat, auxSpecials);
+      return strFig;
+   }
+
+   private Stringer getTestSetup1() {
+      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+
+      Stringer stringer = new Stringer(dc);
+      stringer.setBreakWidth(240);
+
+      char[] chars = "###Life is a long snake. It takes forever to reach the tail. And once you get to it. What?##".toCharArray();
+      int offset = 3;
+      int len = chars.length - 5;
+      stringer.setTextFigure(textFigure);
+      stringer.setString(chars, offset, len);
+      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
+      stringer.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
+      stringer.setSpaceTrimManager(SPACETRIM_1_NORMAL);
+      stringer.buildFxAndMeter();
+
+      StringMetrics sm = stringer.getMetrics();
+
+      assertEquals(4, sm.getNumOfLines());
+
+      assertEquals("Life is a long snake. It", sm.getLineString(0));
+      assertEquals("takes forever to reach", sm.getLineString(1));
+      assertEquals("the tail. And once you", sm.getLineString(2));
+      assertEquals("get to it. What?", sm.getLineString(3));
+
+      assertEquals(240, sm.getLineWidth(0));
+      assertEquals(220, sm.getLineWidth(1));
+      assertEquals(220, sm.getLineWidth(2));
+      assertEquals(160, sm.getLineWidth(3));
+      return stringer;
    }
 
    private void setFontsToMonoidAleo() {
@@ -126,118 +161,169 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
    }
 
-   public void testCharWidthMono() {
+   public void testBigText() {
+      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_1_TINY, FULLY_OPAQUE_ORANGE);
 
-      IMFont f = drc.getCoreDrawCtx().getFontFactory().getFont(FACE_MONOSPACE, STYLE_PLAIN, SIZE_3_MEDIUM);
+      char[] data = uc.getIOU().readFileAsChars("/the_ivy_green.txt", "UTF-8");
 
-      assertEquals(7, f.charWidth('|'));
-      assertEquals(7, f.charWidth(StringUtils.ENGLISH_SPACE));
-      assertEquals(7, f.charWidth(StringUtils.INTER_PUNCT));
-      assertEquals(7, f.charWidth(StringUtils.EM_QUAD));
-      assertEquals(7, f.charWidth(StringUtils.EN_QUAD));
-      assertEquals(7, f.charWidth(StringUtils.EM_SPACE));
-      assertEquals(7, f.charWidth(StringUtils.EN_SPACE));
-      assertEquals(7, f.charWidth(StringUtils.SIX_PER_EM_SPACE));
-      assertEquals(7, f.charWidth(StringUtils.FOUR_PER_EM_SPACE));
-      assertEquals(7, f.charWidth(StringUtils.THREE_PER_EM_SPACE));
+      assertNotNull(data);
+
+      Stringer stringer = new Stringer(dc);
+      int margin = 5;
+      int areaW = 310;
+      int areaH = 410;
+      stringer.setAreaXYWH(margin, margin, areaW, areaH);
+      stringer.setBreakWidth(500); //does nothing in word wrap none
+      stringer.ToStringSetDebugArea(true);
+      stringer.setTextFigure(textFigure);
+      stringer.setString(data, 0, data.length);
+      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
+      stringer.setSpaceTrimManager(SPACETRIM_1_NORMAL);
+      stringer.setFormatWordwrap(WORDWRAP_0_NONE);
+
+      stringer.buildFxAndMeter();
+
+      StringMetrics sm = stringer.getMetrics();
+      assertEquals("Oh, a dainty plant is the Ivy green,", sm.getLineString(0));
+      assertEquals("That creepeth o'er ruins old!", sm.getLineString(1));
+      assertEquals("Of right choice food are his meals, I ween,", sm.getLineString(2));
+      assertEquals("In his cell so lone and cold.", sm.getLineString(3));
+
+      assertEquals(34, stringer.getNumOfLines());
+
+      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_4_WORK_SHOW);
+      stringer.buildFxAndMeter();
+
    }
 
-   public void testCharWidthProp() {
+   public void testBreakHeight1() {
+      //setFontsToMonoidAleo();
 
-      IMFont f = drc.getCoreDrawCtx().getFontFactory().getFont(FACE_PROPORTIONAL, STYLE_PLAIN, SIZE_3_MEDIUM);
+      ByteObject strFig = facFigure.getFigStringMonoPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
-      assertEquals(16, f.getHeight());
-      assertEquals(3, f.charWidth(' '));
-      assertEquals(11, f.charWidth('m'));
-      assertEquals(11, f.charWidth('W'));
-      assertEquals(3, f.charWidth('i'));
-      assertEquals(3, f.charWidth('|'));
-      assertEquals(7, f.charWidth('d'));
-      assertEquals(3, f.charWidth(StringUtils.ENGLISH_SPACE));
-      assertEquals(3, f.charWidth(StringUtils.INTER_PUNCT));
-      assertEquals(12, f.charWidth(StringUtils.EM_QUAD));
-      assertEquals(6, f.charWidth(StringUtils.EN_QUAD));
-      assertEquals(12, f.charWidth(StringUtils.EM_SPACE));
-      assertEquals(6, f.charWidth(StringUtils.EN_SPACE));
-      assertEquals(2, f.charWidth(StringUtils.SIX_PER_EM_SPACE));
-      assertEquals(3, f.charWidth(StringUtils.FOUR_PER_EM_SPACE));
-      assertEquals(4, f.charWidth(StringUtils.THREE_PER_EM_SPACE));
+      assertNotNull(data);
+      Stringer st = new Stringer(dc);
 
-      assertEquals(8, f.charWidth(StringUtils.BACKSPACE));
-      assertEquals(8, f.charWidth('\b'));
-      assertEquals(8, f.charWidth('【'));
-      assertEquals(8, f.charWidth('】'));
-      assertEquals("【】", "【】");
-      assertEquals(8, f.charWidth(StringUtils.FORM_FEED));
-      assertEquals(8, f.charWidth(StringUtils.NULL_CHAR));
-      assertEquals(8, f.charWidth(StringUtils.START_HEADING));
-      assertEquals(8, f.charWidth(StringUtils.START_TEXT));
-      assertEquals(8, f.charWidth(StringUtils.END_TEXT));
-      assertEquals(8, f.charWidth(StringUtils.END_TRANSMISSION));
+      st.setBreakWidth(200);
+      st.setBreakHeight(40); //key call to enforce fit height
 
-      assertEquals(0, f.charWidth(StringUtils.TAB));
-      assertEquals(0, f.charWidth(StringUtils.TAB_CHAR));
-      assertEquals(8, f.charWidth(StringUtils.TAB_LINE));
+      st.setTextFigure(strFig);
+      st.setString(this.data);
+      st.setTrimArtifacts(true);
+      st.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
+      st.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
+      st.setFormatLineWrap(LINEWRAP_1_ANYWHERE);
+      st.setSpaceTrimManager(SPACETRIM_1_NORMAL);
 
-      assertEquals(8, f.charWidth(StringUtils.PUA_START));
-      assertEquals(8, f.charWidth(StringUtils.PUA_END));
+      //no max lines.. its the height of the area that defines the number of lines
+      st.setBreakMaxLines(0); //explicitely set it to infinite.
 
-      //look the same but are different.. font of editor does not have glyphs for all characters
-      assertEquals("→", String.valueOf(StringUtils.ARROW_RIGHT));
-      assertEquals("⎵", String.valueOf(StringUtils.BOTTOM_SQUARE_BRACKET));
-      assertEquals("⏎", String.valueOf(StringUtils.SYMBOL_RETURN));
-      assertEquals("␠", String.valueOf(StringUtils.SYMBOL_FOR_SPACE));
-      assertEquals("·", String.valueOf(StringUtils.INTER_PUNCT));
-      assertEquals("", String.valueOf(StringUtils.BACKSPACE));
-      assertEquals("", String.valueOf(StringUtils.FORM_FEED));
-      assertEquals("", String.valueOf(StringUtils.START_HEADING));
-      assertEquals(" ", String.valueOf(StringUtils.LINE_SEPARATOR));
-      assertEquals(" ", String.valueOf(StringUtils.LINE_SEPARATOR));
+      st.buildFxAndMeter();
 
-      assertEquals(StringUtils.FORM_FEED_F, StringUtils.FORM_FEED);
+      StringMetrics sm = st.getMetrics();
 
-      assertEquals(0, f.charWidth(StringUtils.NEW_LINE));
-      assertEquals(0, f.charWidth(StringUtils.NEW_LINE_CARRIAGE_RETURN));
-      assertEquals(0, f.charWidth(StringUtils.LINE_SEPARATOR));
+      assertEquals(2, st.getNumOfLines());
 
-      assertEquals(6, f.charWidth(StringUtils.FIGURE_SPACE));
-      assertEquals(6, f.charWidth('0'));
-      assertEquals(6, f.charWidth('9'));
+      assertEquals(10, sm.getLine(0).getWidthMono());
+      assertEquals(10, sm.getLine(1).getWidthMono());
 
-      assertEquals(0, f.charWidth(StringUtils.UTF8_BOM_CHAR));
+      assertEquals(200, st.getBreakW());
+      assertEquals(40, st.getBreakH());
 
-      String unicodeString = "The unicode for Omega is: \\u03A9";
-      System.out.println(unicodeString);
+      assertEquals("Hello I'm Joe! I wou", sm.getLineString(0));
+      assertEquals("ld like to eat som..", sm.getLineString(1));
 
-      char quoteChar = 34; // ASCII value of "
-      String quote = quoteChar + "To be or not to be, that is the question." + quoteChar;
-      System.out.println(quote);
+      assertEquals(20, sm.getLine(0).getNumCharVisible());
+      assertEquals(20, sm.getLine(1).getNumCharVisible());
+
+      assertEquals(true, st.hasFlagState(ITechStringer.STATE_04_TRIMMED));
+
+   }
+
+   public void testBreakHeight2() {
+      setFontsToMonoidAleo();
+
+      ByteObject strFig = facFigure.getFigStringMonoPlain(SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
+
+      assertNotNull(data);
+      Stringer st = new Stringer(dc);
+      int margin = 5;
+      int areaW = 200;
+      int areaH = 40;
+      st.setAreaXYWH(margin, margin, areaW, areaH);
+      st.setBreakWidth(areaW - 5);
+      st.setBreakHeight(areaH - 5); //key call to enforce fit height
+      st.ToStringSetDebugArea(true);
+      st.setTextFigure(strFig);
+      st.setString(this.data);
+      st.setTrimArtifacts(true);
+      st.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
+      st.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
+      st.setFormatLineWrap(LINEWRAP_1_ANYWHERE);
+      st.setSpaceTrimManager(SPACETRIM_1_NORMAL);
+
+      st.buildFxAndMeter();
+
+      StringMetrics sm = st.getMetrics();
+      assertEquals("Hello I'm Joe! I would", sm.getLineString(0));
+      assertEquals("like to eat some me..", sm.getLineString(1));
+
+      assertEquals(2, st.getNumOfLines());
+
+      assertEquals(true, st.hasFlagState(ITechStringer.STATE_04_TRIMMED));
+
+   }
+
+   public void testCharPositions() {
+
+      Stringer stringer = getTestSetup1();
+
+      StringMetrics sm = stringer.getMetrics();
+
+      assertEquals(0, sm.getCharX(0));
+      assertEquals(10, sm.getCharX(1));
+      assertEquals(20, sm.getCharX(2));
+      
+      assertEquals(0, sm.getCharY(0));
+      assertEquals(0, sm.getCharY(1));
+      assertEquals(19, sm.getCharY(26));
+
+   }
+
+   public void testEmptyFictiveLine() {
+      ByteObject strAuxFormat = facStrAux.getStrAuxFormat_NiceWordNormalTrim();
+      ByteObject strAuxNewLine = facStrAux.getStrAuxSpecials_NewLineWorkSingleSpaceTab();
+
+      ByteObject textFigure = facStrAux.getFigStringMonoPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE, strAuxFormat, strAuxNewLine);
+
+      Stringer stringer = new Stringer(dc);
+      stringer.setTextFigure(textFigure);
+      //before using. must build
+      stringer.buildAgain();
+
+      StringMetrics sm = stringer.getMetrics();
+
+      assertEquals(1, sm.getNumOfLines());
+      assertEquals("", sm.getLineString(0));
+
+      assertEquals(0, stringer.getLen());
    }
 
    public void testEmptyString() {
       //we have a empty line at a minimum
-      int maxLines = 2;
-      ByteObject strAuxFormat = facStrAux.getStrAuxFormat_NiceHyphenation(maxLines,false);
-      ByteObject strAuxNewLine = facStrAux.getStrAuxSpecials_NewLineWorkSingleSpaceTab();
 
-      ByteObject textFigure = facStrAux.getFigStringSystemPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE, strAuxFormat, strAuxNewLine);
-      
+      ByteObject textFigure = facStrAux.getFigStringSystemPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+
       Stringer stringer = new Stringer(dc);
 
       stringer.buildForDisplayWith(textFigure, "");
-
-      assertEquals(0, stringer.getBreakH()); //default value if not setup
-      assertEquals(0, stringer.getBreakW()); //default value if not setup
-      assertEquals(maxLines, stringer.getBreakMaxLines());
-      assertEquals(SPECIALS_NEWLINE_3_WORK, stringer.getDirectiveNewLine());
-      assertEquals(WORDWRAP_3_NICE_HYPHENATION, stringer.getWordwrap());
 
       StringMetrics sm = stringer.getMetrics();
 
       //we have a empty line at a minimum
       assertEquals(1, sm.getNumOfLines());
-      assertEquals(21, sm.getLineHeight());
       assertEquals(21, sm.getLineHeight(0));
+      assertEquals(21, sm.getLineHeight());
       assertEquals(0, sm.getLineWidth(0));
 
       //#debug
@@ -282,7 +368,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       stringer.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
       stringer.setSpaceTrimManager(SPACETRIM_0_NONE);
       stringer.buildFxAndMeter();
-      
+
       StringMetrics sm = stringer.getMetrics();
       assertEquals(4, sm.getNumOfLines());
 
@@ -293,119 +379,209 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
       //space trim only works with nice words
       stringer.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
-      stringer.setSpaceTrimManager(SPACETRIM_1_NORMAL);
+      stringer.setSpaceTrimManager(SPACETRIM_0_NONE);
       stringer.buildFxAndMeter();
 
       assertEquals(4, sm.getNumOfLines());
-      assertEquals("Words often goes", sm.getLineString(0)); //prefix space is gone
+      assertEquals("  Words often goes  ", sm.getLineString(0)); //prefix space is gone
       assertEquals("along well with a", sm.getLineString(1));
       //does not remove double spaces inside text
-      assertEquals("sentence . It   is such", sm.getLineString(2));
-      assertEquals("a nice   evening today.", sm.getLineString(3));
+      assertEquals("sentence . It   is such  a", sm.getLineString(2));
+      assertEquals("nice   evening today.", sm.getLineString(3));
 
    }
 
-   /**
-    * 
-    */
-   public void testFormFeed() {
-      ByteObject textFigure = facFigure.getFigString(FACE_SYSTEM, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+   public void testJustify2Words() {
+
+      ByteObject strFig = facFigure.getFigStringSystemPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
-      stringer.setNumLinesPerPage(4);
 
-      char[] chars = "###Words often goes. \f It is such a nice evening today.##".toCharArray();
+      int margin = 5;
+      int areaW = 260;
+      int areaH = 100;
+
+      stringer.setAreaXYWH(margin, margin, areaW, areaH);
+      stringer.setBreakWidth(240);
+      StringMetrics sm = stringer.getMetrics();
+
+      char[] chars = "###Life and Death.##".toCharArray();
       int offset = 3;
       int len = chars.length - 5;
-      stringer.setTextFigure(textFigure);
+      stringer.setTextFigure(strFig);
       stringer.setString(chars, offset, len);
+      stringer.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
+      stringer.setSpaceTrimManager(SPACETRIM_2_JUSTIFIED);
+
+      stringer.buildFxAndMeter();
+
+      assertEquals(1, sm.getNumOfLines());
+      assertEquals("Life and Death.", sm.getLineString(0));
+      assertEquals(240, sm.getLineWidth(0));
+
+      stringer.setSpaceTrimManager(SPACETRIM_0_NONE);
+
+      stringer.buildFxAndMeter();
+
+      assertEquals(1, sm.getNumOfLines());
+      assertEquals("Life and Death.", sm.getLineString(0));
+      assertEquals(106, sm.getLineWidth(0));
+   }
+
+   public void testJustify2WordsOne2Lines() {
+
+      ByteObject strFig = facFigure.getFigStringSystemPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+
+      Stringer stringer = new Stringer(dc);
+
+      int margin = 5;
+      int areaW = 260;
+      int areaH = 100;
+
+      stringer.setAreaXYWH(margin, margin, areaW, areaH);
+      stringer.setBreakWidth(240);
+      StringMetrics sm = stringer.getMetrics();
+
+      char[] chars = "###Life and Death.\nTrue and False##".toCharArray();
+      int offset = 3;
+      int len = chars.length - 5;
+      stringer.setTextFigure(strFig);
+      stringer.setString(chars, offset, len);
+      stringer.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
       stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
+
+      stringer.setSpaceTrimManager(SPACETRIM_0_NONE);
+      stringer.buildFxAndMeter();
+
+      assertEquals(2, sm.getNumOfLines());
+      assertEquals("Life and Death.", sm.getLineString(0));
+      assertEquals("True and False", sm.getLineString(1));
+      assertEquals(106, sm.getLineWidth(0));
+      assertEquals(104, sm.getLineWidth(1));
+
+      stringer.setSpaceTrimManager(SPACETRIM_2_JUSTIFIED);
+
+      stringer.buildFxAndMeter();
+
+      assertEquals(2, sm.getNumOfLines());
+      assertEquals("Life and Death.", sm.getLineString(0));
+      assertEquals("True and False", sm.getLineString(1));
+      assertEquals(240, sm.getLineWidth(0));
+      assertEquals(240, sm.getLineWidth(1));
+
+      //NOTE: a forced new line removes leading and trailing spaces ?
+      chars = "###Life and Death. \n True and False ##".toCharArray();
+      len = chars.length - 5;
+      stringer.setString(chars, offset, len);
       stringer.setFormatWordwrap(WORDWRAP_0_NONE);
-      stringer.setSpaceTrimManager(SPACETRIM_1_NORMAL);
+      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
+      stringer.setSpaceTrimManager(SPACETRIM_2_JUSTIFIED);
+
       stringer.buildFxAndMeter();
-      
-      StringMetrics sm = stringer.getMetrics();
 
-      assertEquals(5, sm.getNumOfLines());
+      assertEquals(2, sm.getNumOfLines());
+      assertEquals("Life and Death. ", sm.getLineString(0));
+      assertEquals(" True and False ", sm.getLineString(1));
+      assertEquals(240, sm.getLineWidth(0));
+      assertEquals(240, sm.getLineWidth(1));
 
-      assertEquals("Words often goes. ", sm.getLineString(0)); //prefix space is gone
-      assertEquals("", sm.getLineString(1));
-      assertEquals("", sm.getLineString(2));
-      assertEquals("", sm.getLineString(3));
-      assertEquals(" It is such a nice evening today.", sm.getLineString(4));
-
-      assertEquals(131, sm.getLineWidth(0));
-      assertEquals(0, sm.getLineWidth(1));
-      assertEquals(0, sm.getLineWidth(2));
-      assertEquals(0, sm.getLineWidth(3));
-      assertEquals(213, sm.getLineWidth(4));
    }
 
-   public void testIgnoredSpecials() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+   public void testJustifySimple_WrapAny() {
 
-      textFigure.setFlag(IBOFigString.FIG_STRING_OFFSET_01_FLAG, IBOFigString.FIG_STRING_FLAG_2_SHOW_HIDDEN_CHARS, true);
+      ByteObject strFig = facFigure.getFigStringSystemPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
-
-      stringer.setBreakWidth(400);
-
-      char[] chars = "###Life\n is\t a\r\n long\f real?##".toCharArray();
-      int offset = 3;
-      int len = chars.length - 5;
-      stringer.setTextFigure(textFigure);
-      stringer.setString(chars, offset, len);
-      
-      //custom hardcoded stringer parameters
-      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_0_IGNORED);
-      stringer.setDirectiveTab(SPECIALS_TAB_0_IGNORED);
-      stringer.setDirectiveFormFeed(SPECIALS_FORMFEED_0_IGNORED);
-      stringer.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
-      stringer.setSpaceTrimManager(SPACETRIM_0_NONE);
-      stringer.setBreakMaxLines(1);
-      stringer.setShowHiddenChars(true);
-      
-      stringer.buildFxAndMeter();
-
       StringMetrics sm = stringer.getMetrics();
 
-      assertEquals(1, sm.getNumOfLines());
+      int margin = 5;
+      int areaW = 260;
+      int areaH = 100;
 
-      assertEquals("Life is a long real?", sm.getLineString(0));
-      
+      stringer.setAreaXYWH(margin, margin, areaW, areaH);
+      stringer.setBreakWidth(240);
+
+      char[] chars = "###Life is a long snake. It takes forever to reach the tail. And once you get to it. What?##".toCharArray();
+      int offset = 3;
+      int len = chars.length - 5;
+      stringer.setTextFigure(strFig);
+      stringer.setString(chars, offset, len);
+      stringer.setSpaceTrimManager(SPACETRIM_2_JUSTIFIED);
+
+      stringer.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
+      stringer.buildFxAndMeter();
+
+      assertEquals(3, sm.getNumOfLines());
+
+      assertEquals("Life is a long snake. It takes foreve", sm.getLineString(0));
+      assertEquals("r to reach the tail. And once you ge", sm.getLineString(1));
+      assertEquals("t to it. What?", sm.getLineString(2));
+
+      assertEquals(7, sm.getLine(0).getNumOfSpaces());
+      assertEquals(8, sm.getLine(1).getNumOfSpaces());
+      assertEquals(3, sm.getLine(2).getNumOfSpaces());
+
+      assertEquals(240, sm.getLineWidth(0));
+      assertEquals(240, sm.getLineWidth(1));
+      assertEquals(240, sm.getLineWidth(2));
+
    }
-   
-   public void testHiddenCharsSingleLine() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
-      textFigure.setFlag(IBOFigString.FIG_STRING_OFFSET_01_FLAG, IBOFigString.FIG_STRING_FLAG_2_SHOW_HIDDEN_CHARS, true);
+   public void testJustifySimple_WrapNiceWord() {
+
+      ByteObject strFig = facFigure.getFigStringSystemPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
-
-      stringer.setBreakWidth(400);
-
-      char[] chars = "###Life\n is\t a\r\n long\f real?##".toCharArray();
-      int offset = 3;
-      int len = chars.length - 5;
-      stringer.setTextFigure(textFigure);
-      stringer.setString(chars, offset, len);
-      
-      //custom hardcoded stringer parameters
-      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_1_SPACE_SPECIAL);
-      stringer.setDirectiveTab(SPECIALS_TAB_1_SPACE_SPECIAL);
-      stringer.setDirectiveFormFeed(SPECIALS_FORMFEED_1_SPACE_SPECIAL);
-      stringer.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
-      stringer.setSpaceTrimManager(SPACETRIM_0_NONE);
-      stringer.setBreakMaxLines(1);
-      stringer.setShowHiddenChars(true);
-      
-      stringer.buildFxAndMeter();
-
       StringMetrics sm = stringer.getMetrics();
 
-      assertEquals(1, sm.getNumOfLines());
+      int margin = 5;
+      int areaW = 260;
+      int areaH = 100;
 
-      assertEquals("Life↵·is→·a⏎↵·long♀·real?", sm.getLineString(0));
+      stringer.setAreaXYWH(margin, margin, areaW, areaH);
+      stringer.setBreakWidth(240);
+
+      char[] chars = "###Life is a long snake. It takes forever to reach the tail. And once you get to it. What?##".toCharArray();
+      int offset = 3;
+      int len = chars.length - 5;
+      stringer.setTextFigure(strFig);
+      stringer.setString(chars, offset, len);
+      stringer.setSpaceTrimManager(SPACETRIM_2_JUSTIFIED);
+
+      stringer.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
+      stringer.buildFxAndMeter();
+
+      assertEquals(3, sm.getNumOfLines());
+
+      assertEquals("Life is a long snake. It takes", sm.getLineString(0));
+      assertEquals("forever to reach the tail. And once", sm.getLineString(1));
+      assertEquals("you get to it. What?", sm.getLineString(2));
+
+      assertEquals(6, sm.getLine(0).getNumOfSpaces());
+      assertEquals(6, sm.getLine(1).getNumOfSpaces());
+      assertEquals(4, sm.getLine(2).getNumOfSpaces());
+
+      //max width or break width
+      //justified lines have exactly the same width
+      assertEquals(240, sm.getLineWidth(0));
+      assertEquals(240, sm.getLineWidth(1));
+      assertEquals(240, sm.getLineWidth(2));
+
+      assertEquals(9, sm.getCharWidth(0));
+      assertEquals(4, sm.getCharWidth(1));
+      assertEquals(4, sm.getCharWidth(2));
+      assertEquals(9, sm.getCharWidth(3));
+
+      
+      assertEquals(' ', stringer.getCharVisibleAtRelative(4)); 
+      assertEquals(' ', stringer.getCharVisibleAtRelative(7)); 
+      assertEquals(' ', stringer.getCharVisibleAtRelative(9)); 
+      assertEquals(' ', stringer.getCharVisibleAtRelative(14)); 
+      assertEquals(13, sm.getCharWidth(4)); 
+      assertEquals(12, sm.getCharWidth(7));
+      assertEquals(12, sm.getCharWidth(9));
+      assertEquals(12, sm.getCharWidth(14));
+
    }
 
    public void testLineHeights() {
@@ -417,10 +593,10 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
       stringer.setFormatWordwrap(WORDWRAP_0_NONE);
       stringer.setString("word\nsentence\nnice");
-      
+
       stringer.buildFxAndMeter();
 
-      assertEquals(false, stringer.hasState(STATE_02_CHAR_WIDTHS));
+      assertEquals(false, stringer.hasFlagState(STATE_02_CHAR_WIDTHS));
 
       StringMetrics sm = stringer.getMetrics();
       assertEquals(3, sm.getNumOfLines());
@@ -440,6 +616,40 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       assertEquals(21, sm.getLineY(1));
       assertEquals(42, sm.getLineY(2));
 
+   }
+
+   public void testNumOfSpaces() {
+
+      ByteObject strFig = facFigure.getFigStringMonoPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+
+      Stringer stringer = new Stringer(dc);
+      StringMetrics sm = stringer.getMetrics();
+
+      int margin = 5;
+      int areaW = 260;
+      int areaH = 100;
+
+      stringer.setAreaXYWH(margin, margin, areaW, areaH);
+      stringer.setBreakWidth(60);
+
+      char[] chars = "###5      333    44  ##".toCharArray();
+      int offset = 3;
+      int len = chars.length - 5;
+      stringer.setTextFigure(strFig);
+      stringer.setString(chars, offset, len);
+      stringer.setSpaceTrimManager(SPACETRIM_0_NONE);
+      stringer.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
+      stringer.buildFxAndMeter();
+
+      assertEquals(3, sm.getNumOfLines());
+
+      assertEquals("5     ", sm.getLineString(0));
+      assertEquals(" 333  ", sm.getLineString(1));
+      assertEquals("  44  ", sm.getLineString(2));
+
+      assertEquals(5, sm.getLine(0).getNumOfSpaces());
+      assertEquals(3, sm.getLine(1).getNumOfSpaces());
+      assertEquals(4, sm.getLine(2).getNumOfSpaces());
    }
 
    public void testSingleLine1OverlayStyle() {
@@ -513,825 +723,13 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
    }
 
-   public void testSingleSmallWord() {
-      int maxLines = 2;
-      ByteObject strAuxFormat = facStrAux.getStrAuxFormat_Anywhere(maxLines);
-      ByteObject strAuxNewLine = facStrAux.getStrAuxSpecials_NewLineWorkSingleSpaceTab();
-
-      ByteObject textFigure = facStrAux.getFigStringSystemPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE, strAuxFormat, strAuxNewLine);
-
-      Stringer stringer = new Stringer(dc);
-      
-      assertEquals(false, stringer.hasState(ITechStringer.STATE_01_CHAR_EFFECTS));
-      assertEquals(false, stringer.hasState(ITechStringer.STATE_02_CHAR_WIDTHS));
-      assertEquals(false, stringer.hasState(ITechStringer.STATE_03_CHECK_CLIP));
-      assertEquals(false, stringer.hasState(ITechStringer.STATE_04_TRIMMED));
-      assertEquals(false, stringer.hasState(ITechStringer.STATE_05_STR_WIDTH));
-      assertEquals(false, stringer.hasState(ITechStringer.STATE_06_CHAR_POSITIONS));
-      assertEquals(false, stringer.hasState(ITechStringer.STATE_07_BROKEN));
-      assertEquals(false, stringer.hasState(ITechStringer.STATE_08_ACTIVE_STYLE));
-      assertEquals(false, stringer.hasState(ITechStringer.STATE_11_DIFFERENT_FONTS));
-
-      stringer.buildForDisplayWith(textFigure, "word");
-
-      StringMetrics sm = stringer.getMetrics();
-
-      //#debug
-      toDLog().pTest("", stringer, TestStringMetrics.class, "testStringWord", LVL_05_FINE, false);
-
-      assertEquals(1, sm.getNumOfLines());
-
-      assertEquals(false, stringer.hasState(STATE_18_FULL_MONOSPACE));
-
-      assertEquals(34, sm.getPrefWidth());
-      assertEquals(0, sm.getPrefCharWidth());
-
-      assertEquals(21, sm.getPrefHeight()); //size of the font
-      assertEquals(21, sm.getPrefCharHeight());
-
-      assertEquals(11, sm.getCharWidthEtalon());
-
-      assertEquals(21, sm.getLineHeight(0));
-      assertEquals(34, sm.getLineWidth(0));
-      assertEquals(0, sm.getLineX(0));
-      assertEquals(0, sm.getLineY(0));
-
-   }
-
-   public void testBigText() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_1_TINY, FULLY_OPAQUE_ORANGE);
-
-      char[] data = uc.getIOU().readFileAsChars("/the_ivy_green.txt", "UTF-8");
-
-      assertNotNull(data);
-
-      Stringer stringer = new Stringer(dc);
-      int margin = 5;
-      int areaW = 310;
-      int areaH = 410;
-      stringer.setAreaXYWH(margin, margin, areaW, areaH);
-      stringer.setBreakWidth(500); //does nothing in word wrap none
-      stringer.ToStringSetDebugArea(true);
-      stringer.setTextFigure(textFigure);
-      stringer.setString(data, 0, data.length);
-      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
-      stringer.setSpaceTrimManager(SPACETRIM_1_NORMAL);
-      stringer.setFormatWordwrap(WORDWRAP_0_NONE);
-
-      stringer.buildFxAndMeter();
-
-      StringMetrics sm = stringer.getMetrics();
-      assertEquals("Oh, a dainty plant is the Ivy green,", sm.getLineString(0));
-      assertEquals("That creepeth o'er ruins old!", sm.getLineString(1));
-
-      assertEquals(34, stringer.getNumOfLines());
-   }
-
-   public void testStringWordMono() {
-      //does not work empty
-      Stringer stringer = new Stringer(dc);
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      stringer.buildForDisplayWith(textFigure, "word");
-      StringMetrics sm = stringer.getMetrics();
-      assertEquals(1, sm.getNumOfLines());
-      assertEquals(true, stringer.hasState(STATE_18_FULL_MONOSPACE));
-
-      assertEquals(10, sm.getCharWidth(0));
-      assertEquals(10, sm.getCharWidth(1));
-      assertEquals(10, sm.getCharWidth(2));
-      assertEquals(10, sm.getCharWidth(3));
-
-      textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_1_TINY, FULLY_OPAQUE_ORANGE);
-      stringer.buildForDisplayWith(textFigure, "word");
-      sm = stringer.getMetrics();
-      assertEquals(1, sm.getNumOfLines());
-      assertEquals(true, stringer.hasState(STATE_18_FULL_MONOSPACE));
-
-      assertEquals(5, sm.getCharWidth(0));
-      assertEquals(5, sm.getCharWidth(1));
-      assertEquals(5, sm.getCharWidth(2));
-      assertEquals(5, sm.getCharWidth(3));
-   }
-
-   public void testStringWordProportional() {
-      //does not work empty
-      Stringer stringer = new Stringer(dc);
-      ByteObject textFigure = facFigure.getFigString(FACE_PROPORTIONAL, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      stringer.buildForDisplayWith(textFigure, "word");
-      StringMetrics sm = stringer.getMetrics();
-      assertEquals(1, sm.getNumOfLines());
-      assertEquals(false, stringer.hasState(STATE_18_FULL_MONOSPACE));
-
-      assertEquals(12, sm.getCharWidth(0));
-      assertEquals(9, sm.getCharWidth(1));
-      assertEquals(6, sm.getCharWidth(2));
-      assertEquals(9, sm.getCharWidth(3));
-   }
-
-   public void testTabAsSpace() {
-      
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-
-      Stringer stringer = new Stringer(dc);
-
-      char[] chars = "###eat\tmanger\tесть##".toCharArray();
-      int offset = 3;
-      int len = chars.length - 5;
-      stringer.setTextFigure(textFigure);
-      stringer.setString(chars, offset, len);
-      stringer.setFormatWordwrap(WORDWRAP_0_NONE);
-      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
-      stringer.setDirectiveTab(SPECIALS_TAB_1_SPACE_SPECIAL);
-      stringer.buildFxAndMeter();
-
-      StringMetrics sm = stringer.getMetrics();
-
-      assertEquals(1, sm.getNumOfLines());
-      assertEquals("eat manger есть", sm.getLineString(0));
-
-      //      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_09_TAB_MANAGER1, TAB_MANAGER_1_ESCAPED);
-      //      stringer.buildForDisplayWith(textFigure);
-      //
-      //      assertEquals(1, sm.getNumOfLines());
-      //      assertEquals("eat\\tmanger\\tесть", sm.getLineString(0));
-      //
-      //      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_09_TAB_MANAGER1, TAB_MANAGER_2_COLUMN);
-      //      textFigure.set1(IBOFigString.FIG_STRING_OFFSET_10_TAB_AUX1, 8);
-      //      stringer.buildForDisplayWith(textFigure);
-      //
-      //      assertEquals(1, sm.getNumOfLines());
-      //      assertEquals("eat     manger  есть", sm.getLineString(0));
-
-   }
-
-   private ByteObject getStrFigOrangeMediumNiceWordNormalTrimNewLineworkSpaceTab(int maxLines) {
-      ByteObject strAuxFormat = facStrAux.getStrAuxFormat_NiceWordNormalTrim(maxLines);
-      ByteObject auxSpecials = facStrAux.getStrAuxSpecials_NewLineWorkSingleSpaceTab();
-      ByteObject strFig = facStrAux.getFigStringMonoPlain(SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE, strAuxFormat, auxSpecials);
-      return strFig;
-   }
-   
-   public void testTrim3Lines() {
-      setFontsToMonoidAleo();
-
-      ByteObject strAuxFormat = facStrAux.getStrAuxFormat_NiceWordNormalTrim(3);
-      ByteObject auxSpecials = facStrAux.getStrAuxSpecials_NewLineWorkSingleSpaceTab();
-      ByteObject strFig = facStrAux.getFigStringMonoPlain(SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE, strAuxFormat, auxSpecials);
-    
-      //#debug
-      toDLog().pTest("strFig", strFig, TestStringMetrics.class, "testTrim3Lines", LVL_05_FINE, false);
-      
-      Stringer st = new Stringer(dc);
-      st.setBreakWidth(120);
-      st.ToStringSetDebugArea(true);
-      st.setString(data);
-      st.buildForDisplayWith(strFig);
-
-      assertEquals(true, st.isTrimArtifacts());
-      
-      assertEquals(67, data.length());
-
-      StringMetrics sm = st.getMetrics();
-
-      int numLines = st.getMetrics().getNumOfLines();
-      assertEquals(numLines, 3);
-
-      assertEquals("Hello I'm Joe!", sm.getLineString(0));
-      assertEquals("I would like", sm.getLineString(1));
-      assertEquals("to eat so..", sm.getLineString(2));
-
-      assertEquals(112, sm.getLineWidth(0));
-      assertEquals(104, sm.getLineWidth(1));
-      assertEquals(96, sm.getLineWidth(2));
-
-   }
-
-   public void testJustify2Words() {
-
-      ByteObject strFig = facFigure.getFigStringSystemPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-
-      Stringer stringer = new Stringer(dc);
-
-      int margin = 5;
-      int areaW = 260;
-      int areaH = 100;
-
-      stringer.setAreaXYWH(margin, margin, areaW, areaH);
-      stringer.setBreakWidth(240);
-      StringMetrics sm = stringer.getMetrics();
-
-      char[] chars = "###Life and Death.##".toCharArray();
-      int offset = 3;
-      int len = chars.length - 5;
-      stringer.setTextFigure(strFig);
-      stringer.setString(chars, offset, len);
-      stringer.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
-      stringer.setSpaceTrimManager(SPACETRIM_2_JUSTIFIED);
-      
-      stringer.buildFxAndMeter();
-
-      assertEquals(1, sm.getNumOfLines());
-      assertEquals("Life and Death.", sm.getLineString(0));
-      assertEquals(240, sm.getLineWidth(0));
-      
-      stringer.setSpaceTrimManager(SPACETRIM_0_NONE);
-      
-      stringer.buildFxAndMeter();
-
-      assertEquals(1, sm.getNumOfLines());
-      assertEquals("Life and Death.", sm.getLineString(0));
-      assertEquals(106, sm.getLineWidth(0));
-   }
-   
-   public void testJustify2WordsOne2Lines() {
-
-      ByteObject strFig = facFigure.getFigStringSystemPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-
-      Stringer stringer = new Stringer(dc);
-
-      int margin = 5;
-      int areaW = 260;
-      int areaH = 100;
-
-      stringer.setAreaXYWH(margin, margin, areaW, areaH);
-      stringer.setBreakWidth(240);
-      StringMetrics sm = stringer.getMetrics();
-
-      char[] chars = "###Life and Death.\nTrue and False##".toCharArray();
-      int offset = 3;
-      int len = chars.length - 5;
-      stringer.setTextFigure(strFig);
-      stringer.setString(chars, offset, len);
-      stringer.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
-      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
-      
-      
-      stringer.setSpaceTrimManager(SPACETRIM_0_NONE);
-      stringer.buildFxAndMeter();
-
-      assertEquals(2, sm.getNumOfLines());
-      assertEquals("Life and Death.", sm.getLineString(0));
-      assertEquals("True and False", sm.getLineString(1));
-      assertEquals(106, sm.getLineWidth(0));
-      assertEquals(104, sm.getLineWidth(1));
-      
-      
-      stringer.setSpaceTrimManager(SPACETRIM_2_JUSTIFIED);
-      
-      stringer.buildFxAndMeter();
-
-      assertEquals(2, sm.getNumOfLines());
-      assertEquals("Life and Death.", sm.getLineString(0));
-      assertEquals("True and False", sm.getLineString(1));
-      assertEquals(240, sm.getLineWidth(0));
-      assertEquals(240, sm.getLineWidth(1));
-      
-      //NOTE: a forced new line removes leading and trailing spaces ?
-      chars = "###Life and Death. \n True and False ##".toCharArray();
-      len = chars.length - 5;
-      stringer.setString(chars, offset, len);
-      stringer.setFormatWordwrap(WORDWRAP_0_NONE);
-      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
-      stringer.setSpaceTrimManager(SPACETRIM_2_JUSTIFIED);
-      
-      stringer.buildFxAndMeter();
-
-      assertEquals(2, sm.getNumOfLines());
-      assertEquals("Life and Death. ", sm.getLineString(0));
-      assertEquals(" True and False ", sm.getLineString(1));
-      assertEquals(240, sm.getLineWidth(0));
-      assertEquals(240, sm.getLineWidth(1));
-      
-   }
-   public void testNumOfSpaces() {
-
-      ByteObject strFig = facFigure.getFigStringMonoPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-
-      Stringer stringer = new Stringer(dc);
-      StringMetrics sm = stringer.getMetrics();
-
-      int margin = 5;
-      int areaW = 260;
-      int areaH = 100;
-
-      stringer.setAreaXYWH(margin, margin, areaW, areaH);
-      stringer.setBreakWidth(60);
-
-      char[] chars = "###5      333    44  ##".toCharArray();
-      int offset = 3;
-      int len = chars.length - 5;
-      stringer.setTextFigure(strFig);
-      stringer.setString(chars, offset, len);
-      stringer.setSpaceTrimManager(SPACETRIM_0_NONE);
-      stringer.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
-      stringer.buildFxAndMeter();
-
-      assertEquals(3, sm.getNumOfLines());
-
-      assertEquals("5     ", sm.getLineString(0));
-      assertEquals(" 333  ", sm.getLineString(1));
-      assertEquals("  44  ", sm.getLineString(2));
-
-      
-      assertEquals(5, sm.getLine(0).getNumOfSpaces());
-      assertEquals(3, sm.getLine(1).getNumOfSpaces());
-      assertEquals(4, sm.getLine(2).getNumOfSpaces());
-   }
-   
-   public void testJustifySimple() {
-
-      ByteObject strFig = facFigure.getFigStringSystemPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-
-      Stringer stringer = new Stringer(dc);
-      StringMetrics sm = stringer.getMetrics();
-
-      int margin = 5;
-      int areaW = 260;
-      int areaH = 100;
-
-      stringer.setAreaXYWH(margin, margin, areaW, areaH);
-      stringer.setBreakWidth(240);
-
-      char[] chars = "###Life is a long snake. It takes forever to reach the tail. And once you get to it. What?##".toCharArray();
-      int offset = 3;
-      int len = chars.length - 5;
-      stringer.setTextFigure(strFig);
-      stringer.setString(chars, offset, len);
-      stringer.setSpaceTrimManager(SPACETRIM_2_JUSTIFIED);
-      
-      stringer.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
-      stringer.buildFxAndMeter();
-
-      assertEquals(3, sm.getNumOfLines());
-
-      assertEquals("Life is a long snake. It takes foreve", sm.getLineString(0));
-      assertEquals("r to reach the tail. And once you ge", sm.getLineString(1));
-      assertEquals("t to it. What?", sm.getLineString(2));
-
-      assertEquals(7, sm.getLine(0).getNumOfSpaces());
-      assertEquals(8, sm.getLine(1).getNumOfSpaces());
-      assertEquals(3, sm.getLine(2).getNumOfSpaces());
-      
-      assertEquals(240, sm.getLineWidth(0));
-      assertEquals(240, sm.getLineWidth(1));
-      assertEquals(240, sm.getLineWidth(2));
-      
-      
-      stringer.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
-      stringer.buildFxAndMeter();
-
-      assertEquals(3, sm.getNumOfLines());
-
-      assertEquals("Life is a long snake. It takes", sm.getLineString(0));
-      assertEquals("forever to reach the tail. And once", sm.getLineString(1));
-      assertEquals("you get to it. What?", sm.getLineString(2));
-
-      assertEquals(6, sm.getLine(0).getNumOfSpaces());
-      assertEquals(6, sm.getLine(1).getNumOfSpaces());
-      assertEquals(4, sm.getLine(2).getNumOfSpaces());
-      
-      //max width or break width
-      //justified lines have exactly the same width
-      assertEquals(240, sm.getLineWidth(0));
-      assertEquals(240, sm.getLineWidth(1));
-      assertEquals(240, sm.getLineWidth(2));
-   }
-   
-   public void testTabColumns() {
-
-      ByteObject strFig = facFigure.getFigStringSystemPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-
-      Stringer stringer = new Stringer(dc);
-
-      int margin = 5;
-      int areaW = 260;
-      int areaH = 100;
-
-      stringer.setAreaXYWH(margin, margin, areaW, areaH);
-      stringer.setBreakWidth(240);
-
-      char[] chars = "###One\tTwo\tThree\n1\t2\t3\n11\t\t\n##".toCharArray();
-      int offset = 3;
-      int len = chars.length - 5;
-      stringer.setTextFigure(strFig);
-      stringer.setString(chars, offset, len);
-      stringer.setFormatWordwrap(WORDWRAP_0_NONE);
-      stringer.setSpaceTrimManager(SPACETRIM_0_NONE);
-      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
-      stringer.setDirectiveTab(SPECIALS_TAB_5_COLUMN);
-      
-      stringer.buildFxAndMeter();
-
-      StringMetrics sm = stringer.getMetrics();
-
-
-      assertEquals(4, sm.getNumOfLines());
-
-      assertEquals("One  Two  Three", sm.getLineString(0));
-      assertEquals("1    2    3    ", sm.getLineString(1));
-      assertEquals("11             ", sm.getLineString(2));
-      assertEquals("               ", sm.getLineString(3));
-
-      //max width or break width
-      //justified lines have exactly the same width
-      assertEquals(240, sm.getLineWidth(0));
-      assertEquals(240, sm.getLineWidth(1));
-      assertEquals(240, sm.getLineWidth(2));
-   }
-   
-   public void testTabEclipse() {
-
-      //go mono
-      ByteObject strFig = facFigure.getFigStringMonoPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-
-      Stringer stringer = new Stringer(dc);
-
-      int margin = 5;
-      int areaW = 260;
-      int areaH = 100;
-
-      stringer.setAreaXYWH(margin, margin, areaW, areaH);
-      stringer.setBreakWidth(240);
-
-      char[] chars = "###One\tFour\tThree\n1\t4\t3\n11\t\tFive\n##".toCharArray();
-      int offset = 3;
-      int len = chars.length - 5;
-      stringer.setTextFigure(strFig);
-      stringer.setString(chars, offset, len);
-      stringer.setFormatWordwrap(WORDWRAP_0_NONE);
-      stringer.setSpaceTrimManager(SPACETRIM_0_NONE);
-      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
-      stringer.setDirectiveTab(SPECIALS_TAB_4_ECLIPSE);
-      
-      stringer.buildFxAndMeter();
-
-      StringMetrics sm = stringer.getMetrics();
-
-
-      assertEquals(4, sm.getNumOfLines());
-
-      assertEquals("One Four    Three", sm.getLineString(0));
-      assertEquals("1   4   3   ", sm.getLineString(1));
-      assertEquals("11      Five    ", sm.getLineString(2));
-      assertEquals("            ", sm.getLineString(3));
-
-      //max width or break width
-      //justified lines have exactly the same width
-      assertEquals(240, sm.getLineWidth(0));
-      assertEquals(240, sm.getLineWidth(1));
-      assertEquals(240, sm.getLineWidth(2));
-      
-      stringer.setShowHiddenChars(true);
-      stringer.buildFxAndMeter();
-      
-      assertEquals("One Four    Three", sm.getLineString(0));
-      assertEquals("1   4   3   ", sm.getLineString(1));
-      assertEquals("11      Five    ", sm.getLineString(2));
-      assertEquals("            ", sm.getLineString(3));
-
-      
-   }
-   
-   public void testBreakHeight1() {
-      setFontsToMonoidAleo();
-
-      ByteObject strFig = facFigure.getFigStringMonoPlain(SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
-
-
-      assertNotNull(data);
-      Stringer st = new Stringer(dc);
-      int margin = 5;
-      int areaW = 200;
-      int areaH = 40;
-      st.setAreaXYWH(margin, margin, areaW, areaH);
-      st.setBreakWidth(areaW - 5);
-      st.setBreakHeight(areaH - 5); //key call to enforce fit height
-      st.ToStringSetDebugArea(true);
-      st.setTextFigure(strFig);
-      st.setString(this.data);
-      st.setTrimArtifacts(true);
-      st.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
-      st.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
-      st.setFormatLineWrap(LINEWRAP_1_ANYWHERE);
-      st.setSpaceTrimManager(SPACETRIM_1_NORMAL);
-      
-      //no max lines.. its the height of the area that defines the number of lines
-      st.setBreakMaxLines(0); //explicitely set it to infinite.
-      
-      st.buildFxAndMeter();
-
-      StringMetrics sm = st.getMetrics();
-      assertEquals("Hello I'm Joe! I would l", sm.getLineString(0));
-      assertEquals("ike to eat some meat a..", sm.getLineString(1));
-
-      assertEquals(2, st.getNumOfLines());
-
-      assertEquals(true, st.hasState(ITechStringer.STATE_04_TRIMMED));
-
-   }
-   
-   public void testBreakHeight2() {
-      setFontsToMonoidAleo();
-
-      ByteObject strFig = facFigure.getFigStringMonoPlain(SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
-
-
-      assertNotNull(data);
-      Stringer st = new Stringer(dc);
-      int margin = 5;
-      int areaW = 200;
-      int areaH = 40;
-      st.setAreaXYWH(margin, margin, areaW, areaH);
-      st.setBreakWidth(areaW - 5);
-      st.setBreakHeight(areaH - 5); //key call to enforce fit height
-      st.ToStringSetDebugArea(true);
-      st.setTextFigure(strFig);
-      st.setString(this.data);
-      st.setTrimArtifacts(true);
-      st.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
-      st.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
-      st.setFormatLineWrap(LINEWRAP_1_ANYWHERE);
-      st.setSpaceTrimManager(SPACETRIM_1_NORMAL);
-      
-      st.buildFxAndMeter();
-
-      StringMetrics sm = st.getMetrics();
-      assertEquals("Hello I'm Joe! I would", sm.getLineString(0));
-      assertEquals("like to eat some me..", sm.getLineString(1));
-
-      assertEquals(2, st.getNumOfLines());
-
-      assertEquals(true, st.hasState(ITechStringer.STATE_04_TRIMMED));
-
-   }
-
-
-   public void testWidthBreakNewLines() {
-
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-
-      //TODO delete fronting space in lines ?
-      Stringer stringer = new Stringer(dc);
-      stringer.setBreakWidth(140);
-
-      char[] chars = "###word often goes along well \r\n with a sentence\nsuch a nice evening today.##".toCharArray();
-      int offset = 3;
-      int len = chars.length - 5;
-      stringer.setTextFigure(textFigure);
-      stringer.setString(chars, offset, len);
-      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
-      stringer.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
-      stringer.buildFxAndMeter();
-
-      StringMetrics sm = stringer.getMetrics();
-
-      assertEquals(7, sm.getNumOfLines());
-
-      assertEquals("word often goe", sm.getLineString(0));
-      assertEquals("s along well ", sm.getLineString(1));
-      assertEquals("", sm.getLineString(2));
-      assertEquals(" with a senten", sm.getLineString(3));
-      assertEquals("ce", sm.getLineString(4));
-      assertEquals("such a nice ev", sm.getLineString(5));
-      assertEquals("ening today.", sm.getLineString(6));
-
-      stringer.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
-      stringer.buildFxAndMeter();
-
-      sm = stringer.getMetrics();
-
-      assertEquals(9, sm.getNumOfLines());
-      assertEquals("word often", sm.getLineString(0));
-      assertEquals(" goes along", sm.getLineString(1));
-      assertEquals(" well ", sm.getLineString(2));
-      assertEquals("", sm.getLineString(3));
-      assertEquals(" with a", sm.getLineString(4));
-      assertEquals(" sentence", sm.getLineString(5));
-      assertEquals("such a nice", sm.getLineString(6));
-      assertEquals(" evening", sm.getLineString(7));
-      assertEquals(" today.", sm.getLineString(8));
-
-      stringer.setSpaceTrimManager(SPACETRIM_1_NORMAL);
-      stringer.buildFxAndMeter();
-      
-      sm = stringer.getMetrics();
-
-      assertEquals(9, sm.getNumOfLines());
-      assertEquals("word often", sm.getLineString(0));
-      assertEquals("goes along", sm.getLineString(1));
-      assertEquals(" well ", sm.getLineString(2));
-      assertEquals("", sm.getLineString(3));
-      assertEquals("with a", sm.getLineString(4));
-      assertEquals(" sentence", sm.getLineString(5));
-      assertEquals("such a nice", sm.getLineString(6));
-      assertEquals("evening", sm.getLineString(7));
-      assertEquals("today.", sm.getLineString(8));
-   }
-
-   public void testWidthBreakNiceWords() {
-
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-
-      Stringer stringer = new Stringer(dc);
-      stringer.setBreakWidth(240);
-
-      char[] chars = "###Life is a long snake. It takes forever to reach the tail. And once you get to it. What?##".toCharArray();
-      int offset = 3;
-      int len = chars.length - 5;
-      stringer.setTextFigure(textFigure);
-      stringer.setString(chars, offset, len);
-      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
-      stringer.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
-      stringer.setSpaceTrimManager(SPACETRIM_1_NORMAL);
-      stringer.buildFxAndMeter();
-   
-
-      StringMetrics sm = stringer.getMetrics();
-
-      assertEquals(4, sm.getNumOfLines());
-
-      assertEquals("Life is a long snake. It", sm.getLineString(0));
-      assertEquals("takes forever to reach", sm.getLineString(1));
-      assertEquals("the tail. And once you", sm.getLineString(2));
-      assertEquals("get to it. What?", sm.getLineString(3));
-
-      assertEquals(240, sm.getLineWidth(0));
-      assertEquals(230, sm.getLineWidth(1));
-      assertEquals(230, sm.getLineWidth(2));
-      assertEquals(170, sm.getLineWidth(3));
-
-      stringer.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
-      stringer.setSpaceTrimManager(SPACETRIM_2_JUSTIFIED);
-      stringer.buildFxAndMeter();
-
-      StringFx charFx = stringer.getCharFx(0);
-      assertEquals(FACE_MONOSPACE, charFx.getFont().getFace());
-      assertEquals(STYLE_PLAIN, charFx.getFont().getStyle());
-      assertEquals(SIZE_4_LARGE, charFx.getFont().getSize());
-
-      //#debug
-      toDLog().pTest("Font CharFx", charFx.getFont(), TestStringer.class, "testJustifySimple", LVL_05_FINE, true);
-
-      assertEquals(4, sm.getNumOfLines());
-
-      //same string as above but with linewidth as 240 for all except the last line
-      assertEquals("Life is a long snake. It", sm.getLineString(0));
-      assertEquals("takes forever to reach", sm.getLineString(1));
-      assertEquals("the tail. And once you", sm.getLineString(2));
-      assertEquals("get to it. What?", sm.getLineString(3));
-
-      assertEquals(240, sm.getLineWidth(0));
-      assertEquals(240, sm.getLineWidth(1));
-      assertEquals(240, sm.getLineWidth(2));
-      assertEquals(160, sm.getLineWidth(3)); //justified
-
-      StringFx firstCharFx = stringer.getCharFx(sm.getLine(3).getOffset());
-      int lenLastLine = firstCharFx.getFont().stringWidth("get to it. What?");
-      assertEquals(lenLastLine, sm.getLineWidth(3));
-
-      stringer.setSpaceTrimManager(SPACETRIM_1_NORMAL);
-      stringer.setBreakMaxLines(2);
-      stringer.setTrimArtifacts(true);
-      stringer.buildFxAndMeter();
-
-      assertEquals(2, sm.getNumOfLines());
-
-      //same string as above but with linewidth as 240 for all except the last line
-      assertEquals("Life is a long snake. It", sm.getLineString(0));
-      assertEquals("takes forever to rea..", sm.getLineString(1));
-
-      stringer.setBreakMaxLines(1);
-      stringer.setTrimArtifacts(true);
-
-      stringer.buildFxAndMeter();
-
-      assertEquals(1, sm.getNumOfLines());
-
-      //same string as above but with linewidth as 240 for all except the last line
-      assertEquals("Life is a long snake. ..", sm.getLineString(0));
-   }
-
-   public void testWidthBreakPropVsMono() {
-      ByteObject textFigure = facFigure.getFigString(FACE_SYSTEM, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-
-      Stringer stringer = new Stringer(dc);
-      stringer.setBreakWidth(160);
-
-      char[] chars = "###Words often goes along well with a sentence. It is such a nice evening today.##".toCharArray();
-      int offset = 3;
-      int len = chars.length - 5;
-      stringer.setTextFigure(textFigure);
-      stringer.setString(chars, offset, len);
-      stringer.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
-      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
-      
-      stringer.buildFxAndMeter();
-
-      StringMetrics sm = stringer.getMetrics();
-
-      assertEquals(4, sm.getNumOfLines());
-
-      assertEquals(false, stringer.hasState(STATE_18_FULL_MONOSPACE));
-      assertEquals("Words often goes alon", sm.getLineString(0));
-      assertEquals("g well with a sentence. ", sm.getLineString(1));
-      assertEquals("It is such a nice evenin", sm.getLineString(2));
-      assertEquals("g today.", sm.getLineString(3));
-
-      //shows the different between prop and mono
-      textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      stringer.setTextFigure(textFigure);
-      stringer.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
-      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
-      stringer.setTrimArtifacts(true);
-
-      stringer.buildFxAndMeter();
-      
-      assertEquals(5, sm.getNumOfLines());
-
-      assertEquals(true, stringer.hasState(STATE_18_FULL_MONOSPACE));
-      assertEquals("Words often goes", sm.getLineString(0));
-      assertEquals(" along well with", sm.getLineString(1));
-      assertEquals(" a sentence. It ", sm.getLineString(2));
-      assertEquals("is such a nice e", sm.getLineString(3));
-      assertEquals("vening today.", sm.getLineString(4));
-
-   }
-
-   private Stringer getTestSetup1() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-
-      Stringer stringer = new Stringer(dc);
-      stringer.setBreakWidth(240);
-
-      char[] chars = "###Life is a long snake. It takes forever to reach the tail. And once you get to it. What?##".toCharArray();
-      int offset = 3;
-      int len = chars.length - 5;
-      stringer.setTextFigure(textFigure);
-      stringer.setString(chars, offset, len);
-      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
-      stringer.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
-      stringer.setSpaceTrimManager(SPACETRIM_1_NORMAL);
-      stringer.buildFxAndMeter();
-
-      StringMetrics sm = stringer.getMetrics();
-
-      assertEquals(4, sm.getNumOfLines());
-
-      assertEquals("Life is a long snake. It", sm.getLineString(0));
-      assertEquals("takes forever to reach", sm.getLineString(1));
-      assertEquals("the tail. And once you", sm.getLineString(2));
-      assertEquals("get to it. What?", sm.getLineString(3));
-
-      assertEquals(240, sm.getLineWidth(0));
-      assertEquals(230, sm.getLineWidth(1));
-      assertEquals(230, sm.getLineWidth(2));
-      assertEquals(170, sm.getLineWidth(3));
-      return stringer;
-   }
-
-   public void testCharPositions() {
-
-      Stringer stringer = getTestSetup1();
-
-      StringMetrics sm = stringer.getMetrics();
-
-      assertEquals(false, stringer.hasState(STATE_06_CHAR_POSITIONS));
-      assertEquals(0, sm.getCharX(0));
-      assertEquals(10, sm.getCharX(1));
-      assertEquals(20, sm.getCharX(2));
-      assertEquals(0, sm.getCharY(1));
-      assertEquals(true, stringer.hasState(STATE_06_CHAR_POSITIONS));
-
-   }
-
-   public void testEditorAppendChar() {
-      Stringer stringer = new Stringer(dc);
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
-      stringer.buildForDisplayWith(textFigure);
-      StringerEditor editor = stringer.getEditor();
-
-      char[] cs = "Hello".toCharArray();
-
-      editor.addChar(cs, 0, 'H');
-
-      assertEquals(stringer.getLen(), 1);
-
-      assertEquals("H", stringer.getDisplayedString());
-
-      editor.addChar(cs, 1, 'H');
-
-      assertEquals(stringer.getLen(), 2);
-      assertEquals("He", stringer.getDisplayedString());
-
-   }
-
    public void testSingleLineEndingWithNewLine() {
-      
+
       ByteObject strAuxFormat = facStrAux.getStrAuxFormat_NiceWordNormalTrim();
       ByteObject strAuxNewLine = facStrAux.getStrAuxSpecials_NewLineWorkSingleSpaceTab();
 
       ByteObject textFigure = facStrAux.getFigStringMonoPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE, strAuxFormat, strAuxNewLine);
-      
+
       Stringer stringer = new Stringer(dc);
 
       char[] chars = "###Life is a long\n##".toCharArray();
@@ -1355,80 +753,324 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
    }
 
-   public void testEmptyFictiveLine() {
-      ByteObject strAuxFormat = facStrAux.getStrAuxFormat_NiceWordNormalTrim();
-      ByteObject strAuxNewLine = facStrAux.getStrAuxSpecials_NewLineWorkSingleSpaceTab();
+   public void testSingleSmallWord() {
+      int maxLines = 2;
 
-      ByteObject textFigure = facStrAux.getFigStringMonoPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE, strAuxFormat, strAuxNewLine);
-      
-   
+      ByteObject textFigure = facStrAux.getFigStringSystemPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+
       Stringer stringer = new Stringer(dc);
-      stringer.setTextFigure(textFigure);
-      //before using. must build
-      stringer.buildAgain();
+
+      assertEquals(false, stringer.hasFlagState(ITechStringer.STATE_01_CHAR_EFFECTS));
+      assertEquals(false, stringer.hasFlagState(ITechStringer.STATE_02_CHAR_WIDTHS));
+      assertEquals(false, stringer.hasFlagState(ITechStringer.STATE_03_CHECK_CLIP));
+      assertEquals(false, stringer.hasFlagState(ITechStringer.STATE_04_TRIMMED));
+      assertEquals(false, stringer.hasFlagState(ITechStringer.STATE_05_STR_WIDTH));
+      assertEquals(false, stringer.hasFlagState(ITechStringer.STATE_06_CHAR_POSITIONS));
+      assertEquals(false, stringer.hasFlagState(ITechStringer.STATE_07_BROKEN));
+      assertEquals(false, stringer.hasFlagState(ITechStringer.STATE_08_ACTIVE_STYLE));
+      assertEquals(false, stringer.hasFlagState(ITechStringer.STATE_11_DIFFERENT_FONTS));
+
+      stringer.buildForDisplayWith(textFigure, "word");
 
       StringMetrics sm = stringer.getMetrics();
 
-      assertEquals(1, sm.getNumOfLines());
-      assertEquals("", sm.getLineString(0));
+      //#debug
+      toDLog().pTest("", stringer, TestStringMetrics.class, "testStringWord", LVL_05_FINE, false);
 
-      assertEquals(0, stringer.getLen());
+      assertEquals(1, sm.getNumOfLines());
+
+      assertEquals(false, stringer.hasFlagState(STATE_18_FULL_MONOSPACE));
+
+      assertEquals(34, sm.getPrefWidth());
+      assertEquals(0, sm.getPrefCharWidth());
+
+      assertEquals(21, sm.getPrefHeight()); //size of the font
+      assertEquals(21, sm.getPrefCharHeight());
+
+      assertEquals(11, sm.getCharWidthEtalon());
+
+      assertEquals(21, sm.getLineHeight(0));
+      assertEquals(34, sm.getLineWidth(0));
+      assertEquals(0, sm.getLineX(0));
+      assertEquals(0, sm.getLineY(0));
+
    }
 
-   public void testEditorAppendLine() {
-
-      ByteObject strAuxFormat = facStrAux.getStrAuxFormat_NiceWordNormalTrim();
-      ByteObject strAuxNewLine = facStrAux.getStrAuxSpecials_NewLineWorkSingleSpaceTab();
-
-      ByteObject textFigure = facStrAux.getFigStringMonoPlain(SIZE_4_LARGE, FULLY_OPAQUE_ORANGE, strAuxFormat, strAuxNewLine);
-      
-   
-      
+   public void testStringWordMono() {
+      //does not work empty
       Stringer stringer = new Stringer(dc);
-      stringer.setTextFigure(textFigure);
+      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      stringer.buildForDisplayWith(textFigure, "word");
+      StringMetrics sm = stringer.getMetrics();
+      assertEquals(1, sm.getNumOfLines());
+      assertEquals(true, stringer.hasFlagState(STATE_18_FULL_MONOSPACE));
 
-      //before using. must build
-      stringer.buildAgain();
+      assertEquals(10, sm.getCharWidth(0));
+      assertEquals(10, sm.getCharWidth(1));
+      assertEquals(10, sm.getCharWidth(2));
+      assertEquals(10, sm.getCharWidth(3));
+
+      textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_1_TINY, FULLY_OPAQUE_ORANGE);
+      stringer.buildForDisplayWith(textFigure, "word");
+      sm = stringer.getMetrics();
+      assertEquals(1, sm.getNumOfLines());
+      assertEquals(true, stringer.hasFlagState(STATE_18_FULL_MONOSPACE));
+
+      assertEquals(5, sm.getCharWidth(0));
+      assertEquals(5, sm.getCharWidth(1));
+      assertEquals(5, sm.getCharWidth(2));
+      assertEquals(5, sm.getCharWidth(3));
+   }
+
+   public void testStringWordProportional() {
+      //does not work empty
+      Stringer stringer = new Stringer(dc);
+      ByteObject textFigure = facFigure.getFigString(FACE_PROPORTIONAL, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      stringer.buildForDisplayWith(textFigure, "word");
+      StringMetrics sm = stringer.getMetrics();
+      assertEquals(1, sm.getNumOfLines());
+      assertEquals(false, stringer.hasFlagState(STATE_18_FULL_MONOSPACE));
+
+      assertEquals(12, sm.getCharWidth(0));
+      assertEquals(9, sm.getCharWidth(1));
+      assertEquals(6, sm.getCharWidth(2));
+      assertEquals(9, sm.getCharWidth(3));
+   }
+
+   public void testTrim3Lines() {
+      setFontsToMonoidAleo();
+
+      ByteObject strFig = facStrAux.getFigStringMonoPlain(SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
+
+      //#debug
+      toDLog().pTest("strFig", strFig, TestStringMetrics.class, "testTrim3Lines", LVL_05_FINE, false);
+
+      Stringer st = new Stringer(dc);
+      st.setBreakWidth(120);
+      st.ToStringSetDebugArea(true);
+      st.setString(data);
+      st.setTextFigure(strFig);
+      st.setTrimArtifacts(true);
+      st.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
+      st.setBreakMaxLines(3);
+      assertEquals(true, st.isTrimArtifacts());
+
+      st.buildFxAndMeter();
+
+      assertEquals(67, data.length());
+
+      StringMetrics sm = st.getMetrics();
+
+      int numLines = st.getMetrics().getNumOfLines();
+      assertEquals(numLines, 3);
+
+      assertEquals("Hello I'm Joe!", sm.getLineString(0));
+      assertEquals("I would like to", sm.getLineString(1));
+      assertEquals("eat some me..", sm.getLineString(2));
+
+      assertEquals(112, sm.getLineWidth(0));
+      assertEquals(120, sm.getLineWidth(1));
+      assertEquals(104, sm.getLineWidth(2));
+
+   }
+
+   public void testWidthBreakNewLines() {
+
+      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+
+      Stringer stringer = new Stringer(dc);
+
+      char[] chars = "###word often goes along well \n with a sentence\nsuch a nice evening today.##".toCharArray();
+      int offset = 3;
+      int len = chars.length - 5;
+      stringer.setString(chars, offset, len);
+
+      stringer.setBreakWidth(140);
+      stringer.setTextFigure(textFigure);
+      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
+      stringer.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
+      stringer.buildFxAndMeter();
 
       StringMetrics sm = stringer.getMetrics();
 
-      assertEquals(1, sm.getNumOfLines());
-      assertEquals("", sm.getLineString(0));
-      assertEquals(true, sm.getLine(0).isFictiveLine());
+      assertEquals(10, sm.getLine(0).getWidthMono());
+      assertEquals(14, sm.getLine(0).getNumCharVisible());
+      assertEquals(140, sm.getLine(0).getPixelsW());
+      
+      assertEquals("word often goe", sm.getLineString(0));
+      assertEquals("s along well ", sm.getLineString(1));
+      assertEquals(" with a senten", sm.getLineString(2));
+      assertEquals("ce", sm.getLineString(3));
+      assertEquals("such a nice ev", sm.getLineString(4));
+      assertEquals("ening today.", sm.getLineString(5));
+      assertEquals(6, sm.getNumOfLines());
 
-      //cannot have an interval of zero size
-      assertEquals(0, stringer.getIntervalsOfLeaves().getSize());
+      stringer.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
+      stringer.buildFxAndMeter();
 
-      StringerEditor editor = stringer.getEditor();
+      sm = stringer.getMetrics();
 
-      ByteObject fx1 = facStringFx.getFxEffectColor(FULLY_OPAQUE_BLUE);
-      editor.appendLine("Line 01", fx1);
-      stringer.buildAgain();
+      assertEquals("word often", sm.getLineString(0));
+      assertEquals("goes along", sm.getLineString(1));
+      assertEquals("well ", sm.getLineString(2));
+      assertEquals(" with a", sm.getLineString(3));
+      assertEquals("sentence", sm.getLineString(4));
+      assertEquals("such a nice", sm.getLineString(5));
+      assertEquals("evening today.", sm.getLineString(6));
+      
+      assertEquals(7, sm.getNumOfLines());
 
-      assertEquals(2, sm.getNumOfLines());
-      assertEquals("", sm.getLineString(0));
-      assertEquals("Line 01", sm.getLineString(1));
-      assertEquals(1, stringer.getIntervalsOfLeaves().getSize());
+      stringer.setSpaceTrimManager(SPACETRIM_1_NORMAL);
+      stringer.buildFxAndMeter();
 
-      ByteObject fx2 = facStringFx.getFxEffectColor(FULLY_OPAQUE_PURPLE);
-      editor.appendLine("Line 02", fx2);
-      stringer.buildAgain();
-      assertEquals(2, stringer.getIntervalsOfLeaves().getSize());
+   }
 
-      assertEquals(3, sm.getNumOfLines());
-      assertEquals("", sm.getLineString(0));
-      assertEquals("Line 01", sm.getLineString(1));
-      assertEquals("Line 02", sm.getLineString(2));
+   public void testWidthBreakNiceWords() {
 
-      ByteObject fx3 = facStringFx.getFxEffectColor(FULLY_OPAQUE_GREEN);
-      editor.appendLine("Line 03 with more words", fx3);
-      stringer.buildAgain();
+      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+
+      Stringer stringer = new Stringer(dc);
+      stringer.setBreakWidth(240);
+
+      char[] chars = "###Life is a long snake. It takes forever to reach the tail. And once you get to it. What?##".toCharArray();
+      int offset = 3;
+      int len = chars.length - 5;
+      stringer.setTextFigure(textFigure);
+      stringer.setString(chars, offset, len);
+      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
+      stringer.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
+      stringer.setSpaceTrimManager(SPACETRIM_1_NORMAL);
+      stringer.buildFxAndMeter();
+
+      StringMetrics sm = stringer.getMetrics();
+
+      //assertEquals(4, sm.getNumOfLines());
+
+      assertEquals("Life is a long snake. It", sm.getLineString(0));
+      assertEquals("takes forever to reach", sm.getLineString(1));
+      assertEquals("the tail. And once you", sm.getLineString(2));
+      assertEquals("get to it. What?", sm.getLineString(3));
+
+      assertEquals(24, sm.getLine(0).getLengthInStringer());
+      assertEquals(22, sm.getLine(1).getLengthInStringer());
+      assertEquals(22, sm.getLine(2).getLengthInStringer());
+      assertEquals(16, sm.getLine(3).getLengthInStringer());
+
+      assertEquals(10, sm.getLine(0).getWidthMono());
+      assertEquals(10, sm.getLine(1).getWidthMono());
+      assertEquals(10, sm.getLine(2).getWidthMono());
+      assertEquals(10, sm.getLine(3).getWidthMono());
+
+      assertEquals(240, sm.getLineWidth(0));
+      assertEquals(220, sm.getLineWidth(1));
+      assertEquals(220, sm.getLineWidth(2));
+      assertEquals(160, sm.getLineWidth(3));
+
+      String str = stringer.getStringCopyVisible(0, 2, 1, 5);
+      assertEquals("fe is a long snake. It takes", str);
+
+      str = stringer.getStringCopyVisible(0, 2, 2, 9);
+      assertEquals("fe is a long snake. It takes forever to reach the tail.", str);
+
+      str = stringer.getStringCopyVisible(0, 2, 0, 8);
+      assertEquals("fe is ", str);
+
+      stringer.setFormatWordwrap(WORDWRAP_2_NICE_WORD);
+      stringer.setSpaceTrimManager(SPACETRIM_2_JUSTIFIED);
+      stringer.buildFxAndMeter();
+
+      StringFx charFx = stringer.getCharFx(0);
+      assertEquals(FACE_MONOSPACE, charFx.getFont().getFace());
+      assertEquals(STYLE_PLAIN, charFx.getFont().getStyle());
+      assertEquals(SIZE_4_LARGE, charFx.getFont().getSize());
+
+      //#debug
+      toDLog().pTest("Font CharFx", charFx.getFont(), TestStringer.class, "testJustifySimple", LVL_05_FINE, true);
 
       assertEquals(4, sm.getNumOfLines());
-      assertEquals("", sm.getLineString(0));
-      assertEquals("Line 01", sm.getLineString(1));
-      assertEquals("Line 02", sm.getLineString(2));
-      assertEquals("Line 03 with more words", sm.getLineString(3));
+
+      //same string as above but with linewidth as 240 for all except the last line
+      assertEquals("Life is a long snake. It", sm.getLineString(0));
+      assertEquals("takes forever to reach", sm.getLineString(1));
+      assertEquals("the tail. And once you", sm.getLineString(2));
+      assertEquals("get to it. What?", sm.getLineString(3));
+
+      assertEquals(5, sm.getLine(0).getNumOfSpaces());
+      assertEquals(3, sm.getLine(1).getNumOfSpaces());
+      assertEquals(4, sm.getLine(2).getNumOfSpaces());
+      assertEquals(3, sm.getLine(3).getNumOfSpaces());
+
+      assertEquals(240, sm.getLineWidth(0));
+      assertEquals(240, sm.getLineWidth(1));
+      assertEquals(240, sm.getLineWidth(2));
+      assertEquals(240, sm.getLineWidth(3)); //justified
+
+      stringer.setSpaceTrimManager(SPACETRIM_1_NORMAL);
+      stringer.setBreakMaxLines(2);
+      stringer.setTrimArtifacts(true);
+      stringer.buildFxAndMeter();
+
+      assertEquals(2, sm.getNumOfLines());
+
+      //same string as above but with linewidth as 240 for all except the last line
+      assertEquals("Life is a long snake. It", sm.getLineString(0));
+      assertEquals("takes forever to rea..", sm.getLineString(1));
+
+      stringer.setBreakMaxLines(1);
+      stringer.setTrimArtifacts(true);
+
+      stringer.buildFxAndMeter();
+
+      assertEquals(1, sm.getNumOfLines());
+
+      //same string as above but with linewidth as 240 for all except the last line
+      assertEquals("Life is a long snake. ..", sm.getLineString(0));
+
+   }
+
+   public void testWidthBreakPropVsMono() {
+      ByteObject textFigure = facFigure.getFigString(FACE_SYSTEM, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+
+      Stringer stringer = new Stringer(dc);
+      stringer.setBreakWidth(160);
+
+      char[] chars = "###Words often goes along well with a sentence. It is such a nice evening today.##".toCharArray();
+      int offset = 3;
+      int len = chars.length - 5;
+      stringer.setTextFigure(textFigure);
+      stringer.setString(chars, offset, len);
+      stringer.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
+      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
+
+      stringer.buildFxAndMeter();
+
+      StringMetrics sm = stringer.getMetrics();
+
+      assertEquals(4, sm.getNumOfLines());
+
+      assertEquals(false, stringer.hasFlagState(STATE_18_FULL_MONOSPACE));
+      assertEquals("Words often goes alon", sm.getLineString(0));
+      assertEquals("g well with a sentence. ", sm.getLineString(1));
+      assertEquals("It is such a nice evenin", sm.getLineString(2));
+      assertEquals("g today.", sm.getLineString(3));
+
+      //shows the different between prop and mono
+      textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      stringer.setTextFigure(textFigure);
+      stringer.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
+      stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
+      stringer.setTrimArtifacts(true);
+
+      stringer.buildFxAndMeter();
+
+      assertEquals(5, sm.getNumOfLines());
+
+      assertEquals(true, stringer.hasFlagState(STATE_18_FULL_MONOSPACE));
+      assertEquals("Words often goes", sm.getLineString(0));
+      assertEquals(" along well with", sm.getLineString(1));
+      assertEquals(" a sentence. It ", sm.getLineString(2));
+      assertEquals("is such a nice e", sm.getLineString(3));
+      assertEquals("vening today.", sm.getLineString(4));
 
    }
 
@@ -1469,14 +1111,14 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       //word wrap is none.. so we only have one line
       assertEquals(2, sm.getNumOfLines());
       assertEquals("Life is a long snake. It", sm.getLineString(0));
-      assertEquals(" takes forever to reach", sm.getLineString(1));
+      assertEquals("takes forever to reach", sm.getLineString(1));
 
       stringer.setBreakMaxLines(2);
       stringer.setTrimArtifacts(true);
       stringer.buildFxAndMeter();
 
       assertEquals("Life is a long snake. It", sm.getLineString(0));
-      assertEquals(" takes forever to rea..", sm.getLineString(1));
+      assertEquals("takes forever to rea..", sm.getLineString(1));
 
    }
 

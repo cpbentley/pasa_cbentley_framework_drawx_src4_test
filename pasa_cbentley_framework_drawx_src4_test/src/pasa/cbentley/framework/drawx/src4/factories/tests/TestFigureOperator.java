@@ -20,6 +20,8 @@ public abstract class TestFigureOperator extends TestCaseFrameworkUiPluggedDrawX
 
    public TestFigureOperator() {
 
+      setTestFlag(TEST_FLAG_01_PRINT_ANYWAYS, true);
+      
       setTestFlag(TEST_FLAG_17_IGNORE_OLD_IMAGES, false);
       setTestFlag(TEST_FLAG_18_MANUAL_CHECK_ALL, false);
    }
