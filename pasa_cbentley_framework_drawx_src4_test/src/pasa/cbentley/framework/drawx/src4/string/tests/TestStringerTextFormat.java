@@ -2,12 +2,7 @@ package pasa.cbentley.framework.drawx.src4.string.tests;
 
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
 import pasa.cbentley.core.src4.logging.Dctx;
-import pasa.cbentley.core.src4.structs.IntIntervals;
-import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigure;
-import pasa.cbentley.framework.drawx.src4.string.StringFx;
-import pasa.cbentley.framework.drawx.src4.string.StringFxLeaf;
 import pasa.cbentley.framework.drawx.src4.string.StringMetrics;
-import pasa.cbentley.framework.drawx.src4.string.StringStyleLayer;
 import pasa.cbentley.framework.drawx.src4.string.Stringer;
 import pasa.cbentley.framework.drawx.src4.string.interfaces.ITechStringer;
 
@@ -390,8 +385,8 @@ public abstract class TestStringerTextFormat extends TestStringerAbstract {
       ByteObject strFig = facStrAux.getFigStringMonoPlain(SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
 
       Stringer st = new Stringer(dc);
-      st.setAreaXYWH(5, 5, 120, 80);
-      st.setBreakOnArea();
+      st.setAreaXYWH(5, 5, 115, 75);
+      st.setBreakOnArea2();
       st.ToStringSetDebugArea(true);
       st.setTextFigure(strFig);
       st.setString(data);
@@ -417,6 +412,7 @@ public abstract class TestStringerTextFormat extends TestStringerAbstract {
 
       genericTestImg("Trim3Lines", st);
 
+      assertEquals("Hello I'm Joe! I would like to eat so..", st.getDisplayedString());
    }
 
    public void testHiddenChars() {
@@ -432,8 +428,8 @@ public abstract class TestStringerTextFormat extends TestStringerAbstract {
       stringer.setTextFigure(textFigure);
       stringer.setString(chars, offset, len);
 
-      stringer.setAreaXYWH(5, 5, 220, 40);
-      stringer.setBreakOnArea();
+      stringer.setAreaXYWH(5, 5, 215, 35);
+      stringer.setBreakOnArea2();
       stringer.ToStringSetDebugArea(true);
 
       
@@ -475,13 +471,10 @@ public abstract class TestStringerTextFormat extends TestStringerAbstract {
       assertNotNull(data);
 
       Stringer stringer = new Stringer(dc);
-      int margin = 5;
-      int areaW = 200;
+      int areaW = 195;
       int areaH = 100;
-      int imageW = areaW + margin * 2;
-      int imageH = areaH + margin * 2;
       stringer.setAreaXYWH(margin, margin, areaW, areaH);
-      stringer.setBreakOnArea();
+      stringer.setBreakOnArea2();
       stringer.ToStringSetDebugArea(true);
       stringer.setString("I am free.\nI love it.");
       stringer.setTextFigure(strFig);
@@ -491,14 +484,14 @@ public abstract class TestStringerTextFormat extends TestStringerAbstract {
 
       stringer.buildFxAndMeter();
 
-      genericTestImg("MultiLines_Simple", stringer, imageW, imageH);
+      genericTestImg("MultiLines_Simple", stringer);
 
       assertEquals(2, stringer.getNumOfLines());
 
       stringer.setString("I am free.\nI love it. This line should cut somewhere.");
       stringer.buildFxAndMeter();
 
-      genericTestImg("MultiLines_Simple_WithCut", stringer, imageW, imageH);
+      genericTestImg("MultiLines_Simple_WithCut", stringer);
 
    }
 

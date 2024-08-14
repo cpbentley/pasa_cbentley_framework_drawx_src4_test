@@ -8,8 +8,8 @@ import pasa.cbentley.core.src4.logging.ILogConfigurator;
 import pasa.cbentley.core.src4.logging.ITechLvl;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontCustomizer;
-import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechHostFeatureDraw;
 import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDrawX;
 import pasa.cbentley.framework.drawx.src4.string.StringMetrics;
 import pasa.cbentley.framework.drawx.src4.string.Stringer;
@@ -22,7 +22,7 @@ import pasa.cbentley.testing.engine.ConfigUTest;
  * @author Charles Bentley
  *
  */
-public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPluggedDrawX implements ITechFont, ITechStringer {
+public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPluggedDrawX implements ITechFont, ITechStringer, ITechHostFeatureDraw {
 
    private static boolean isStaticSetupDone;
 
@@ -94,7 +94,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
    }
 
    private void setFontsToMonoidAleo() {
-      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(ITechFeaturesDraw.SUP_ID_06_CUSTOM_FONTS);
+      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(SUP_ID_06_CUSTOM_FONTS);
       //the family name must match exactly.. so no-
       fontCustomizer.setFontFamilyMonospace("Monoid");
       fontCustomizer.setFontFamilyProportional("Aleo");
@@ -117,11 +117,11 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
       //we want a specific font, otherwise the tests won't work
       CoreDrawCtx cdc = plugUI.getCDC();
 
-      if (!cdc.hasFeatureSupport(ITechFeaturesDraw.SUP_ID_06_CUSTOM_FONTS)) {
+      if (!cdc.hasFeatureSupport(SUP_ID_06_CUSTOM_FONTS)) {
          throw new RuntimeException();
       }
 
-      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(ITechFeaturesDraw.SUP_ID_06_CUSTOM_FONTS);
+      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(SUP_ID_06_CUSTOM_FONTS);
 
       fontCustomizer.loadFont("/fonts/Monoid-Regular.ttf");
       fontCustomizer.loadFont("/fonts/Monoid-Bold.ttf");

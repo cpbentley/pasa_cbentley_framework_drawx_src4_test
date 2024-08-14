@@ -1,25 +1,12 @@
 package pasa.cbentley.framework.drawx.src4.string.tests;
 
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
-import pasa.cbentley.core.src4.ctx.IConfigU;
-import pasa.cbentley.core.src4.ctx.UCtx;
-import pasa.cbentley.core.src4.logging.IDLogConfig;
-import pasa.cbentley.core.src4.logging.ILogConfigurator;
-import pasa.cbentley.core.src4.logging.ITechLvl;
-import pasa.cbentley.core.src4.utils.StringUtils;
-import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
-import pasa.cbentley.framework.coredraw.src4.interfaces.IFontCustomizer;
-import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
-import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDrawX;
-import pasa.cbentley.framework.drawx.src4.string.StringFx;
 import pasa.cbentley.framework.drawx.src4.string.StringMetrics;
 import pasa.cbentley.framework.drawx.src4.string.Stringer;
 import pasa.cbentley.framework.drawx.src4.string.StringerEditor;
-import pasa.cbentley.framework.drawx.src4.string.interfaces.IBOFigString;
 import pasa.cbentley.framework.drawx.src4.string.interfaces.ITechStringer;
-import pasa.cbentley.testing.engine.ConfigUTest;
 
 /**
  * We need a plug to actually measure things

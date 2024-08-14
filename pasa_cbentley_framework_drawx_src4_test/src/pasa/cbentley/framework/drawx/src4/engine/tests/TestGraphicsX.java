@@ -19,9 +19,10 @@ public abstract class TestGraphicsX extends TestCaseFrameworkUiPluggedDrawX {
     * See {@link MordTestCase}
     */
    public TestGraphicsX() {
-      
+
       setTestFlag(TEST_FLAG_17_IGNORE_OLD_IMAGES, false);
       setTestFlag(TEST_FLAG_18_MANUAL_CHECK_ALL, false);
+      setTestFlag(TEST_FLAG_19_MANUAL_CHECK_NEW, true);
    }
 
    public void testDrawRedRect() {
@@ -42,17 +43,16 @@ public abstract class TestGraphicsX extends TestCaseFrameworkUiPluggedDrawX {
 
       //#debug
       toDLog().pTest("Before Drawing RedRect", ri, TestGraphicsX.class, "testDrawRedRectDraw", LVL_05_FINE, false);
-      
+
       assertEquals(30, ri.getWidth());
       assertEquals(30, ri.getHeight());
-      
+
       g.setColor(255, 0, 0);
       g.drawRect(0, 0, 20, 20);
 
       //#debug
       toDLog().pTest("After Drawing RedRect", ri, TestGraphicsX.class, "testDrawRedRectDraw", LVL_05_FINE, false);
-     
-      
+
       doImageTest(ri, prefix + "RectangleRedDraw");
    }
 
@@ -69,6 +69,34 @@ public abstract class TestGraphicsX extends TestCaseFrameworkUiPluggedDrawX {
       g.drawString("Test String", 5, 5, IBOBox.ANCHOR);
 
       doImageTest(ri, prefix + "StringRedBoldMedium");
+   }
+
+   public void testClippedEllipse() {
+
+      RgbImage ri = rc.create(150, 130, FULLY_OPAQUE_BLACK);
+      GraphicsX g = ri.getGraphicsX(GraphicsX.MODE_1_IMAGE);
+
+     
+      g.setColor(FULLY_OPAQUE_BLUE);
+
+      g.fillArc(0, 0, 150, 130, 0, 360);
+
+      doImageTest(ri, prefix + "EllipseBlue");
+      
+      g.setColor(FULLY_OPAQUE_RED);
+
+      g.clipSet(10, 10, 100, 100);
+
+      g.fillArc(0, 0, 150, 130, 0, 360);
+
+      doImageTest(ri, prefix + "ClippedEllipse");
+      
+      g.clipReset();
+      
+      g.fillArc(0, 0, 150, 130, 0, 360);
+
+      doImageTest(ri, prefix + "ClippedResetEllipseFullyRed");
+      
    }
 
    public void testDrawCharacters() {

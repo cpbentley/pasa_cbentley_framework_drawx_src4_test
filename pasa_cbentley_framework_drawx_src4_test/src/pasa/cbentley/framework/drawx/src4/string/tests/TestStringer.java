@@ -1,30 +1,24 @@
 package pasa.cbentley.framework.drawx.src4.string.tests;
 
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
-import pasa.cbentley.byteobjects.src4.objects.color.ITechGradient;
-import pasa.cbentley.core.src4.helpers.StringBBuilder;
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.core.src4.logging.ILogConfigurator;
 import pasa.cbentley.core.src4.structs.IntInterval;
 import pasa.cbentley.core.src4.structs.IntIntervals;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontCustomizer;
-import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
-import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechHostFeatureDraw;
 import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDrawX;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
 import pasa.cbentley.framework.drawx.src4.factories.drawer.DrawerString;
-import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigure;
 import pasa.cbentley.framework.drawx.src4.string.StringMetrics;
-import pasa.cbentley.framework.drawx.src4.string.StringStyleLayer;
 import pasa.cbentley.framework.drawx.src4.string.Stringer;
 import pasa.cbentley.framework.drawx.src4.string.StringerEditor;
 import pasa.cbentley.framework.drawx.src4.string.interfaces.IBOFigString;
 import pasa.cbentley.framework.drawx.src4.string.interfaces.ITechStringDrw;
 import pasa.cbentley.framework.drawx.src4.string.interfaces.ITechStringer;
 import pasa.cbentley.framework.drawx.src4.tech.ITechGraphicsX;
-import pasa.cbentley.framework.drawx.src4.tech.ITechScaler;
 
 /**
  * Test the {@link DrawerString} from the base draw module.
@@ -110,7 +104,7 @@ public abstract class TestStringer extends TestCaseFrameworkUiPluggedDrawX imple
    }
 
    private void resetFontToDefaults() {
-      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(ITechFeaturesDraw.SUP_ID_06_CUSTOM_FONTS);
+      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(ITechHostFeatureDraw.SUP_ID_06_CUSTOM_FONTS);
       //the family name must match exactly.. so no-
       fontCustomizer.setFontFamilyMonospace(null);
       fontCustomizer.setFontFamilyProportional(null);
@@ -124,7 +118,7 @@ public abstract class TestStringer extends TestCaseFrameworkUiPluggedDrawX imple
          isStaticSetupDone = true;
       }
 
-      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(ITechFeaturesDraw.SUP_ID_06_CUSTOM_FONTS);
+      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(ITechHostFeatureDraw.SUP_ID_06_CUSTOM_FONTS);
       //the family name must match exactly.. so no-
       fontCustomizer.setFontFamilyMonospace("Monoid");
       fontCustomizer.setFontFamilyProportional("Aleo");
@@ -139,11 +133,11 @@ public abstract class TestStringer extends TestCaseFrameworkUiPluggedDrawX imple
       //we want a specific font, otherwise the tests won't work
       CoreDrawCtx cdc = plugUI.getCDC();
 
-      if (!cdc.hasFeatureSupport(ITechFeaturesDraw.SUP_ID_06_CUSTOM_FONTS)) {
+      if (!cdc.hasFeatureSupport(ITechHostFeatureDraw.SUP_ID_06_CUSTOM_FONTS)) {
          throw new RuntimeException();
       }
 
-      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(ITechFeaturesDraw.SUP_ID_06_CUSTOM_FONTS);
+      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(ITechHostFeatureDraw.SUP_ID_06_CUSTOM_FONTS);
 
       fontCustomizer.loadFont("/fonts/Monoid-Regular.ttf");
       fontCustomizer.loadFont("/fonts/Monoid-Bold.ttf");

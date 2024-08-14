@@ -1,5 +1,7 @@
 package pasa.cbentley.framework.drawx.src4.engine.tests.swing;
 
+import pasa.cbentley.framework.coredraw.src4.ctx.IConfigCoreDraw;
+import pasa.cbentley.framework.drawx.src4.ctx.tests.swing.ConfigCoreDrawSwingTest;
 import pasa.cbentley.framework.drawx.src4.engine.tests.TestGraphicsX;
 import pasa.cbentley.framework.testing.core.ctx.TestFrameworkCtx;
 import pasa.cbentley.framework.testing.gui.engine.FrameworkPlugAbstractGui;
@@ -21,4 +23,7 @@ public class TestGraphicsXSwing extends TestGraphicsX {
    public void setupAbstractDrawX() {
    }
 
+   public IConfigCoreDraw getConfigCoreDraw() {
+      return new ConfigCoreDrawSwingTest(uc);
+   }
 }

@@ -4,9 +4,7 @@ import pasa.cbentley.byteobjects.src4.core.ByteObject;
 import pasa.cbentley.byteobjects.src4.objects.color.ITechGradient;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
-import pasa.cbentley.framework.drawx.src4.string.StringMetrics;
 import pasa.cbentley.framework.drawx.src4.string.Stringer;
-import pasa.cbentley.framework.drawx.src4.string.interfaces.IBOFigString;
 import pasa.cbentley.framework.drawx.src4.string.interfaces.ITechStringer;
 
 public abstract class TestStringerFxMask extends TestStringerAbstract {

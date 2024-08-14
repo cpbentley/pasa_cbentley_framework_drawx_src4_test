@@ -8,8 +8,8 @@ import pasa.cbentley.core.src4.logging.ILogConfigurator;
 import pasa.cbentley.core.src4.logging.ITechLvl;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontCustomizer;
-import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechHostFeatureDraw;
 import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDrawX;
 import pasa.cbentley.framework.drawx.src4.string.StringFx;
 import pasa.cbentley.framework.drawx.src4.string.StringMetrics;
@@ -94,7 +94,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
    }
 
    private void setFontsToMonoidAleo() {
-      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(ITechFeaturesDraw.SUP_ID_06_CUSTOM_FONTS);
+      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(ITechHostFeatureDraw.SUP_ID_06_CUSTOM_FONTS);
       //the family name must match exactly.. so no-
       fontCustomizer.setFontFamilyMonospace("Monoid");
       fontCustomizer.setFontFamilyProportional("Aleo");
@@ -117,11 +117,11 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       //we want a specific font, otherwise the tests won't work
       CoreDrawCtx cdc = plugUI.getCDC();
 
-      if (!cdc.hasFeatureSupport(ITechFeaturesDraw.SUP_ID_06_CUSTOM_FONTS)) {
+      if (!cdc.hasFeatureSupport(ITechHostFeatureDraw.SUP_ID_06_CUSTOM_FONTS)) {
          throw new RuntimeException();
       }
 
-      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(ITechFeaturesDraw.SUP_ID_06_CUSTOM_FONTS);
+      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(ITechHostFeatureDraw.SUP_ID_06_CUSTOM_FONTS);
 
       fontCustomizer.loadFont("/fonts/Monoid-Regular.ttf");
       fontCustomizer.loadFont("/fonts/Monoid-Bold.ttf");
@@ -283,7 +283,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       assertEquals(0, sm.getCharX(0));
       assertEquals(10, sm.getCharX(1));
       assertEquals(20, sm.getCharX(2));
-      
+
       assertEquals(0, sm.getCharY(0));
       assertEquals(0, sm.getCharY(1));
       assertEquals(19, sm.getCharY(26));
@@ -572,12 +572,11 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       assertEquals(4, sm.getCharWidth(2));
       assertEquals(9, sm.getCharWidth(3));
 
-      
-      assertEquals(' ', stringer.getCharVisibleAtRelative(4)); 
-      assertEquals(' ', stringer.getCharVisibleAtRelative(7)); 
-      assertEquals(' ', stringer.getCharVisibleAtRelative(9)); 
-      assertEquals(' ', stringer.getCharVisibleAtRelative(14)); 
-      assertEquals(13, sm.getCharWidth(4)); 
+      assertEquals(' ', stringer.getCharVisibleAtRelative(4));
+      assertEquals(' ', stringer.getCharVisibleAtRelative(7));
+      assertEquals(' ', stringer.getCharVisibleAtRelative(9));
+      assertEquals(' ', stringer.getCharVisibleAtRelative(14));
+      assertEquals(13, sm.getCharWidth(4));
       assertEquals(12, sm.getCharWidth(7));
       assertEquals(12, sm.getCharWidth(9));
       assertEquals(12, sm.getCharWidth(14));
@@ -837,6 +836,41 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       assertEquals(9, sm.getCharWidth(3));
    }
 
+   public void testTableSymbolsTrim() {
+      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+
+      Stringer stringer = new Stringer(dc);
+      stringer.setTextFigure(textFigure);
+      stringer.setBreakWH(65, 40);
+      stringer.setString("Table of Symbols");
+      stringer.setBreakMaxLines(1);
+      stringer.setFormatWordwrap(WORDWRAP_0_NONE);
+      stringer.setTrimArtifacts(true);
+
+      stringer.buildFxAndMeter();
+
+      StringMetrics sm = stringer.getMetrics();
+
+      //we do we see the .. when wordwrap is none ? TODO
+      assertEquals("Table of Symbo..", sm.getLineString(0));
+      assertEquals(16, sm.getLine(0).getNumCharVisible());
+      assertEquals(160, sm.getPrefWidth());
+      
+      stringer.setTextFigure(textFigure);
+      stringer.setBreakWH(60, 40);
+      stringer.setString("Table of Symbols");
+      stringer.setBreakMaxLines(1);
+      stringer.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
+      stringer.setTrimArtifacts(true);
+
+      stringer.buildFxAndMeter();
+
+      assertEquals("Tabl..", sm.getLineString(0));
+      assertEquals(60, sm.getPrefWidth());
+      
+      
+   }
+
    public void testTrim3Lines() {
       setFontsToMonoidAleo();
 
@@ -874,6 +908,32 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
    }
 
+   public void testTrim1LineNotHappening() {
+      setFontsToMonoidAleo();
+
+      ByteObject strFig = facStrAux.getFigStringMonoPlain(SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
+
+      Stringer st = new Stringer(dc);
+      st.setBreakWidth(320);
+      st.ToStringSetDebugArea(true);
+      st.setString("This line should not be trimmed");
+      st.setTextFigure(strFig);
+      st.setTrimArtifacts(true);
+      st.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
+      st.setBreakMaxLines(1);
+      assertEquals(true, st.isTrimArtifacts());
+
+      st.buildFxAndMeter();
+
+      StringMetrics sm = st.getMetrics();
+
+      int numLines = st.getMetrics().getNumOfLines();
+      assertEquals(numLines, 1);
+
+      assertEquals("This line should not be trimmed", sm.getLineString(0));
+
+   }
+   
    public void testWidthBreakNewLines() {
 
       ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
@@ -896,7 +956,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       assertEquals(10, sm.getLine(0).getWidthMono());
       assertEquals(14, sm.getLine(0).getNumCharVisible());
       assertEquals(140, sm.getLine(0).getPixelsW());
-      
+
       assertEquals("word often goe", sm.getLineString(0));
       assertEquals("s along well ", sm.getLineString(1));
       assertEquals(" with a senten", sm.getLineString(2));
@@ -917,7 +977,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       assertEquals("sentence", sm.getLineString(4));
       assertEquals("such a nice", sm.getLineString(5));
       assertEquals("evening today.", sm.getLineString(6));
-      
+
       assertEquals(7, sm.getNumOfLines());
 
       stringer.setSpaceTrimManager(SPACETRIM_1_NORMAL);

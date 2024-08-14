@@ -4,7 +4,7 @@ import pasa.cbentley.byteobjects.src4.core.ByteObject;
 import pasa.cbentley.byteobjects.src4.ctx.IBOTypesBOC;
 import pasa.cbentley.byteobjects.src4.ctx.IToStringFlagsBO;
 import pasa.cbentley.byteobjects.src4.objects.color.IBOGradient;
-import pasa.cbentley.byteobjects.src4.objects.pointer.IBOMergeMask;
+import pasa.cbentley.byteobjects.src4.objects.pointer.IBOMerge;
 import pasa.cbentley.core.src4.interfaces.C;
 import pasa.cbentley.core.src4.utils.ColorUtils;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
@@ -15,6 +15,7 @@ import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigure;
 import pasa.cbentley.framework.drawx.src4.string.interfaces.IBOFigString;
 import pasa.cbentley.layouter.src4.ctx.IBOTypesLayout;
 import pasa.cbentley.layouter.src4.engine.Anchor32Bits;
+import pasa.cbentley.layouter.src4.engine.CodedCodePageFigure;
 import pasa.cbentley.layouter.src4.tech.ITechLayout;
 
 /**
@@ -37,10 +38,11 @@ public class TestITechFigure extends TestCaseFrameworkDrawX {
       int littleH = 30;
 
 
-      ByteObject anchorLB = facBox.getLeftBot(sizew, sizeh);
+      ByteObject anchorLB = facBox.getBoxLeftBot(sizew, sizeh);
 
       //Etalon is 0 for context
-      int encodedH = layOp.codedSizeEncodeRatioDefEtalon(littleH);
+      CodedCodePageFigure coder = layOp.getCodePageFigure();
+      int encodedH = coder.encodeRatioMinWHSizee(littleH);
 
       ByteObject triLB = figureFac.getFigTriangleAngle(bcolor, C.ANGLE_UP_90, encodedH, anchorLB);
 
@@ -63,7 +65,7 @@ public class TestITechFigure extends TestCaseFrameworkDrawX {
 
       ByteObject bo = figureFac.getFigString(IMFont.FACE_MONOSPACE, IMFont.STYLE_BOLD, IMFont.SIZE_4_LARGE, FULLY_OPAQUE_BLUE);
 
-      ByteObject top = figureFac.getFigStringTColor(FULLY_OPAQUE_GREEN);
+      ByteObject top = figureFac.getFigStringT_Color(FULLY_OPAQUE_GREEN);
 
       boc.toStringSetToStringFlag(IToStringFlagsBO.TOSTRING_FLAG_2_IGNORE_PARAMS, false);
 
@@ -77,7 +79,7 @@ public class TestITechFigure extends TestCaseFrameworkDrawX {
       assertEquals(IMFont.SIZE_4_LARGE, merge.get1(IBOFigString.FIG_STRING_OFFSET_05_SIZE1));
       assertEquals(FULLY_OPAQUE_GREEN, merge.get4(IBOFigure.FIG__OFFSET_06_COLOR4));
 
-      ByteObject small = figureFac.getFigStringTFontSize(IMFont.SIZE_2_SMALL);
+      ByteObject small = figureFac.getFigStringT_Size(IMFont.SIZE_2_SMALL);
 
       //#debug
       toDLog().pTest("", small, TestITechFigure.class, "testFigString", LVL_05_FINE, true);
@@ -148,20 +150,16 @@ public class TestITechFigure extends TestCaseFrameworkDrawX {
       assertNotNull(rect.getSubFirst(IBOTypesBOC.TYPE_038_GRADIENT));
    }
 
-   public void testGradient() {
+   public void testGradient3rdColorMerge() {
       ByteObject grad = facGradient.getGradient(1122334455, 45);
-      assertEquals(1122334455, grad.get4(IBOGradient.GRADIENT_OFFSET_04_COLOR4));
-      assertEquals(45, grad.get1(IBOGradient.GRADIENT_OFFSET_05_CURSOR1));
+      assertEquals(1122334455, grad.get4(IBOGradient.GRADIENT_OFFSET_05_COLOR4));
+      assertEquals(45, grad.get1(IBOGradient.GRADIENT_OFFSET_06_CURSOR1));
 
-      ByteObject color3 = boc.getLitteralIntFactory().getLitteralInt(999);
-
+      int color3 = FULLY_OPAQUE_BEIGE;
       //third color merge mask
-      ByteObject grad3rdColor = facGradient.getGradient(0, 0, 0, color3);
+      ByteObject grad3rdColor = facGradient.getGradient_T_ThirdColor(color3);
 
-      ByteObject mm = facMergeMask.getMergeMask(IBOMergeMask.MERGE_MASK_OFFSET_1FLAG1, IBOGradient.GRADIENT_FLAG_3_THIRD_COLOR);
-      facMergeMask.setMergeMask(mm, grad3rdColor);
-
-   }
+     }
 
    public void testFigPixels() {
 

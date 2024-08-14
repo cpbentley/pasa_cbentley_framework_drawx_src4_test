@@ -4,7 +4,7 @@ import pasa.cbentley.byteobjects.src4.core.ByteObject;
 import pasa.cbentley.byteobjects.src4.ctx.IBOTypesBOC;
 import pasa.cbentley.byteobjects.src4.objects.color.ITechGradient;
 import pasa.cbentley.core.src4.utils.interfaces.IColors;
-import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechHostFeatureDraw;
 import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDrawX;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
@@ -39,7 +39,7 @@ public abstract class TestMaskOperator extends TestCaseFrameworkUiPluggedDrawX i
       int h = 80;
 
       ByteObject mask = fac.getMaskGradient(FULLY_OPAQUE_BLACK, FULLY_OPAQUE_GREEN);
-      ByteObject figureEllipse = facFigure.getEllipse(FULLY_OPAQUE_WHITE);
+      ByteObject figureEllipse = facFigure.getFigEllipse(FULLY_OPAQUE_WHITE);
 
       RgbImage img = op.createMaskedFigure(mask, w, h, figureEllipse);
 
@@ -53,20 +53,20 @@ public abstract class TestMaskOperator extends TestCaseFrameworkUiPluggedDrawX i
 
       ByteObject grad = facGradient.getGradient(FULLY_OPAQUE_BLUE, 50, ITechGradient.GRADIENT_TYPE_RECT_00_SQUARE, FULLY_OPAQUE_RED);
       //the figure
-      ByteObject figMaskBgRect = facFigure.getRect(FULLY_OPAQUE_WHITE, grad);
+      ByteObject figMaskBgRect = facFigure.getFigRect(FULLY_OPAQUE_WHITE, grad);
       ByteObject filter = facFilter.getFilterSmoothStep();
       ByteObject mask = fac.getMask(figMaskBgRect, filter);
 
       //#debug
       toDLog().pTest("", mask, TestMaskOperator.class, "testCreateMaskedFigure_Fig", LVL_05_FINE, false);
 
-      ByteObject figMaskEllipse = facFigure.getEllipse(FULLY_OPAQUE_BLACK);
+      ByteObject figMaskEllipse = facFigure.getFigEllipse(FULLY_OPAQUE_BLACK);
       RgbImage img = op.createMaskedFigure(mask, w, h, figMaskEllipse);
 
       doImageTest(img, "MaskedFigure_Fig");
 
       //create a whole new context for this?
-      boolean featureEnable = cdc.featureEnable(ITechFeaturesDraw.SUP_ID_04_ALIAS, true);
+      boolean featureEnable = cdc.getHostFeature().setHostFeatureOn(ITechHostFeatureDraw.FEAT_02_ANTI_ALIAS);
       assertEquals(featureEnable, true);
       img = op.createMaskedFigure(mask, w, h, figMaskEllipse);
 
@@ -106,7 +106,7 @@ public abstract class TestMaskOperator extends TestCaseFrameworkUiPluggedDrawX i
       int h = 80;
 
       ByteObject mask = fac.getMaskGradient(FULLY_OPAQUE_RED, FULLY_OPAQUE_GREEN);
-      ByteObject figureEllipse = facFigure.getEllipse(FULLY_OPAQUE_BLUE);
+      ByteObject figureEllipse = facFigure.getFigEllipse(FULLY_OPAQUE_BLUE);
 
       RgbImage img = op.createShapeMask(mask, w, h, figureEllipse);
 
@@ -143,7 +143,7 @@ public abstract class TestMaskOperator extends TestCaseFrameworkUiPluggedDrawX i
       ByteObject fct = facFun.getFunctionTouchXY(start, touchMod);
       int touchColor = IColors.FULLY_OPAQUE_BLACK;
       ByteObject filter = facFilter.getFilterTouch(touchColor, or48, fct);
-      ByteObject figureEllipse = facFigure.getEllipse(FULLY_OPAQUE_CYAN); //color here is irrelevant
+      ByteObject figureEllipse = facFigure.getFigEllipse(FULLY_OPAQUE_CYAN); //color here is irrelevant
       ByteObject mask = fac.getMask(figureEllipse, filter);
 
       RgbImage img = op.createShapeMask(mask, w, h, figureEllipse);
@@ -152,7 +152,7 @@ public abstract class TestMaskOperator extends TestCaseFrameworkUiPluggedDrawX i
 
       touchColor = IColors.FULLY_OPAQUE_WHITE;
       filter = facFilter.getFilterTouch(touchColor, or48, fct);
-      figureEllipse = facFigure.getEllipse(FULLY_OPAQUE_CYAN);
+      figureEllipse = facFigure.getFigEllipse(FULLY_OPAQUE_CYAN);
       mask = fac.getMask(figureEllipse, filter);
 
       img = op.createShapeMask(mask, w, h, figureEllipse);

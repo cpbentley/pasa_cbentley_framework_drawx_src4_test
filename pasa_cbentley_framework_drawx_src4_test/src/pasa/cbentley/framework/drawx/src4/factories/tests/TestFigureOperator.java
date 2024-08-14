@@ -50,7 +50,7 @@ public abstract class TestFigureOperator extends TestCaseFrameworkUiPluggedDrawX
       int w = 80;
       int h = 50;
 
-      ByteObject figureEllipse = fac.getEllipse(FULLY_OPAQUE_ORANGE);
+      ByteObject figureEllipse = fac.getFigEllipse(FULLY_OPAQUE_ORANGE);
 
       boolean whiteopaque = true;
       boolean justSwitch = false;
@@ -63,7 +63,7 @@ public abstract class TestFigureOperator extends TestCaseFrameworkUiPluggedDrawX
       int w = 80;
       int h = 50;
 
-      ByteObject figureEllipse = fac.getEllipse(FULLY_OPAQUE_ORANGE);
+      ByteObject figureEllipse = fac.getFigEllipse(FULLY_OPAQUE_ORANGE);
       RgbImage img = op.getFigImageTrans(figureEllipse, w, h);
 
       doImageTest(img, "GetFigImage_EllipseTrans");

@@ -4,7 +4,7 @@ import pasa.cbentley.byteobjects.src4.objects.color.ColorFunctionFactory;
 import pasa.cbentley.byteobjects.src4.objects.color.GradientFactory;
 import pasa.cbentley.byteobjects.src4.objects.color.ITechGradient;
 import pasa.cbentley.byteobjects.src4.objects.function.FunctionFactory;
-import pasa.cbentley.byteobjects.src4.objects.pointer.MergeMaskFactory;
+import pasa.cbentley.byteobjects.src4.objects.pointer.MergeFactory;
 import pasa.cbentley.core.src4.utils.interfaces.IColors;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 import pasa.cbentley.framework.drawx.src4.ctx.DrwCtx;
@@ -42,7 +42,7 @@ public abstract class TestCaseFrameworkDrawX extends TestCaseFramework implement
 
    protected MaskFactory          facMask;
 
-   protected MergeMaskFactory     facMergeMask;
+   protected MergeFactory     facMergeMask;
 
    protected RgbCache             rgbCache;
 
@@ -68,7 +68,7 @@ public abstract class TestCaseFrameworkDrawX extends TestCaseFramework implement
       facGradient = drc.getGradientFactory();
       layOp = lac.getLayoutOperator();
       facMask = drc.getMaskFactory();
-      facMergeMask = boc.getMergeMaskFactory();
+      facMergeMask = boc.getMergeFactory();
       rgbCache = drc.getCache();
       facTBLR = lac.getTblrFactory();
       setupAbstractDrawX();

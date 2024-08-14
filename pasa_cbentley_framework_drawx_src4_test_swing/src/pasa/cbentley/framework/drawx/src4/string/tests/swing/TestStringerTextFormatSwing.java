@@ -39,4 +39,8 @@ public class TestStringerTextFormatSwing extends TestStringerTextFormat {
    public void testMultiLines_IvyGreen() {
       super.testMultiLines_IvyGreen();
    }
+   
+   public void testAnchorCenter5Lines() {
+      super.testAnchorCenter5Lines();
+   }
 }

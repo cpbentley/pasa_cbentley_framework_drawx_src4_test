@@ -2,11 +2,7 @@ package pasa.cbentley.framework.drawx.src4.string.tests;
 
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
 import pasa.cbentley.core.src4.logging.Dctx;
-import pasa.cbentley.core.src4.structs.IntIntervals;
 import pasa.cbentley.framework.drawx.src4.factories.interfaces.IBOFigure;
-import pasa.cbentley.framework.drawx.src4.string.StringFx;
-import pasa.cbentley.framework.drawx.src4.string.StringFxLeaf;
-import pasa.cbentley.framework.drawx.src4.string.StringStyleLayer;
 import pasa.cbentley.framework.drawx.src4.string.Stringer;
 import pasa.cbentley.framework.drawx.src4.tech.ITechScaler;
 

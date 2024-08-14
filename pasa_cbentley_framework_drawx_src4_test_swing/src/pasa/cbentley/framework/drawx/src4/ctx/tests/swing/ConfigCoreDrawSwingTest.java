@@ -6,10 +6,10 @@ package pasa.cbentley.framework.drawx.src4.ctx.tests.swing;
 
 import pasa.cbentley.core.src4.ctx.UCtx;
 import pasa.cbentley.core.src4.logging.Dctx;
-import pasa.cbentley.framework.coredraw.j2se.ctx.ConfigCoreDrawJ2seDef;
+import pasa.cbentley.framework.core.draw.j2se.ctx.ConfigCoreDrawJ2seDef;
+import pasa.cbentley.framework.core.draw.swing.ctx.IConfigCoreDrawSwing;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechGraphics;
-import pasa.cbentley.framework.coredraw.swing.ctx.IConfigCoreDrawSwing;
 
 public class ConfigCoreDrawSwingTest extends ConfigCoreDrawJ2seDef implements IConfigCoreDrawSwing {
 
