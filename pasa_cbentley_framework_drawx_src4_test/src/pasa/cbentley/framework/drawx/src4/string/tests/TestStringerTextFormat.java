@@ -100,7 +100,7 @@ public abstract class TestStringerTextFormat extends TestStringerAbstract {
     */
    public void testBreakWidthBigSingleLine() {
 
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer st = new Stringer(dc);
 
@@ -119,19 +119,19 @@ public abstract class TestStringerTextFormat extends TestStringerAbstract {
 
       genericTestImg("BreakWidth_BigSingleLine_Mono_Plain", st);
 
-      textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_BOLD, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_1_BOLD, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       st.setTextFigure(textFigure);
       st.buildFxAndMeter();
 
       genericTestImg("BreakWidth_BigSingleLine_Mono_Bold", st);
 
-      textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_ITALIC, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_2_ITALIC, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
       st.buildForDisplayWith(textFigure);
 
       genericTestImg("BreakWidth_BigSingleLine_Mono_Italic", st);
 
-      ByteObject strProp = facFigure.getFigString(FACE_PROPORTIONAL, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject strProp = facFigure.getFigString(FACE_02_PROPORTIONAL, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
       st.buildForDisplayWith(strProp);
 
       assertEquals(3, st.getNumOfLines());
@@ -141,12 +141,12 @@ public abstract class TestStringerTextFormat extends TestStringerAbstract {
 
       genericTestImg("BreakWidth_BigSingleLine_Prop_Plain", st);
 
-      strProp = facFigure.getFigString(FACE_PROPORTIONAL, STYLE_BOLD, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      strProp = facFigure.getFigString(FACE_02_PROPORTIONAL, STYLE_1_BOLD, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
       st.buildForDisplayWith(strProp);
 
       genericTestImg("BreakWidth_BigSingleLine_Prop_Bold", st);
 
-      strProp = facFigure.getFigString(FACE_PROPORTIONAL, STYLE_ITALIC, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      strProp = facFigure.getFigString(FACE_02_PROPORTIONAL, STYLE_2_ITALIC, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
       st.buildForDisplayWith(strProp);
 
       genericTestImg("BreakWidth_BigSingleLine_Prop_Italic", st);
@@ -277,7 +277,7 @@ public abstract class TestStringerTextFormat extends TestStringerAbstract {
    public void testMultiLines_Natural() {
       String data = uc.getIOU().readFileAsStringWindows("/string_multilines.txt", "UTF-8");
 
-      ByteObject strFig = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_2_SMALL, FULLY_OPAQUE_ORANGE);
+      ByteObject strFig = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_2_SMALL, FULLY_OPAQUE_ORANGE);
 
       assertNotNull(data);
 
@@ -313,7 +313,7 @@ public abstract class TestStringerTextFormat extends TestStringerAbstract {
    public void testMultiLines_Natural2() {
       String data = uc.getIOU().readFileAsStringWindows("/string_multilines.txt", "UTF-8");
 
-      ByteObject strFig = facFigure.getFigString(FACE_SYSTEM, STYLE_PLAIN, SIZE_2_SMALL, FULLY_OPAQUE_ORANGE);
+      ByteObject strFig = facFigure.getFigString(FACE_00_SYSTEM, STYLE_0_PLAIN, SIZE_2_SMALL, FULLY_OPAQUE_ORANGE);
 
       assertNotNull(data);
 
@@ -416,7 +416,7 @@ public abstract class TestStringerTextFormat extends TestStringerAbstract {
    }
 
    public void testHiddenChars() {
-      ByteObject textFigure = facFigure.getFigString(FACE_SYSTEM, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_00_SYSTEM, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -466,7 +466,7 @@ public abstract class TestStringerTextFormat extends TestStringerAbstract {
 
    public void testMultiLines_Simple() {
 
-      ByteObject strFig = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
+      ByteObject strFig = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
 
       assertNotNull(data);
 

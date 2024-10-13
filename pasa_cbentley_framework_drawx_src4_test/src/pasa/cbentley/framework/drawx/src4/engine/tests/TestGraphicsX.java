@@ -62,7 +62,7 @@ public abstract class TestGraphicsX extends TestCaseFrameworkUiPluggedDrawX {
 
       g.setColor(255, 0, 0);
 
-      IMFont f = g.getFont(IMFont.FACE_MONOSPACE, IMFont.STYLE_BOLD, IMFont.SIZE_3_MEDIUM);
+      IMFont f = g.getFont(IMFont.FACE_01_MONOSPACE, IMFont.STYLE_1_BOLD, IMFont.SIZE_3_MEDIUM);
 
       g.setFont(f);
 
@@ -105,7 +105,7 @@ public abstract class TestGraphicsX extends TestCaseFrameworkUiPluggedDrawX {
 
       g.setColor(255, 0, 0);
 
-      IMFont f = g.getFont(IMFont.FACE_MONOSPACE, IMFont.STYLE_BOLD, IMFont.SIZE_3_MEDIUM);
+      IMFont f = g.getFont(IMFont.FACE_01_MONOSPACE, IMFont.STYLE_1_BOLD, IMFont.SIZE_3_MEDIUM);
 
       //problem font needs a gc. with SWT, make sure default font is loaded
       g.setFont(f);

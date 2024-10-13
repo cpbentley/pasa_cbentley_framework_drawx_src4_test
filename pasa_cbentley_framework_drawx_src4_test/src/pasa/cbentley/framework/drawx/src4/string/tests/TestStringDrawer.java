@@ -36,7 +36,7 @@ public abstract class TestStringDrawer extends TestCaseFrameworkUiPluggedDrawX {
 
       char[] chars = str.toCharArray();
 
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, font, FONT_COLOR);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, font, FONT_COLOR);
 
       assertEquals(FONT_COLOR, stringDrawer.getStringColor(textFigure));
 
@@ -49,7 +49,7 @@ public abstract class TestStringDrawer extends TestCaseFrameworkUiPluggedDrawX {
 
    private void doTestFontEx(int font, String title) {
 
-      ByteObject textFigure = facFigure.getFigString(ex, FACE_MONOSPACE, STYLE_BOLD, font, FONT_COLOR);
+      ByteObject textFigure = facFigure.getFigString(ex, FACE_01_MONOSPACE, STYLE_1_BOLD, font, FONT_COLOR);
 
       RgbImage ri = rc.create(120, 50, FONT_BG_COLOR);
       GraphicsX g = ri.getGraphicsX(GraphicsX.MODE_1_IMAGE);
@@ -69,7 +69,7 @@ public abstract class TestStringDrawer extends TestCaseFrameworkUiPluggedDrawX {
 
       char[] chars = "Hello!".toCharArray();
 
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, 24, FONT_COLOR);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, 24, FONT_COLOR);
 
       RgbImage ri = rc.create(120, 50, FONT_BG_COLOR);
 
@@ -79,7 +79,7 @@ public abstract class TestStringDrawer extends TestCaseFrameworkUiPluggedDrawX {
 
       doImageTest(ri, "HelloFont24");
 
-      textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, 26, FONT_COLOR);
+      textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, 26, FONT_COLOR);
 
       ri = rc.create(120, 50, FONT_BG_COLOR);
 
@@ -93,7 +93,7 @@ public abstract class TestStringDrawer extends TestCaseFrameworkUiPluggedDrawX {
    public void testCharCrop() {
       DrawerString stringDrawer = new DrawerString(dc);
 
-      IMFont font = dc.getFontFactory().getFont(FACE_MONOSPACE, STYLE_BOLD, SIZE_3_MEDIUM);
+      IMFont font = dc.getFontFactory().getFont(FACE_01_MONOSPACE, STYLE_1_BOLD, SIZE_3_MEDIUM);
 
       IImage imageM = stringDrawer.cropChar('M', font);
 

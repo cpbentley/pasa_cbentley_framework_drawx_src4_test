@@ -62,7 +62,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
    }
 
    private Stringer getTestSetup1() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
       stringer.setBreakWidth(240);
@@ -135,7 +135,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
    public void testArea() {
       Stringer stringer = new Stringer(dc);
 
-      ByteObject textFigure = facFigure.getFigString(FACE_SYSTEM, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_00_SYSTEM, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       assertEquals(0, stringer.getBreakH()); //default value if not setup
       assertEquals(0, stringer.getBreakW()); //default value if not setup
@@ -162,7 +162,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
    }
 
    public void testBigText() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_1_TINY, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_1_TINY, FULLY_OPAQUE_ORANGE);
 
       char[] data = uc.getIOU().readFileAsChars("/the_ivy_green.txt", "UTF-8");
 
@@ -354,7 +354,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
    }
 
    public void testExtraSpaceManagement() {
-      ByteObject textFigure = facFigure.getFigString(FACE_SYSTEM, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_00_SYSTEM, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       //TODO delete fronting space in lines ?
       Stringer stringer = new Stringer(dc);
@@ -585,7 +585,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
    public void testLineHeights() {
 
-      ByteObject textFigure = facFigure.getFigString(FACE_SYSTEM, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_00_SYSTEM, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
       stringer.setTextFigure(textFigure);
@@ -652,7 +652,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
    }
 
    public void testSingleLine1OverlayStyle() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -672,7 +672,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       assertEquals("Life is great!", sm.getLineString(0));
       assertEquals(140, sm.getLineWidth(0));
 
-      ByteObject fxOverlay = facStringFx.getFxFont(FACE_MONOSPACE, STYLE_PLAIN, SIZE_2_SMALL, FULLY_OPAQUE_CYAN);
+      ByteObject fxOverlay = facStringFx.getFxFont(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_2_SMALL, FULLY_OPAQUE_CYAN);
       int layerID = 0;
       stringer.createLayer("overlay", layerID);
       stringer.addInterval(2, 7, layerID, fxOverlay);
@@ -685,7 +685,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
    }
 
    public void testSingleLine2OverlayStyles() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -708,10 +708,10 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       int layerID = 1;
       stringer.createLayer("overlay", layerID);
 
-      ByteObject fxOverlay = facStringFx.getFxFont(FACE_MONOSPACE, STYLE_PLAIN, SIZE_2_SMALL, FULLY_OPAQUE_CYAN);
+      ByteObject fxOverlay = facStringFx.getFxFont(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_2_SMALL, FULLY_OPAQUE_CYAN);
       stringer.addInterval(2, 7, layerID, fxOverlay);
 
-      ByteObject fxOverlay2 = facStringFx.getFxFont(FACE_PROPORTIONAL, STYLE_PLAIN, SIZE_5_HUGE, FULLY_OPAQUE_RED);
+      ByteObject fxOverlay2 = facStringFx.getFxFont(FACE_02_PROPORTIONAL, STYLE_0_PLAIN, SIZE_5_HUGE, FULLY_OPAQUE_RED);
       stringer.addInterval(4, 7, layerID, fxOverlay2);
 
       stringer.buildAgain();
@@ -798,7 +798,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
    public void testStringWordMono() {
       //does not work empty
       Stringer stringer = new Stringer(dc);
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
       stringer.buildForDisplayWith(textFigure, "word");
       StringMetrics sm = stringer.getMetrics();
       assertEquals(1, sm.getNumOfLines());
@@ -809,7 +809,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       assertEquals(10, sm.getCharWidth(2));
       assertEquals(10, sm.getCharWidth(3));
 
-      textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_1_TINY, FULLY_OPAQUE_ORANGE);
+      textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_1_TINY, FULLY_OPAQUE_ORANGE);
       stringer.buildForDisplayWith(textFigure, "word");
       sm = stringer.getMetrics();
       assertEquals(1, sm.getNumOfLines());
@@ -824,7 +824,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
    public void testStringWordProportional() {
       //does not work empty
       Stringer stringer = new Stringer(dc);
-      ByteObject textFigure = facFigure.getFigString(FACE_PROPORTIONAL, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_02_PROPORTIONAL, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
       stringer.buildForDisplayWith(textFigure, "word");
       StringMetrics sm = stringer.getMetrics();
       assertEquals(1, sm.getNumOfLines());
@@ -837,7 +837,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
    }
 
    public void testTableSymbolsTrim() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
       stringer.setTextFigure(textFigure);
@@ -936,7 +936,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
    
    public void testWidthBreakNewLines() {
 
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -987,7 +987,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
 
    public void testWidthBreakNiceWords() {
 
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
       stringer.setBreakWidth(240);
@@ -1040,8 +1040,8 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       stringer.buildFxAndMeter();
 
       StringFx charFx = stringer.getCharFx(0);
-      assertEquals(FACE_MONOSPACE, charFx.getFont().getFace());
-      assertEquals(STYLE_PLAIN, charFx.getFont().getStyle());
+      assertEquals(FACE_01_MONOSPACE, charFx.getFont().getFace());
+      assertEquals(STYLE_0_PLAIN, charFx.getFont().getStyle());
       assertEquals(SIZE_4_LARGE, charFx.getFont().getSize());
 
       //#debug
@@ -1089,7 +1089,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
    }
 
    public void testWidthBreakPropVsMono() {
-      ByteObject textFigure = facFigure.getFigString(FACE_SYSTEM, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_00_SYSTEM, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
       stringer.setBreakWidth(160);
@@ -1115,7 +1115,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
       assertEquals("g today.", sm.getLineString(3));
 
       //shows the different between prop and mono
-      textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
       stringer.setTextFigure(textFigure);
       stringer.setFormatWordwrap(WORDWRAP_1_ANYWHERE);
       stringer.setDirectiveNewLine(SPECIALS_NEWLINE_3_WORK);
@@ -1135,7 +1135,7 @@ public abstract class TestStringMetrics extends TestCaseFrameworkUiPluggedDrawX 
    }
 
    public void testWidthTrim() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
       stringer.setBreakWidth(240);

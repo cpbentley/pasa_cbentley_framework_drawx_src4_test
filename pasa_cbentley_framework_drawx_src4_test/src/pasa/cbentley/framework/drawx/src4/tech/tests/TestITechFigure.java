@@ -63,7 +63,7 @@ public class TestITechFigure extends TestCaseFrameworkDrawX {
 
    public void testFigString() {
 
-      ByteObject bo = figureFac.getFigString(IMFont.FACE_MONOSPACE, IMFont.STYLE_BOLD, IMFont.SIZE_4_LARGE, FULLY_OPAQUE_BLUE);
+      ByteObject bo = figureFac.getFigString(IMFont.FACE_01_MONOSPACE, IMFont.STYLE_1_BOLD, IMFont.SIZE_4_LARGE, FULLY_OPAQUE_BLUE);
 
       ByteObject top = figureFac.getFigStringT_Color(FULLY_OPAQUE_GREEN);
 
@@ -74,8 +74,8 @@ public class TestITechFigure extends TestCaseFrameworkDrawX {
 
       ByteObject merge = bo.mergeByteObject(top);
 
-      assertEquals(IMFont.FACE_MONOSPACE, merge.get1(IBOFigString.FIG_STRING_OFFSET_03_FACE1));
-      assertEquals(IMFont.STYLE_BOLD, merge.get1(IBOFigString.FIG_STRING_OFFSET_04_STYLE1));
+      assertEquals(IMFont.FACE_01_MONOSPACE, merge.get1(IBOFigString.FIG_STRING_OFFSET_03_FACE1));
+      assertEquals(IMFont.STYLE_1_BOLD, merge.get1(IBOFigString.FIG_STRING_OFFSET_04_STYLE1));
       assertEquals(IMFont.SIZE_4_LARGE, merge.get1(IBOFigString.FIG_STRING_OFFSET_05_SIZE1));
       assertEquals(FULLY_OPAQUE_GREEN, merge.get4(IBOFigure.FIG__OFFSET_06_COLOR4));
 
@@ -86,8 +86,8 @@ public class TestITechFigure extends TestCaseFrameworkDrawX {
 
       merge = merge.mergeByteObject(small);
 
-      assertEquals(IMFont.FACE_MONOSPACE, merge.get1(IBOFigString.FIG_STRING_OFFSET_03_FACE1));
-      assertEquals(IMFont.STYLE_BOLD, merge.get1(IBOFigString.FIG_STRING_OFFSET_04_STYLE1));
+      assertEquals(IMFont.FACE_01_MONOSPACE, merge.get1(IBOFigString.FIG_STRING_OFFSET_03_FACE1));
+      assertEquals(IMFont.STYLE_1_BOLD, merge.get1(IBOFigString.FIG_STRING_OFFSET_04_STYLE1));
       assertEquals(IMFont.SIZE_2_SMALL, merge.get1(IBOFigString.FIG_STRING_OFFSET_05_SIZE1));
       assertEquals(FULLY_OPAQUE_GREEN, merge.get4(IBOFigure.FIG__OFFSET_06_COLOR4));
 

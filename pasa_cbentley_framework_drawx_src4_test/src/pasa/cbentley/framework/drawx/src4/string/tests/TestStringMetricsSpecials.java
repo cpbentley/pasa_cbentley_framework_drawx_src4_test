@@ -62,7 +62,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
    }
 
    private Stringer getTestSetup1() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
       stringer.setBreakWidth(240);
@@ -133,7 +133,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
    }
 
    public void test_FormFeed_0_Ignored() {
-      ByteObject textFigure = facFigure.getFigString(FACE_SYSTEM, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_00_SYSTEM, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -159,7 +159,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
 
    public void test_FormFeed_1_Space() {
 
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -189,7 +189,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
     * 
     */
    public void test_FormFeed_3_Work() {
-      ByteObject textFigure = facFigure.getFigString(FACE_SYSTEM, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_00_SYSTEM, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -223,7 +223,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
    }
 
    public void test_Mix_Specials_0_Ignored() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       textFigure.setFlag(IBOFigString.FIG_STRING_OFFSET_01_FLAG, IBOFigString.FIG_STRING_FLAG_2_SHOW_HIDDEN_CHARS, true);
 
@@ -257,7 +257,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
    }
 
    public void test_Newline_0_Ignored() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       textFigure.setFlag(IBOFigString.FIG_STRING_OFFSET_01_FLAG, IBOFigString.FIG_STRING_FLAG_2_SHOW_HIDDEN_CHARS, true);
 
@@ -296,7 +296,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
    }
 
    public void test_Newline_0_Ignored2() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       textFigure.setFlag(IBOFigString.FIG_STRING_OFFSET_01_FLAG, IBOFigString.FIG_STRING_FLAG_2_SHOW_HIDDEN_CHARS, true);
 
@@ -335,7 +335,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
    }
 
    public void test_Newline_1_Space() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -372,7 +372,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
    
 
    public void test_Newline_2_Java() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -404,7 +404,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
    }
 
    public void test_Newline_3_Work() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -437,7 +437,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
 
    public void test_Tab_0_Ignored() {
 
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -460,7 +460,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
 
    public void test_Tab_1_Space() {
 
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -709,7 +709,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
    }
 
    public void testHiddenCharsSingleLine() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -750,7 +750,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
    }
    
    public void testHiddenCharsWrap() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -796,7 +796,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
    }
    
    public void testHiddenCharsWrap_NewLine() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -841,7 +841,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
    }
    
    public void testHiddenCharsWrap_Tab() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -887,7 +887,7 @@ public abstract class TestStringMetricsSpecials extends TestCaseFrameworkUiPlugg
 
 
    public void testHiddenCharsSingleLine2() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 

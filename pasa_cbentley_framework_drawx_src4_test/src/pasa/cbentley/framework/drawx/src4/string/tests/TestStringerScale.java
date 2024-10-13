@@ -10,7 +10,7 @@ public abstract class TestStringerScale extends TestStringerAbstract {
 
    public void testFxScaleFitFirst() {
 
-      ByteObject strFig = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_2_SMALL, FULLY_OPAQUE_ORANGE);
+      ByteObject strFig = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_2_SMALL, FULLY_OPAQUE_ORANGE);
 
       ByteObject scaler = facScaler.getScaler(SCALER_ID_0_LINEAR, SCALER_TYPE_4_FIT_FIRST, null, null);
 
@@ -26,7 +26,7 @@ public abstract class TestStringerScale extends TestStringerAbstract {
    }
 
    public void testDrawScaled() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
 
       //set a scale object to figure
       ByteObject scaler = facScaler.getScaler(ITechScaler.SCALER_TYPE_1_FIT_BOTH, ITechScaler.SCALER_ID_1_BI_LINEAR);

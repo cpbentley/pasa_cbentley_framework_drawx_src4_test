@@ -131,7 +131,7 @@ public abstract class TestFigureOperator extends TestCaseFrameworkUiPluggedDrawX
    public void testGetFigImage_String() {
       int color = FULLY_OPAQUE_ORANGE;
 
-      ByteObject figureStr = fac.getFigString("Hello", ITechFont.FACE_MONOSPACE, ITechFont.SIZE_3_MEDIUM, ITechFont.STYLE_BOLD, color);
+      ByteObject figureStr = fac.getFigString("Hello", ITechFont.FACE_01_MONOSPACE, ITechFont.SIZE_3_MEDIUM, ITechFont.STYLE_1_BOLD, color);
 
       RgbImage img = op.getFigImageTrans(figureStr, 100, 30);
 

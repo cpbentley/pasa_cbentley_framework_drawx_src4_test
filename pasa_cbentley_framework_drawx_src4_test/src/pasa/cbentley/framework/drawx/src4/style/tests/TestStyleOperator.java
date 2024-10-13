@@ -74,7 +74,7 @@ public abstract class TestStyleOperator extends TestCaseFrameworkUiPluggedDrawX 
       int br2 = colorRepo.getBorder2();
       int br3 = colorRepo.getBorder3();
 
-      ByteObject content = figureFactory.getFigString(FACE_PROPORTIONAL, STYLE_PLAIN, ITechFont.SIZE_3_MEDIUM, ccolor);
+      ByteObject content = figureFactory.getFigString(FACE_02_PROPORTIONAL, STYLE_0_PLAIN, ITechFont.SIZE_3_MEDIUM, ccolor);
       ByteObject anchor = anchorFac.getLeftTop();
 
       ByteObject margin = tblrFactory.getTBLRPixel(5);

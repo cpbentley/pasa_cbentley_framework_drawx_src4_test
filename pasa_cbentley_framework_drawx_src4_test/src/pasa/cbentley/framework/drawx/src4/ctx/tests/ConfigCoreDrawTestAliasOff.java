@@ -23,4 +23,5 @@ public class ConfigCoreDrawTestAliasOff extends ConfigCoreDrawTest implements IC
       return ITechGraphics.MODSET_APP_ALIAS_2_OFF;
    }
 
+
 }

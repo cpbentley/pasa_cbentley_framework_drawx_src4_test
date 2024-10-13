@@ -20,8 +20,8 @@ public abstract class TestStringerFxMask extends TestStringerAbstract {
       ByteObject filter = null;
       ByteObject mask = facMask.getMaskPreset(maskPreset, filter, figure);
 
-      int face = FACE_MONOSPACE;
-      int style = STYLE_PLAIN;
+      int face = FACE_01_MONOSPACE;
+      int style = STYLE_0_PLAIN;
       int size = SIZE_4_LARGE;
       int color = FULLY_OPAQUE_ORANGE;
       ByteObject scale = null;
@@ -54,8 +54,8 @@ public abstract class TestStringerFxMask extends TestStringerAbstract {
 
       //
 
-      int face = FACE_MONOSPACE;
-      int style = STYLE_PLAIN;
+      int face = FACE_01_MONOSPACE;
+      int style = STYLE_0_PLAIN;
       int size = SIZE_4_LARGE;
       int color = FULLY_OPAQUE_ORANGE;
       ByteObject scale = null;

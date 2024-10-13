@@ -32,8 +32,8 @@ public abstract class TestFigureFactory extends TestCaseFrameworkUiPluggedDrawX 
    public void testFigString() {
       
       
-      int face = FACE_MONOSPACE;
-      int style = STYLE_PLAIN;
+      int face = FACE_01_MONOSPACE;
+      int style = STYLE_0_PLAIN;
       int size = SIZE_4_LARGE;
       int color = FULLY_OPAQUE_ORANGE;
       ByteObject scale = null;
@@ -47,8 +47,8 @@ public abstract class TestFigureFactory extends TestCaseFrameworkUiPluggedDrawX 
 
       
       assertEquals(FULLY_OPAQUE_ORANGE, strFig.get4(FIG__OFFSET_06_COLOR4));
-      assertEquals(FACE_MONOSPACE, strFig.get1(FIG_STRING_OFFSET_03_FACE1));
-      assertEquals(STYLE_PLAIN, strFig.get1(FIG_STRING_OFFSET_04_STYLE1));
+      assertEquals(FACE_01_MONOSPACE, strFig.get1(FIG_STRING_OFFSET_03_FACE1));
+      assertEquals(STYLE_0_PLAIN, strFig.get1(FIG_STRING_OFFSET_04_STYLE1));
       assertEquals(SIZE_4_LARGE, strFig.get1(FIG_STRING_OFFSET_05_SIZE1));
       
       assertEquals(true, strFig.hasFlag(FIG__OFFSET_02_FLAG, FIG_FLAG_1_BOX));

@@ -7,6 +7,7 @@ import pasa.cbentley.core.src4.ctx.UCtx;
 import pasa.cbentley.core.src4.utils.interfaces.IColors;
 import pasa.cbentley.framework.coredraw.src4.ctx.IConfigCoreDraw;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IBOGraphics;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 
 /**
  * Configuration by default
@@ -21,6 +22,14 @@ public abstract class ConfigCoreDrawTest extends ConfigAbstract implements IConf
 
    public int getColorImageBackgroundDefault() {
       return IColors.FULLY_OPAQUE_BLACK;
+   }
+   
+   public int getDefaultFontSize() {
+      return ITechFont.SIZE_3_MEDIUM;
+   }
+
+   public boolean isUsingFontCache() {
+      return false;
    }
 
    public int getFontPointsExtraShift() {

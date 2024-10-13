@@ -25,7 +25,7 @@ public abstract class TestStringMetricsEditor extends TestCaseFrameworkUiPlugged
 
    public void testEditorAppendChar() {
       Stringer stringer = new Stringer(dc);
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
       stringer.buildForDisplayWith(textFigure);
       StringerEditor editor = stringer.getEditor();
 

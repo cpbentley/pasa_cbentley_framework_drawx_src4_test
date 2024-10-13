@@ -23,7 +23,7 @@ public abstract class TestStringMetricsCharWidths extends TestCaseFrameworkUiPlu
 
    public void testZCharWidthMono() {
 
-      IMFont f = drc.getCoreDrawCtx().getFontFactory().getFont(FACE_MONOSPACE, STYLE_PLAIN, SIZE_3_MEDIUM);
+      IMFont f = drc.getCoreDrawCtx().getFontFactory().getFont(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_3_MEDIUM);
 
       assertEquals(7, f.charWidth('|'));
       assertEquals(7, f.charWidth(StringUtils.ENGLISH_SPACE));
@@ -42,7 +42,7 @@ public abstract class TestStringMetricsCharWidths extends TestCaseFrameworkUiPlu
 
    public void testZCharWidthProp() {
 
-      IMFont f = drc.getCoreDrawCtx().getFontFactory().getFont(FACE_PROPORTIONAL, STYLE_PLAIN, SIZE_3_MEDIUM);
+      IMFont f = drc.getCoreDrawCtx().getFontFactory().getFont(FACE_02_PROPORTIONAL, STYLE_0_PLAIN, SIZE_3_MEDIUM);
 
       assertEquals(16, f.getHeight());
       assertEquals(3, f.charWidth(' '));
@@ -120,7 +120,7 @@ public abstract class TestStringMetricsCharWidths extends TestCaseFrameworkUiPlu
 
    public void testZeroWidthChars() {
 
-      IMFont f = drc.getCoreDrawCtx().getFontFactory().getFont(FACE_PROPORTIONAL, STYLE_PLAIN, SIZE_3_MEDIUM);
+      IMFont f = drc.getCoreDrawCtx().getFontFactory().getFont(FACE_02_PROPORTIONAL, STYLE_0_PLAIN, SIZE_3_MEDIUM);
 
       assertEquals(0, f.charWidth(StringUtils.NEW_LINE));
       assertEquals(0, f.charWidth(StringUtils.NEW_LINE_CARRIAGE_RETURN));
@@ -131,7 +131,7 @@ public abstract class TestStringMetricsCharWidths extends TestCaseFrameworkUiPlu
       assertEquals(0, f.charWidth(StringUtils.ZERO_WIDTH_NON_JOINER));
       assertEquals(0, f.charWidth(StringUtils.ZERO_WIDTH_SPACE));
 
-      f = drc.getCoreDrawCtx().getFontFactory().getFont(FACE_MONOSPACE, STYLE_PLAIN, SIZE_3_MEDIUM);
+      f = drc.getCoreDrawCtx().getFontFactory().getFont(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_3_MEDIUM);
 
       assertEquals(0, f.charWidth(StringUtils.NEW_LINE));
       assertEquals(0, f.charWidth(StringUtils.NEW_LINE_CARRIAGE_RETURN));

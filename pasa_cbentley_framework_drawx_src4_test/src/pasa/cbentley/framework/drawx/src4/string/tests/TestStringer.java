@@ -67,7 +67,7 @@ public abstract class TestStringer extends TestCaseFrameworkUiPluggedDrawX imple
    }
 
    public ByteObject getMaskFigure(int scope) {
-      ByteObject strFig = facFigure.getFigString("Masked String", FACE_MONOSPACE, STYLE_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
+      ByteObject strFig = facFigure.getFigString("Masked String", FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
 
       ByteObject fx = getTestMask(scope);
 
@@ -263,7 +263,7 @@ public abstract class TestStringer extends TestCaseFrameworkUiPluggedDrawX imple
    }
 
    public void testWordIntervals() {
-      ByteObject strFig = facFigure.getFigString("Masked String", FACE_MONOSPACE, STYLE_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
+      ByteObject strFig = facFigure.getFigString("Masked String", FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
       Stringer st = new Stringer(dc);
       st.setAreaXYWH(0, 0, 200, 100);
       st.setStringFig(strFig, "Several Masked Word");

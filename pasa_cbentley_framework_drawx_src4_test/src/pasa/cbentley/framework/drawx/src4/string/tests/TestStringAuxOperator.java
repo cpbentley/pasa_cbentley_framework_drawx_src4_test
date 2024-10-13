@@ -37,7 +37,7 @@ public abstract class TestStringAuxOperator extends TestCaseFrameworkUiPluggedDr
 
       ByteObject merge = fxSelect;
 
-      ByteObject strFig = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
+      ByteObject strFig = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
 
       ByteObject root = facStringFx.createFxFromFigure(strFig);
       assertEquals(ITechStringer.FX_SCOPE_0_TEXT, root.get1(FX_OFFSET_05_SCOPE_FX1));
@@ -74,7 +74,7 @@ public abstract class TestStringAuxOperator extends TestCaseFrameworkUiPluggedDr
    public void testMergeWithMask() {
 
       ByteObject fxSelect = facStringFx.getFxEffectColor(FULLY_OPAQUE_GREEN);
-      facStringFx.setFontStyle(fxSelect, STYLE_BOLD);
+      facStringFx.setFontStyle(fxSelect, STYLE_1_BOLD);
 
       ByteObject mask = facMask.getMaskGradient(FULLY_OPAQUE_SKY_BLUE, FULLY_OPAQUE_GREY);
       facStringFx.addFxMask(fxSelect, mask);
@@ -92,7 +92,7 @@ public abstract class TestStringAuxOperator extends TestCaseFrameworkUiPluggedDr
       assertEquals(ITechStringer.FX_SCOPE_1_CHAR, fxSelect.get1(FX_OFFSET_05_SCOPE_FX1));
 
       ByteObject merge = fxSelect;
-      ByteObject strFig = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
+      ByteObject strFig = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
       ByteObject root = facStringFx.createFxFromFigure(strFig);
       assertEquals(ITechStringer.FX_SCOPE_0_TEXT, root.get1(FX_OFFSET_05_SCOPE_FX1));
 
@@ -101,8 +101,8 @@ public abstract class TestStringAuxOperator extends TestCaseFrameworkUiPluggedDr
       assertEquals(mask, merged.getSubFirst(TYPE_DRWX_06_MASK));
 
       assertEquals(ITechStringer.FX_SCOPE_0_TEXT, merged.get1(FX_OFFSET_05_SCOPE_FX1));
-      assertEquals(FACE_MONOSPACE, merged.get1(FX_OFFSET_06_FACE1));
-      assertEquals(STYLE_BOLD, merged.get1(FX_OFFSET_07_STYLE1));
+      assertEquals(FACE_01_MONOSPACE, merged.get1(FX_OFFSET_06_FACE1));
+      assertEquals(STYLE_1_BOLD, merged.get1(FX_OFFSET_07_STYLE1));
       assertEquals(SIZE_3_MEDIUM, merged.get1(FX_OFFSET_08_SIZE1));
       assertEquals(FULLY_OPAQUE_GREEN, merged.get4(FX_OFFSET_09_COLOR4));
 

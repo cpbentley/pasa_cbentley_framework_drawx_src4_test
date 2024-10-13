@@ -19,7 +19,7 @@ public abstract class TestStringerFx extends TestStringerAbstract {
 
    public void testBackgroundFigure() {
 
-      ByteObject strFig = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
+      ByteObject strFig = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE);
 
       ByteObject fxSelect = facStringFx.getFxEffect(ITechStringer.FX_SCOPE_0_TEXT);
 
@@ -64,8 +64,8 @@ public abstract class TestStringerFx extends TestStringerAbstract {
       ByteObject figBgMain = facFigure.getFigRect(FULLY_OPAQUE_GREEN, gradientBgMain);
       ByteObject fx = facStringFx.getFxFigureBg(ITechStringer.FX_SCOPE_0_TEXT, figBgMain);
 
-      int face = FACE_MONOSPACE;
-      int style = STYLE_PLAIN;
+      int face = FACE_01_MONOSPACE;
+      int style = STYLE_0_PLAIN;
       int size = SIZE_3_MEDIUM;
       int color = FULLY_OPAQUE_ORANGE;
       ByteObject mask = null;
@@ -112,8 +112,8 @@ public abstract class TestStringerFx extends TestStringerAbstract {
       ByteObject figBgMain = facFigure.getFigRect(FULLY_OPAQUE_GREEN, gradientBgMain);
       ByteObject fx = facStringFx.getFxFigureBg(ITechStringer.FX_SCOPE_0_TEXT, figBgMain);
 
-      int face = FACE_MONOSPACE;
-      int style = STYLE_PLAIN;
+      int face = FACE_01_MONOSPACE;
+      int style = STYLE_0_PLAIN;
       int size = SIZE_3_MEDIUM;
       int color = FULLY_OPAQUE_ORANGE;
       ByteObject mask = null;
@@ -152,7 +152,7 @@ public abstract class TestStringerFx extends TestStringerAbstract {
 
    public void testFxScaleFitFirst() {
 
-      ByteObject strFig = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_2_SMALL, FULLY_OPAQUE_ORANGE);
+      ByteObject strFig = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_2_SMALL, FULLY_OPAQUE_ORANGE);
 
       ByteObject scaler = facScaler.getScaler(SCALER_ID_0_LINEAR, SCALER_TYPE_4_FIT_FIRST, null, null);
 
@@ -351,7 +351,7 @@ public abstract class TestStringerFx extends TestStringerAbstract {
       int layerID = 1;
       stringer.createLayer("overlay", layerID);
 
-      ByteObject fxOverlay = facStringFx.getFxFont(FACE_MONOSPACE, STYLE_PLAIN, SIZE_2_SMALL, FULLY_OPAQUE_GREEN);
+      ByteObject fxOverlay = facStringFx.getFxFont(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_2_SMALL, FULLY_OPAQUE_GREEN);
       stringer.addInterval(2, 5, layerID, fxOverlay);
 
       stringer.buildForDisplayWith(textFigure);
@@ -375,7 +375,7 @@ public abstract class TestStringerFx extends TestStringerAbstract {
    }
 
    public void testSingleLine2OverlayStyles() {
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_4_LARGE, FULLY_OPAQUE_ORANGE);
 
       Stringer stringer = new Stringer(dc);
 
@@ -388,7 +388,7 @@ public abstract class TestStringerFx extends TestStringerAbstract {
       int layerID = 1;
       stringer.createLayer("overlay", layerID);
 
-      ByteObject fxOverlay = facStringFx.getFxFont(FACE_MONOSPACE, STYLE_PLAIN, SIZE_2_SMALL, FULLY_OPAQUE_GREEN);
+      ByteObject fxOverlay = facStringFx.getFxFont(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_2_SMALL, FULLY_OPAQUE_GREEN);
       stringer.addInterval(2, 5, layerID, fxOverlay);
 
       StringStyleLayer layer = stringer.getStyleLayer(layerID);
@@ -403,7 +403,7 @@ public abstract class TestStringerFx extends TestStringerAbstract {
       assertEquals(null, layer.getStyle(7));
       assertEquals(null, layer.getStyle(8));
 
-      ByteObject fxOverlay2 = facStringFx.getFxFont(FACE_PROPORTIONAL, STYLE_PLAIN, SIZE_5_HUGE, FULLY_OPAQUE_RED);
+      ByteObject fxOverlay2 = facStringFx.getFxFont(FACE_02_PROPORTIONAL, STYLE_0_PLAIN, SIZE_5_HUGE, FULLY_OPAQUE_RED);
       //adding on the same layer, will generate an overwrite of payload
       stringer.addInterval(4, 4, layerID, fxOverlay2);
 
@@ -452,7 +452,7 @@ public abstract class TestStringerFx extends TestStringerAbstract {
       //fx = null;
       ByteObject mask = null;
       ByteObject scale = null;
-      ByteObject textFigure = facFigure.getFigString(FACE_MONOSPACE, STYLE_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE, fx, mask, scale, anchor);
+      ByteObject textFigure = facFigure.getFigString(FACE_01_MONOSPACE, STYLE_0_PLAIN, SIZE_3_MEDIUM, FULLY_OPAQUE_ORANGE, fx, mask, scale, anchor);
 
       Stringer st = new Stringer(dc);
       int areaW = 370;
@@ -484,14 +484,14 @@ public abstract class TestStringerFx extends TestStringerAbstract {
       StringMetrics sm = stringer.getMetrics();
       StringerEditor editor = stringer.getEditor();
 
-      editor.appendLine("Font Large Proportional", facStringFx.getFxEffectFontFace(FACE_PROPORTIONAL));
-      editor.appendLine("Font Large System", facStringFx.getFxEffectFontFace(FACE_SYSTEM));
-      editor.appendLine("Font Large Monospace Bold", facStringFx.getFxEffectFontFaceStyle(FACE_MONOSPACE, STYLE_BOLD));
-      editor.appendLine("Font Large Proportional Bold", facStringFx.getFxEffectFontFaceStyle(FACE_PROPORTIONAL, STYLE_BOLD));
-      editor.appendLine("Font Large System Bold", facStringFx.getFxEffectFontFaceStyle(FACE_SYSTEM, STYLE_BOLD));
-      editor.appendLine("Font Large Monospace Italic", facStringFx.getFxEffectFontFaceStyle(FACE_MONOSPACE, STYLE_ITALIC));
-      editor.appendLine("Font Large Proportional Italic", facStringFx.getFxEffectFontFaceStyle(FACE_PROPORTIONAL, STYLE_ITALIC));
-      editor.appendLine("Font Large System Italic", facStringFx.getFxEffectFontFaceStyle(FACE_SYSTEM, STYLE_ITALIC));
+      editor.appendLine("Font Large Proportional", facStringFx.getFxEffectFontFace(FACE_02_PROPORTIONAL));
+      editor.appendLine("Font Large System", facStringFx.getFxEffectFontFace(FACE_00_SYSTEM));
+      editor.appendLine("Font Large Monospace Bold", facStringFx.getFxEffectFontFaceStyle(FACE_01_MONOSPACE, STYLE_1_BOLD));
+      editor.appendLine("Font Large Proportional Bold", facStringFx.getFxEffectFontFaceStyle(FACE_02_PROPORTIONAL, STYLE_1_BOLD));
+      editor.appendLine("Font Large System Bold", facStringFx.getFxEffectFontFaceStyle(FACE_00_SYSTEM, STYLE_1_BOLD));
+      editor.appendLine("Font Large Monospace Italic", facStringFx.getFxEffectFontFaceStyle(FACE_01_MONOSPACE, STYLE_2_ITALIC));
+      editor.appendLine("Font Large Proportional Italic", facStringFx.getFxEffectFontFaceStyle(FACE_02_PROPORTIONAL, STYLE_2_ITALIC));
+      editor.appendLine("Font Large System Italic", facStringFx.getFxEffectFontFaceStyle(FACE_00_SYSTEM, STYLE_2_ITALIC));
 
       stringer.buildAgain();
 
