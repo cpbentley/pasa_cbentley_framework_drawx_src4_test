@@ -6,7 +6,7 @@ import pasa.cbentley.byteobjects.src4.objects.color.ITechGradient;
 import pasa.cbentley.byteobjects.src4.objects.pointer.MergeFactory;
 import pasa.cbentley.core.src4.utils.ColorUtils;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
-import pasa.cbentley.framework.drawx.src4.ctx.IFlagsToStringDrw;
+import pasa.cbentley.framework.drawx.src4.ctx.IToStringFlagsDrw;
 import pasa.cbentley.framework.drawx.src4.ctx.tests.TestCaseFrameworkUiPluggedDrawX;
 import pasa.cbentley.framework.drawx.src4.engine.GraphicsX;
 import pasa.cbentley.framework.drawx.src4.engine.RgbImage;
@@ -210,7 +210,7 @@ public abstract class TestStyleOperator extends TestCaseFrameworkUiPluggedDrawX 
 
       styleOp.setGAnchors(style, IBOStyle.STYLE_FLAG_B_5_FG, ITechStyle.STYLE_ANC_3_PADDING);
 
-      drc.toStringSetToStringFlag(IFlagsToStringDrw.D_FLAG_01_STYLE, true);
+      drc.toStringSetToStringFlag(IToStringFlagsDrw.D_FLAG_01_STYLE, true);
       //#debug
       toDLog().pTest("StyleGAnchorContent", style, TestStyleOperator.class, "testBgAndFgs", LVL_05_FINE, false);
 
@@ -450,7 +450,7 @@ public abstract class TestStyleOperator extends TestCaseFrameworkUiPluggedDrawX 
       testStyleVisually("greyMergedOver_4LayersGradientsReverse_FG_Padding", merge);
 
       styleOp.setGAnchors(style, IBOStyle.STYLE_FLAG_B_5_FG, ITechStyle.STYLE_ANC_2_CONTENT);
-      drc.toStringSetToStringFlag(IFlagsToStringDrw.D_FLAG_01_STYLE, true);
+      drc.toStringSetToStringFlag(IToStringFlagsDrw.D_FLAG_01_STYLE, true);
       //#debug
       toDLog().pTest("StyleGAnchorContent", style, TestStyleOperator.class, "testIncomplete", LVL_05_FINE, false);
 
